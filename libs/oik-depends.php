@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2015
+<?php // (C) Copyright Bobbing Wide 2012-2015
 if ( !defined( "OIK_DEPENDS_LOADED" ) ) {
 define( "OIK_DEPENDS_LOADED", "2.6" );
 
