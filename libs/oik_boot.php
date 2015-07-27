@@ -151,12 +151,16 @@ if ( !function_exists( 'bw_array_get' ) ) {
  * Require a library, without oik-libs
  *
  * Locates and loads (once) a library in order to make functions available to the invoking routine
+ * 
  * This replaces oik_require() for simple library files where the plugin provides these files
  * The library file name is expected to match the library name and to be stored in the same folder as
  * the file containing this function.	
- * Note: We don't expect "oik_boot.php" to appear anywhere in __FILE__ except the end.
- * 
- * 
+ * Notes: 
+ * - We don't expect "oik_boot.php" to appear anywhere in __FILE__ except the end.
+ * - Limitation: Each plugin that relies on this logic expects the library file to be shared by all the plugins that may be instantiated first.
+ * As they are all expected to be in the same folder as __FILE__
+ *
+ * @TODO Use a global variable to reflect the possible library folders instead of __FILE__ 
  *
  * @param string $library the name of the (registered) library
  * @param string $version the required library version. null means don't care
