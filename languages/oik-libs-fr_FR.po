@@ -1,0 +1,64 @@
+# Copyright (C) 2015 oik-libs: Shared Library Repository
+# This file is distributed under the same license as the oik-libs: Shared Library Repository package.
+msgid ""
+msgstr ""
+"Project-Id-Version: oik-libs: Shared Library Repository 0.0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/oik-libs\n"
+"POT-Creation-Date: 2015-07-27 14:46:48+00:00\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"Language: fr_FR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+#: libs/bobbforms.php:462
+msgid "None"
+msgstr "Aucun"
+
+#: libs/oik-activation.php:21
+msgid "Install"
+msgstr "Installer"
+
+#: libs/oik-activation.php:49
+msgid "Activate"
+msgstr "Activer"
+
+#: libs/oik-activation.php:71
+msgid " Upgrade"
+msgstr ""
+
+#: libs/oik-activation.php:186 libs/oik-depends.php:139
+msgid "%1$s may not be fully functional."
+msgstr ""
+
+#: libs/oik-activation.php:188 libs/oik-depends.php:141
+msgid ""
+"Please install and activate the required minimum version of this plugin:"
+msgstr ""
+
+#: libs/oik-admin.php:50
+msgid "Click to toggle"
+msgstr "Cliquer pour inverser."
+
+#. Plugin Name of the plugin/theme
+msgid "oik-libs: Shared Library Repository"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.oik-plugins.com/oik-plugins/oik-libs"
+msgstr "http://www.oik-plugins.com/oik-plugins/oik-libs"
+
+#. Description of the plugin/theme
+msgid "Master repository for shared libraries"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "bobbingwide"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.oik-plugins.com/author/bobbingwide"
+msgstr "http://www.oik-plugins.com/author/bobbingwide"
+

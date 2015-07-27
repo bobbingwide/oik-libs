@@ -4,7 +4,7 @@
 Plugin Name: oik-libs: Shared Library Repository
 Plugin URI: http://www.oik-plugins.com/oik-plugins/oik-libs
 Description: Master repository for shared libraries
-Version: 0.0.0
+Version: 0.0.1
 Author: bobbingwide
 Author URI: http://www.oik-plugins.com/author/bobbingwide
 Text Domain: oik-lib
