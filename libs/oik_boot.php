@@ -4,7 +4,7 @@ define( 'OIK_BOOT_INCLUDED', "3.0.0" );
 define( 'OIK_BOOT_FILE', __FILE__ );
 /**
  * Library: oik_boot
- * Provides: lib-boot
+ * Provides: oik_boot
  * Type: MU
  *
  * Implements shared library functions that each plugin that uses oik may expect to be loaded
@@ -176,7 +176,6 @@ if ( !function_exists( "oik_require_lib" ) ) {
 		bw_trace2( $library_file, "library_file: $library", true);
 		bw_backtrace();
 		return( $library_file );
-			 
 	}
 }
 
