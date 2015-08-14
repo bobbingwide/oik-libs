@@ -247,15 +247,14 @@ function oik_lib_fallback( $lib_dir ) {
  */
 if ( !function_exists( "oik_require_file" ) ) { 
 function oik_require_file( $file, $library, $args=null ) {
-	bw_trace2();
-	
+	//bw_trace2();
 	if ( function_exists( "oik_libs" ) ) {
 		$oik_libs = oik_libs();
 		$library_file = $oik_libs->require_file( $file, $library, $args );
 	} else {
 		$library_file = oik_require_lib_fallback( $file );
 	}
-	bw_trace2( $library_file, "library_file" );
+	//bw_trace2( $library_file, "library_file" );
 	return( $library_file );	
 }
 } 
