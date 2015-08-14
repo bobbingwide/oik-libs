@@ -1,9 +1,9 @@
 === oik-libs ===
 Contributors: bobbingwide
 Donate link: http://www.oik-plugins.com/oik/oik-donate/
-Tags: shortcodes, smart, lazy
+Tags: shared, library, repository
 Requires at least: 4.2
-Tested up to: 4.3-beta4
+Tested up to: 4.3-RC1
 Stable tag: 0.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,7 +30,7 @@ implemented using Composer or a similar solution.
 == Frequently Asked Questions ==
 
 = What shared libraries are available? = 
-See oik-libs: 
+See the FAQs for oik-lib
 
 = How does this integrate with Composer? =
 TBC
@@ -40,10 +40,16 @@ TBC
 None
 
 == Upgrade Notice ==
+= 0.0.2 = 
+Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
+
 = 0.0.1 =
 First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
-== Changelog == 
+== Changelog ==
+= 0.0.2 =
+* Changed: See the git log
+ 
 = 0.0.1 
 * Added: New dummy WordPress plugin
 

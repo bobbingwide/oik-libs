@@ -1,13 +1,12 @@
 <?php // (C) Copyright Bobbing Wide 2015
-
 /*
-Plugin Name: oik-libs: Shared Library Repository
-Plugin URI: http://www.oik-plugins.com/oik-plugins/oik-libs
+Plugin Name: oik-libs
+Plugin URI: http://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository
 Description: Master repository for shared libraries
-Version: 0.0.1
+Version: 0.0.3
 Author: bobbingwide
 Author URI: http://www.oik-plugins.com/author/bobbingwide
-Text Domain: oik-lib
+Text Domain: oik-libs
 Domain Path: /languages/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,7 +35,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * If you're using Composer then this plugin may be used as the master repository of the latest
  * version of the library files. 
  * 
- * It's not intended to be used as an active plugin, though it may eventually be usefull for 
+ * It's not intended to be used as an active plugin, though it may eventually be useful for 
  * providing a method for helping you resolve plugin dependency hell.
  * 
  * In the mean time, it's simply a place where the latest version (the master version) of each 'library' can be stored.
