@@ -17,11 +17,21 @@ define( "BOBBFUNC_INCLUDED", "3.0.0" );
 
 /** 
  * Return the plugin version of the oik base plugin
+ *
+ * @TODO Consider moving this function to the oik_plugins library.
+ *
+ * In the mean time, if 'oik_plugins' can't be loaded
+ * we'll assume the version is the same as this library version.
+ * 
  * @return string $version e.g. 2.0-alpha, 2.0-RC1, 2.0, 2.0.mmdd 
  */
 function bw_oik_version() { 
-  oik_require( "admin/oik-plugins.inc" );
-  $version = bw_get_plugin_version();
+	$oik_plugins = oik_require_lib( "oik_plugins" );
+	if ( $oik_plugins && !is_wp_error( $oik_plugins ) ) {
+		$version = bw_get_plugin_version();
+	} else {
+		$version = BOBBFUNC_INCLUDED;
+	}
   return( $version );
 }
 

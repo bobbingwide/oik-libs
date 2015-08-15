@@ -200,7 +200,7 @@ if ( !function_exists( "oik_require_lib" ) ) {
 		foreach ( $oik_lib_fallback as $library_dir ) {
 			$library_file = "$library_dir/$library";
 			
-			//echo "trying: $library_file" . PHP_EOL;
+			//echo "<b>trying: $library_file</b>" . PHP_EOL;
 			if ( file_exists( $library_file ) ) {
 				require_once( $library_file );
 				break;
@@ -219,22 +219,23 @@ if ( !function_exists( "oik_require_lib" ) ) {
  * @return array fallback directories so far
  */
 function oik_lib_fallback( $lib_dir ) {
+	//echo "adding: $lib_dir " . PHP_EOL; 
 	global $oik_lib_fallback;
+	//echo count( $oik_lib_fallback );
 	if ( empty( $oik_lib_fallback ) ) {
-		if ( __DIR__ == $lib_dir ) {
-  		$oik_lib_fallback = array();
-		} else {
+		//if ( __DIR__ == $lib_dir ) {
+  	//	$oik_lib_fallback = array();
+		//} else {
 			$oik_lib_fallback = array( __DIR__ );
-		}
-	} else {
+		//}
+	} //else {
 		if ( __DIR__ != $lib_dir ) {
 			$oik_lib_fallback[] = $lib_dir;
 		}
-	}
+	//}
 	return( $oik_lib_fallback );
 }
 
- 
 /**
  * Require a file in a library
  * 

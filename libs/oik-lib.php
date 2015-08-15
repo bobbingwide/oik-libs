@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2015
 if ( !defined( 'OIK_LIB_INCLUDED' ) ) {
-define( 'OIK_LIB_INCLUDED', "0.0.2" );
+define( 'OIK_LIB_INCLUDED', "0.0.3" );
 
 /**
  * oik library management functions
@@ -8,17 +8,25 @@ define( 'OIK_LIB_INCLUDED', "0.0.2" );
  * Library: oik-lib
  * Provides: oik-lib
  * Depends: oik_boot, bwtrace
- *
+ * Shareable: No - since it expects to be part of the oik-lib plugin. See oik_require() below
+ * Conflicts: oik:<=3.0.0
+ * 
+ * Notes: If we wanted to make oik-lib a shareable shared library then we might want to make
+ * the plugin `oik-lib` and the shared library package `oik_lib` ... the difference being the underscore for the library
+ * To do this it would also be better to locate it in /vendor/bobbingwide/oik_lib
+ * 
+ * 
  * These are the functions that implement shared library logic that enable
  * plugins and themes to define their dependencies on other plugins and/or library functions.
  * These functions are loaded as WordPress starts up.
  * 
- * Plugins should expect the base APIs to be available from "muplugins_loaded" - when this is also implemented in a Must Use plugin
+ * Plugins should expect the base APIs to be available from "muplugins_loaded" - when this is also implemented in a Must-Use plugin
  * OR "plugins_loaded" otherwise.
  * 
- * They don't have to wait for "init" BUT they should actually wait for the appropriate "lib_loaded" action message 
+ * They don't have to wait for "init" BUT they should actually wait for the appropriate "oik_lib_loaded" action message 
  * If they need a library then they should invoke oik_require_lib( $lib, $version ) and test the result.
  * If they need a library function then they should invoke oik_require_func( $func, $lib, $version ) and test the result
+ * If they need a library file then they should invoke oik_require_file( $file, $lib ) and test the result
  * These functions may also support parameters passed as $args arrays
  
  * 
@@ -33,7 +41,8 @@ define( 'OIK_LIB_INCLUDED', "0.0.2" );
  * bwtrace    | Trace functions equivalent to oik's bwtrace.php
  * 
  * 
- * Plugins that use/share these functions or provide other libraries are:
+ * Plugins that use/share these functions or provide other libraries are
+ * summarised in the oik-libs master repository. 
  * 
  * Plugin | Functionality
  * ------ | --------------- 
@@ -41,23 +50,23 @@ define( 'OIK_LIB_INCLUDED', "0.0.2" );
  * oik    | bobbforms
  * oik    | bobbfunc
  * oik    | oik-admin
+ * 
+ * @TODO Correct this list to reflect actual libraries
  * oik    | lib-fields
  * oik    | lib-shortcodes
- * oik    | lib-depends
+ * oik    | oik-depends
  * oik    | lib-update
  * etcetera...
  * 
  * Note: These "libraries" are more modular than the PHP libraries listed in 
  * {@link https://github.com/ziadoz/awesome-php#dependency-management-extras}
  * You may want to consider them as modules, similar to Drupal modules or those implemented by Jetpack.
- * The difference between a library and a plugin is that the library provides some functionality.
+ * The difference between a library and a plugin is that the library simply provides some functionality, the plugin implements it.
  * 
  * The difference between a library and an include file is that the library is dynamically fetched when required;
  * it's not just loaded at startup in the vain assumption that it's going to be needed.
  *  
  * The difference between a library and a package has yet to be defined.
- * 
- * 
  */
  
 /**
@@ -89,6 +98,9 @@ function oik_libs() {
  * Alternatively a plugin can return this information in response to the "oik_query_libs" filter
  * 
  * You get access to the OIK_libs class using oik_libs().
+ * 
+ * @TODO Any invocation of oik_register_lib() that's run before "plugins_loaded" may not cause the library to appear in the list of libraries
+ * Unless you're oik-lib, it's not safe to call oik_register_lib() until the "oik_query_libs" filter has been called.
  *
  * @param string $library library name
  * @param string $src source file
