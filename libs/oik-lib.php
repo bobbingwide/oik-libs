@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2015
 if ( !defined( 'OIK_LIB_INCLUDED' ) ) {
-define( 'OIK_LIB_INCLUDED', "0.0.3" );
+define( 'OIK_LIB_INCLUDED', "0.0.4" );
 
 /**
  * oik library management functions
@@ -112,7 +112,7 @@ function oik_libs() {
 function oik_register_lib( $library, $src=null, $deps=array(), $version=null, $args=null ) {
 	$oik_libs = oik_libs();
 	$result = $oik_libs->register_lib( $library, $src, $deps, $version, $args );
-	bw_trace2( $result, "result" );
+	bw_trace2( $result, "result", true, BW_TRACE_DEBUG );
 	return( $result );
 }
  
