@@ -116,6 +116,8 @@ function oik_libs_compare( $plugin ) {
 }
 
 if ( false ) {
+
+if ( false ) {
 	oik_libs_compare_libs( "C:/apache/htdocs/wordpress/wp-content/plugins/oik-libs/libs" 
 											 , "C:/apache/htdocs/wordpress/wp-content/plugins/oik-bwtrace/libs"
 											 );
@@ -123,6 +125,8 @@ if ( false ) {
 	oik_libs_compare( "oik-bwtrace" );
 	oik_libs_compare( "oik-lib" );
 	oik_libs_compare( "oik" );
+	oik_libs_compare( "oik-fum" );
+}
 }										
 	
 
