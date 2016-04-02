@@ -435,15 +435,23 @@ function bw_delete_option( $field, $options="bw_options" ) {
 }
 }
 
+/**
+ * Obtain the plugin slugs
+ *
+ * The plugins slugs are the array keys from get_plugins() saved in 
+ * a transient named 'plugin_slugs' for 24 hours.
+ *
+ * @return array of plugin slugs 
+ */
 function bw_get_plugin_slugs() {
   $plugin_slugs = get_transient( 'plugin_slugs' );
   if ( false === $plugin_slugs ) {
     $plugins = get_plugins();
-    bw_trace2( $plugins );
+    bw_trace2( $plugins, "plugins", false, BW_TRACE_DEBUG );
     $plugin_slugs = array_keys( $plugins );
     set_transient( 'plugin_slugs', $plugin_slugs, 86400 );
   }
-  bw_trace2( $plugin_slugs );
+  bw_trace2( $plugin_slugs, "plugin_slugs", false, BW_TRACE_DEBUG );
   return( $plugin_slugs );
 }
 
