@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2015
+<?php // (C) Copyright Bobbing Wide 2015, 2016
 if ( !defined( 'OIK_LIB_INCLUDED' ) ) {
 define( 'OIK_LIB_INCLUDED', "0.0.4" );
 
@@ -112,7 +112,7 @@ function oik_libs() {
 function oik_register_lib( $library, $src=null, $deps=array(), $version=null, $args=null ) {
 	$oik_libs = oik_libs();
 	$result = $oik_libs->register_lib( $library, $src, $deps, $version, $args );
-	bw_trace2( $result, "result", true, BW_TRACE_DEBUG );
+	bw_trace2( $result, "result", true, BW_TRACE_VERBOSE );
 	return( $result );
 }
  
@@ -130,7 +130,7 @@ if ( !function_exists( "oik_require_lib" ) ) {
 function oik_require_lib( $library, $version=null, $args=null ) {
 	$oik_libs = oik_libs();
 	$library_file = $oik_libs->require_lib( $library, $version, $args );
-	bw_trace2( $library_file, "library_file" );
+	bw_trace2( $library_file, "library_file", true, BW_TRACE_VERBOSE );
 	return( $library_file );	
 }
 }
