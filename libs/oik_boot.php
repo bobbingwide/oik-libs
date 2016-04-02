@@ -26,10 +26,20 @@ define( 'OIK_BOOT_FILE', __FILE__ );
  * to know when oik has been loaded so you can use the APIs
  * 
  * Note: oik_boot may be loaded before WordPress has done its stuff, so we may need to define some constants ourselves
+ * Here we assume the file is in ABSPATH/wp-content/plugins/oik/libs so we need 4 dirnames to get back to ABSPATH
+ * and then we need to convert backslashes to forward slashes and the drive letter to uppercase.
+ * Currently don't think it's necessary to check the first letter but we're doing it anyway.
  */
 if (!function_exists( 'oik_path' )) {
-  if ( !defined('ABSPATH') )
-    define( 'ABSPATH', dirname( dirname( dirname ( dirname( dirname( __FILE__ ))))) . '/' );
+		
+  if ( !defined('ABSPATH') ) {
+		$abspath = dirname( dirname( dirname ( dirname( dirname( __FILE__ ))))) . '/';
+    $abspath = str_replace( "\\", "/", $abspath );
+		if ( ':' === substr( $abspath, 1, 1 ) ) {
+			$abspath = ucfirst( $abspath );
+		}
+    define( 'ABSPATH', $abspath );
+	}
 
   if ( !defined('WP_CONTENT_DIR') )
     define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' ); // no trailing slash, full paths only - WP_CONTENT_URL is defined further down
@@ -240,11 +250,12 @@ function oik_lib_fallback( $lib_dir ) {
  * Require a file in a library
  * 
  * Locates and loads a file from a given library in order to make additional functions available to the invoking routine
+ * Note: If successful the oik_lib object of the library is returned. It won't show the file name of the file loaded.
  * 
- * @param string $file the relative file name ( relative to the library's "root" file ) e.g. 
+ * @param string $file the relative file name ( relative to the library's "root" file ) e.g. class-oik-autoload.php 
  * @param string $library the library name 
  * @param array $args additional parameters
- * @return bool|WP_Error 
+ * @return bool|WP_Error|oik_lib 
  */
 if ( !function_exists( "oik_require_file" ) ) { 
 function oik_require_file( $file, $library, $args=null ) {
@@ -255,7 +266,7 @@ function oik_require_file( $file, $library, $args=null ) {
 	} else {
 		$library_file = oik_require_lib_fallback( $file );
 	}
-	//bw_trace2( $library_file, "library_file" );
+	bw_trace2( $library_file, "library_file", true, BW_TRACE_DEBUG );
 	return( $library_file );	
 }
 } 
