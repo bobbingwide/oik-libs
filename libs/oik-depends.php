@@ -181,7 +181,7 @@ function oik_check_version( $depend, $version ) {
   if ( is_callable( $version_func )) {
     $active_version = $version_func();
     $active = version_compare( $active_version, $version, "ge" ); 
-    bw_trace2( $active_version, $version );
+    bw_trace2( $active_version, $version, true, BW_TRACE_DEBUG );
   }
   return( $active );    
 }
@@ -202,8 +202,8 @@ function bw_get_active_plugins() {
     //bw_trace2( $ms_names, "ms plugin names" );
     $names = array_merge( $names, $ms_names ); 
   }
-  bw_trace2( $names, "active plugin names" );
-  bw_backtrace();
+  //bw_trace2( $names, "active plugin names" );
+  //bw_backtrace();
     
   return( $names );
 }  
@@ -219,9 +219,9 @@ function bw_get_active_plugins() {
  * loaded by some other mechanism.
  */
 function oik_lazy_depends( $plugin=null, $dependencies, $callback="oik_plugin_inactive" ) {
-  bw_backtrace();
+  bw_backtrace( BW_TRACE_DEBUG );
   $names = bw_get_active_plugins();
-  bw_trace2( $names );
+  bw_trace2( $names, "active plugin names", true, BW_TRACE_DEBUG );
   
   $depends = explode( ",", $dependencies );
   foreach ( $depends as $dependcolver ) {
@@ -242,7 +242,7 @@ function oik_lazy_depends( $plugin=null, $dependencies, $callback="oik_plugin_in
     } 
     
     if ( !$active ) {
-      bw_trace2( $depend, "$plugin is dependent upon $depend, which is not active or is the wrong version" );
+      bw_trace2( $depend, "$plugin is dependent upon $depend, which is not active or is the wrong version", true, BW_TRACE_WARNING );
       
       if ( !is_callable( $callback ) )
         $callback = "oik_plugin_inactive" ;
