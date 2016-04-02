@@ -323,7 +323,7 @@ function stag( $tag, $class=NULL, $id=NULL, $extra=NULL ) {
  * @param string $extra - additional NVPs
  */
 function sol( $class=null, $id=null, $extra=null ) {
-	bw_trace2();
+	//bw_trace2();
 	stag( "ol", $class, $id, $extra );
 }
 
