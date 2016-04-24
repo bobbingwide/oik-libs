@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2012-2015
+<?php // (C) Copyright Bobbing Wide 2012-2016
 if ( !defined( 'OIK_BOOT_INCLUDED' ) ) {
 define( 'OIK_BOOT_INCLUDED', "3.0.1" );
 define( 'OIK_BOOT_FILE', __FILE__ );
@@ -56,11 +56,11 @@ if (!function_exists( 'oik_path' )) {
 /**
  * invoke require_once on an oik include file or other file
  *
+ * @uses oik_path()
+ 
  * @param string $include_file - the include file (or any other file) that you want to load
  * @param string $plugin - the plugin in which the file is located (default="oik")
- * @uses oik_path()
  */
- 
 if (!function_exists( 'oik_require' )) {
   function oik_require( $include_file = "bobbfunc.inc", $plugin="oik" ) {
     $path = oik_path( $include_file, $plugin );
@@ -118,14 +118,16 @@ function oik_init( ) {
 /** 
  * Return the array[index] or a default value if not set
  * 
+ * Notes: This routine may produce a Warning message if the $index is not scalar.
+ 
+ * @TODO I can't change it yet since there are other bits of code that may go wrong if I attempt 
+ * to deal with an invalid  $index parameter. 
+ * 
  * @param mixed $array - an array or object or scalar item from which to find $index
  * @param scalar $index - the array index or object property to obtain
  * @param string $default - the default value to return 
  * @return mixed - the value found at the given index
  *
- * Notes: This routine may produce a Warning message if the $index is not scalar
- * I can't change it yet since there are other bits of code that may go wrong if I attempt 
- * to deal with an invalid  $index parameter. 
  */
 if ( !function_exists( 'bw_array_get' ) ) {
   function bw_array_get( $array = NULL, $index, $default=NULL ) { 
@@ -185,8 +187,8 @@ if ( !function_exists( "oik_require_lib" ) ) {
 			$library_file = oik_require_lib_fallback( $library );
 		}
 		// We are dependent upon the 'bwtrace' library for these functions
-		bw_trace2( $library_file, "library_file: $library", true, BW_TRACE_DEBUG );
-		bw_backtrace( BW_TRACE_DEBUG );
+		bw_trace2( $library_file, "library_file: $library", true, BW_TRACE_VERBOSE );
+		bw_backtrace( BW_TRACE_VERBOSE );
 		return( $library_file );
 	}
 }
