@@ -76,11 +76,16 @@ class OIK_Autoload {
 	/**
 	 * Determine the file name from the class and path
 	 * 
+	 * If no file is specified we try to make it up.
+	 * If no path is specified we assume it's been passed in the file name
 	 * 
+	 * 
+	 * @param object $class_file
+	 * @return string fully qualified file name
 	 */
 	function file( $class_file ) {
-		bw_trace2();
-		bw_backtrace();
+		bw_trace2( null, null, true, BW_TRACE_DEBUG );
+		bw_backtrace( BW_TRACE_VERBOSE );
 		$file = $class_file->file;
 		if ( !$file ) {
 			$file = str_replace( "_", "-", $class_file->class );
@@ -107,7 +112,7 @@ class OIK_Autoload {
 		if ( $class_file ) {
 			$class_file = (object) $class_file;
 		}
-		bw_trace2( $class_file, "class_file" );
+		bw_trace2( $class_file, "class_file", true, BW_TRACE_DEBUG );
 		return( $class_file );
 	}
 	
@@ -127,7 +132,7 @@ class OIK_Autoload {
 		$class_file = bw_array_get( self::$loads, $class, null );
 	 */
 	function set_classes() {
-		bw_trace2();
+		bw_trace2( null, null, false, BW_TRACE_VERBOSE );
 		foreach ( self::$loads as $class => $load ) {
 			self::set_class( $class, $load );
 		}
@@ -139,7 +144,7 @@ class OIK_Autoload {
 	 * If the $class is numeric we need to extract the name from the array
 	 */
 	function set_class( $class, $load ) {
-		bw_trace2( $load, $class );
+		bw_trace2( $load, $class, false, BW_TRACE_VERBOSE );
 		if ( is_numeric( $class ) ) {
 			$class = $load[ "class" ];
 		}

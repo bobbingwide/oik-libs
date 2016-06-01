@@ -6,7 +6,7 @@ define( "OIK_AUTOLOAD_LOADED", "0.0.1" );
  * Autoload library functions
  *
  * Library: oik-autoload
- * Provides: oik-autload
+ * Provides: oik-autoload
  * Type: Shared 
  *
  * Implements logic to enable PHP classes to be autoloaded
@@ -50,7 +50,6 @@ function oik_autoload() {
 		die();
 	}
 	return( $oik_autoload );
-
 }
 
 } /* end !defined */

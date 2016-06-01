@@ -245,7 +245,8 @@ function oik_plugin_lazy_activation( $plugin=null, $dependencies=null, $callback
  * This gives us a bit more control over the information we provide.
  * IF the oik plugin is not activated then oik_lazy_depends() will not be defined
  * 
-*/
+ */
+if ( !function_exists( "oik_depends" ) ) {
 function oik_depends( $plugin=null, $dependencies="oik", $callback=null ) {
   //bw_trace2();
   //if ( function_exists( "oik_load_plugins" )) {
@@ -258,6 +259,7 @@ function oik_depends( $plugin=null, $dependencies="oik", $callback=null ) {
       call_user_func( $callback, $plugin, $dependencies, "missing" );
     }  
   }  
+}
 }
 
 
