@@ -3,8 +3,8 @@ Contributors: bobbingwide
 Donate link: http://www.oik-plugins.com/oik/oik-donate/
 Tags: shared, library, repository
 Requires at least: 4.2
-Tested up to: 4.5-RC1
-Stable tag: 0.0.4
+Tested up to: 4.5.2
+Stable tag: 0.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,8 +35,11 @@ TBC
 None
 
 == Upgrade Notice ==
+= 0.0.5 =
+Synchronized with oik v3.0.1, oik-bwtrace v2.0.12 and oik-lib v0.0.7
+
 = 0.0.4 = 
-Synchronized with oik v3.0.0-RC3, oik-lib, oik-trace and oik-batch
+Synchronized with oik v3.0.0-RC3, oik-lib, oik-bwtrace and oik-batch
 
 = 0.0.3 =
 Synchronized with oik v3.0.0-alpha.0917, oik-bwtrace v2.0.7 and oik-lib v0.0.3
@@ -48,6 +51,10 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 == Changelog ==
+= 0.0.5 = 
+* Added: libs/oik-honeypot.php
+* Changed: Other lib files to synchronize with other plugins
+
 = 0.0.4 = 
 * Added: libs/oik-git.php 
 * Added: libs/oik-cli.php
