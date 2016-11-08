@@ -1,15 +1,16 @@
-<?php // (C) Copyright Bobbing Wide 201x-2015
+<?php // (C) Copyright Bobbing Wide 2012-2016
 if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
-	define( "OIK_PLUGINS_INCLUDED", "0.0.2" );
+	define( "OIK_PLUGINS_INCLUDED", "0.1.0" );
 
 /**
  * Library: oik_plugins
  * Provided: oik_plugins
- * Depends: oik-admin
- * Version: v0.0.2
+ * Depends: oik-admin, class-oik-update
+ * Deferred dependencies: oik-depends, class-oik-remote
+ * Version: see above ?
  * 
  * Implements oik/admin/oik-plugins.inc as a shared library: bobbingwide/oik_plugins
- * Note: hypens for plugins, underscores for libraries
+ * Note: hyphens for plugins, underscores for libraries, hyphens for class libraries
  */ 
  
  
@@ -19,18 +20,19 @@ if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
  *
  * Processing depends on the button that was pressed. There should only be one!
  * 
- * Selection                       Validate? Perform action          Display check Display add  Display edit Display select list
- * ------------------------------- --------  -------------------     ------------- ------------ ------------ -------------------
- * check_plugin                    No        n/a                     Yes           -            -            -
- * delete_plugin                   No        delete selected plugin  -             -            -            Yes
- * edit_plugin                     No        n/a                     -             -            Yes          Yes
- *                                                                              
- * _oik_plugins_edit_settings      Yes       update selected plugin  -             -            Yes          Yes
- * _oik_plugins_add_plugin
- * _oik_plugins_add_settings
+ * Selection                     |  Validate? | Perform action         | Display check | Display add  | Display edit | Display select list
+ * ----------------------------- | --------   |-------------------     |-------------  | ------------ | ------------ | -------------------
+ * check_plugin                  |  No        | n/a                    | Yes           | -            | -            | -
+ * delete_plugin                 |  No        | delete selected plugin | -             | -            | -            | Yes
+ * edit_plugin                   |  No        | n/a                    | -             | -            | Yes          | Yes
+ * _oik_plugins_edit_settings    |  Yes       | update selected plugin | -             | -            | Yes          | Yes
+ * _oik_plugins_add_plugin			 |	No				| n/a										 | -						 | Yes          | - 					 | ?
+ * _oik_plugins_add_settings		 |	Yes				| add selected plugin		 | -						 | -						| - 					 | ?
  * 
-*/
+ */
 function oik_lazy_plugins_server_settings() {
+	bw_trace2();
+	bw_backtrace();
   oik_menu_header( "plugin server settings", "w100pc" );
   $validated = false;
   
@@ -129,7 +131,7 @@ function _oik_plugins_load_registered_plugins() {
   
   if ( is_array( $bw_registered_plugins) && count( $bw_registered_plugins )) {
     foreach ( $bw_registered_plugins as $plugin => $plugin_data ) {
-      $plugin = bw_last_path( $plugin_data['file'] );
+      $plugin = oik_update::bw_last_path( $plugin_data['file'] );
       //bw_trace2( $plugin );
       //bw_trace2( $plugin_data );
       if ( !isset( $bw_plugins[$plugin] ) ) {
@@ -164,6 +166,9 @@ function _oik_plugins_settings_table() {
 
 /**
  * Add the settings for the plugin
+ * 
+ * @param array $plugin
+ * @return bool true
  */
 function _oik_plugins_add_settings( $plugin ) {
   $field = bw_array_get( $plugin, "plugin", null );
@@ -176,6 +181,8 @@ function _oik_plugins_add_settings( $plugin ) {
 
 /** 
  * Update the settings for a plugin
+ * 
+ * @param array $plugin
  */
 function _oik_plugins_update_settings( $plugin ) {
   $field = bw_array_get( $plugin, "plugin", null );
@@ -189,6 +196,8 @@ function _oik_plugins_update_settings( $plugin ) {
 
 /**
  * Delete the settings for a plugin
+ *
+ * @param array $plugin
  */
 function _oik_plugins_delete_settings( $plugin ) {
   bw_delete_option( $plugin, "bw_plugins" );
@@ -196,6 +205,9 @@ function _oik_plugins_delete_settings( $plugin ) {
 
 /**
  * Validate the plugin name: plugin must not be blank
+ * 
+ * @param string $plugin - plugin name
+ * @return bool true if the plugin name is valid
  */
 function oik_plugins_validate_plugin( $plugin ) {
   $valid = isset( $plugin );
@@ -211,6 +223,7 @@ function oik_plugins_validate_plugin( $plugin ) {
     
 /**
  * Validate the plugin's settings and add/update if required
+ * 
  * @param bool $add_plugin 
  * @return bool - validation result
  */
@@ -235,6 +248,9 @@ function _oik_plugins_settings_validate( $add_plugin=true ) {
   return( $ok );
 }
 
+/**
+ * Display the plugin settings table form
+ */
 function oik_plugins_settings() {
   $default_plugin_server = oik_get_plugins_server();
   $link = retlink( null, $default_plugin_server, $default_plugin_server , "default oik plugins server" );
@@ -248,8 +264,11 @@ function oik_plugins_settings() {
   etag( "table" );
   p( isubmit( "_oik_plugins_add_plugin", "Add plugin", null, "button-primary" ) );
   etag( "form" );
-} 
+}
 
+/**
+ * Display the add settings form
+ */ 
 function oik_plugins_add_settings( ) {
   global $bw_plugin;
   bw_form();
@@ -262,6 +281,9 @@ function oik_plugins_add_settings( ) {
   etag( "form" );
 }
 
+/**
+ * Display the edit settings form
+ */
 function oik_plugins_edit_settings( ) {
   global $bw_plugin;
   bw_form();
@@ -275,7 +297,9 @@ function oik_plugins_edit_settings( ) {
 }
 
 /**
+ * Check a plugin for updates
  *
+ * The 
  (
     [slug] => oik
     [new_version] => 1.17.1030.1702
@@ -290,8 +314,8 @@ function oik_plugins_check() {
   if ( $check_plugin && $check_version ) {
     // Check the plugin from the remote server ? What does this mean? Validate the apikey perhaps?
     //$response = oik_plugins
-    oik_require( "includes/oik-remote.inc" );
-    $response = oik_check_for_update( $check_plugin, $check_version, true );
+    oik_require_lib( "class-oik-remote" );
+    $response = oik_remote::oik_check_for_update( $check_plugin, $check_version, true );
     bw_trace2( $response );
     if ( is_wp_error( $response ) ) {
       p( "Error checking the plugin: $check_plugin" );
@@ -365,24 +389,26 @@ function oik_plugins_check() {
  
  */ 
 function oik_plugin_record_new_version( $plugin, $check_version, $response ) { 
-  bw_trace2( $response );
-  $option = get_site_option( "_site_transient_update_plugins" );
-  bw_trace2( $option, "option", false );
+	bw_trace2( $response );
+	$option = get_site_option( "_site_transient_update_plugins" );
+	bw_trace2( $option, "option", false );
   
-  $new_version = bw_array_get( $response, "new_version", null );
-  $plugin_name = bw_array_get( $response, "plugin", "$plugin/$plugin.php" );
-  //$option->checked[$plugin] = $check_version;
-  $option->response[$plugin_name] = $response;
-  $option->last_checked = time();
+	$new_version = bw_array_get( $response, "new_version", null );
+	$plugin_name = bw_array_get( $response, "plugin", "$plugin/$plugin.php" );
+	//$option->checked[$plugin] = $check_version;
+	$option->response[$plugin_name] = $response;
+	$option->last_checked = time();
   
-  bw_trace2( $option, "option", false );
-  update_site_option( "_site_transient_update_plugins", $option );
+	bw_trace2( $option, "option", false );
+	update_site_option( "_site_transient_update_plugins", $option );
 }  
 
 /** 
+ * Produce an Update plugin link
  *
- 
- (
+ * @param object $response
+ *
+ * `
     [slug] => oik
     [new_version] => 1.17.1030.1702
     [url] => http://oik-plugins.co.uk/oik_plugin/oik
@@ -390,7 +416,7 @@ function oik_plugin_record_new_version( $plugin, $check_version, $response ) {
     
   http://oik-plugins.co.uk/wp-admin/plugin-install.php?tab=plugin-information&plugin=oik&section=changelog&TB_iframe=true&width=640&height=662
   http://oik-plugins.co.uk/wp-admin/update.php?action=upgrade-plugin&plugin=oik%2Foik.php&_wpnonce=7efefad99d
-)
+ * `
  */
 function oik_plugin_new_version( $response ) {
   $slug = bw_array_get( $response, "slug", null );
@@ -446,6 +472,8 @@ function bw_delete_option( $field, $options="bw_options" ) {
 function bw_get_plugin_slugs() {
   $plugin_slugs = get_transient( 'plugin_slugs' );
   if ( false === $plugin_slugs ) {
+	
+		require_once( ABSPATH . "wp-admin/includes/plugin.php" );
     $plugins = get_plugins();
     bw_trace2( $plugins, "plugins", false, BW_TRACE_DEBUG );
     $plugin_slugs = array_keys( $plugins );
@@ -458,28 +486,41 @@ function bw_get_plugin_slugs() {
 /**
  * Return the plugin version
  * 
- * Note: get_plugin_data() may not find a plugin that's been renamed
+ * Note: get_plugin_data() may not find a plugin that's been renamed ( plugin folder or file )
+ * and it doesn't check that the plugin is present, so we do here.
  * 
  * @param string $plugin_name expected form "plugin/plugin.php"
- * @return string plugin version
+ * @return string|null plugin version or null
  */
 function _bw_get_plugin_version( $plugin_name ) {
-  //bw_trace2();
   $file = WP_PLUGIN_DIR . '/'. $plugin_name;
-  $plugin_data = get_plugin_data( $file, false, false );
-  // We assume get_plugins() is loaded since we're doing admin stuff! 
-  //$plugin_folder = get_plugins( $plugin_name );
-  //bw_trace2( $plugin_folder, "plugin_folder" );
-  //$plugin_data = bw_array_get( $plugin_folder, $plugin_name, null ); 
-  $version = bw_array_get( $plugin_data, 'Version', null );
+	$version = null;
+	if ( file_exists( $file ) ) { 
+		require_once( ABSPATH . "wp-admin/includes/plugin.php" );
+		$plugin_data = get_plugin_data( $file, false, false );
+		// We assume get_plugins() is loaded since we're doing admin stuff! 
+		//$plugin_folder = get_plugins( $plugin_name );
+		//bw_trace2( $plugin_folder, "plugin_folder" );
+		//$plugin_data = bw_array_get( $plugin_folder, $plugin_name, null ); 
+		$version = bw_array_get( $plugin_data, 'Version', null );
+	}
   return( $version );
 }
 
+/**
+ * Returns the plugin names
+ * 
+ * Returns a cached array of $plugins. 
+ * We expect there to be at least one.
+ * 
+ * @return array $plugins 
+ */
 function _bw_get_plugins() {
   static $plugins = null;
   if ( !$plugins ) {
     $plugin_slugs = bw_get_plugin_slugs();
-    oik_require( "admin/oik-depends.inc" );
+    //oik_require( "admin/oik-depends.inc" );
+		oik_require_lib( "oik-depends" );
     $plugins = bw_get_all_plugin_names( $plugin_slugs);
   }
   return( $plugins );
@@ -525,20 +566,24 @@ function bw_get_plugin_version( $plugin="oik" ) {
  * @return string URL for an oik-plugins server
  */
 if ( !function_exists( "oik_get_plugins_server" ) ) { 
-function oik_get_plugins_server() {
-  if ( defined( 'BW_OIK_PLUGINS_SERVER' )) {
-    $url = BW_OIK_PLUGINS_SERVER;
-  } else {
+	function oik_get_plugins_server() {
+		if ( defined( 'BW_OIK_PLUGINS_SERVER' )) {
+			$url = BW_OIK_PLUGINS_SERVER;
+		} else {
 		if ( !defined( "OIK_PLUGINS_COM" ) ) {
 			define( "OIK_PLUGINS_COM", "http://www.oik-plugins.com" );
 		}
-    $url = OIK_PLUGINS_COM;
-  }
-  return( $url );
-}
+			$url = OIK_PLUGINS_COM;
+		}
+		return( $url );
+	}
 }
 
-
+if ( !function_exists( "oik_get_themes_server" ) ) {
+	function oik_get_themes_server() {
+		return( oik_get_plugins_server() );
+	}
+}
 
 } else {
 	//echo __FILE__;

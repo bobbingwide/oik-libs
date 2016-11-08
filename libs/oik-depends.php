@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2015
-if ( !defined( "OIK_DEPENDS_LOADED" ) ) {
-define( "OIK_DEPENDS_LOADED", "3.0.0" );
+<?php // (C) Copyright Bobbing Wide 2012-2016
+if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
+define( "OIK_DEPENDS_INCLUDED", "3.1.0" );
 
 
 

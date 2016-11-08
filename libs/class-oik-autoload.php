@@ -1,4 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2015, 2016
+if ( !defined( "CLASS_OIK_AUTOLOAD_INCLUDED" ) ) {
+define( "CLASS_OIK_AUTOLOAD_INCLUDED", "0.1.0" );
 
 /**
  * Implement autoloading for shared libraries
@@ -164,3 +166,5 @@ class OIK_Autoload {
 
 
 }
+
+} /* end if !defined */

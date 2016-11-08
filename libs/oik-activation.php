@@ -1,4 +1,7 @@
 <?php // (C) Copyright Bobbing Wide 2012-2016
+if ( !defined( "OIK_ACTIVATION_INCLUDED" ) ) {
+define( "OIK_ACTIVATION_INCLUDED", "3.1.0" );
+
 
 if ( function_exists( "oik_plugin_lazy_activation" ) ) {
  // It's already defined so we don't need this lot
@@ -53,17 +56,12 @@ function oik_plugin_activate_plugin( $plugin, $plugin_name) {
 } 
  
 /**
- * Create an Upgrade plugin link
+ * Create an Update plugin link
  *
-     
-    $path = "update.php?action=install-plugin&plugin=$plugin";
-    $url = admin_url( $path );
-    $url = wp_nonce_url( $url, "install-plugin_oik" ); 
-    $link = '<a href="';
-    $link .= $url;
-    $link .= '">Install oik</a>';
-    
-  $url = wp_nonce_url(self_admin_url('update.php?action=upgrade-plugin&plugin=' . $update_file), 'upgrade-plugin_' . $update_file);
+ * Decided to use "Update" rather than " Upgrade". 
+ *
+ * @param string $plugin the plugin slug
+ * @return string the update link
  */
 function oik_plugin_update_plugin( $plugin ) {
   $path = "update.php?action=upgrade-plugin&plugin=$plugin";
@@ -72,7 +70,7 @@ function oik_plugin_update_plugin( $plugin ) {
   $link = '<a href="';
   $link .= $url;
   $link .= '">'; 
-  $link .= __(' Upgrade' );
+  $link .= __( 'Update' );
   $link .= " $plugin</a>";
   return( $link );
 }
@@ -264,3 +262,5 @@ function oik_depends( $plugin=null, $dependencies="oik", $callback=null ) {
 
 
 } // end else 
+
+} // end if !defined() 
