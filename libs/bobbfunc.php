@@ -6,7 +6,7 @@ define( "BOBBFUNC_INCLUDED", "3.1.0" );
  * HTML output library functions
  * 
  * Library: bobbfunc
- * Depends: oik_boot, bwtrace, bobbcomp
+ * Depends: oik_boot, bwtrace, class-bobbcomp
  * Provides: bobbfunc
  *
  * These functions were part of the oik base plugin in bobbfunc.inc and bobbcomp.inc

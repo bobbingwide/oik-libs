@@ -173,7 +173,7 @@ static function oik_query_plugins_server( $slug ) {
 			 $value = bw_array_get( $bw_slugs, $slug, null );
 		}   
 		if ( !$server ) {   
-			$server = bobbcomp::bw_array_get_dcb( $value, "server", null, "oik_get_plugins_server" );
+			$server = bobbcomp::bw_array_get_dcb( $value, "server", null, "oik_update::oik_get_plugins_server" );
 		}
 		if ( !$apikey ) {
 			$plugin_settings['apikey'] = bw_array_get( $value, "apikey", null );
@@ -181,7 +181,7 @@ static function oik_query_plugins_server( $slug ) {
 	} else {
 		$plugin_settings = bw_array_get( $bw_slugs, $slug, null );
 		if ( $plugin_settings ) {
-				$server = bobbcomp::bw_array_get_dcb( $plugin_settings, "server", null, "oik_get_plugins_server" );
+				$server = bobbcomp::bw_array_get_dcb( $plugin_settings, "server", null, "oik_update::oik_get_plugins_server" );
 		}
 		// apikey doesn't default here 
 	}  
@@ -228,7 +228,7 @@ static function oik_query_themes_server( $slug ) {
 			 $value = bw_array_get( $bw_theme_slugs, $slug, null );
 		}   
 		if ( !$server ) {   
-			$server = bw_array_get_dcb( $value, "server", null, "oik_plugins::oik_get_themes_server" );
+			$server = bw_array_get_dcb( $value, "server", null, "oik_update::oik_get_themes_server" );
 			bw_trace2( $server, $slug, false );
 		}
 		if ( !$apikey ) {
@@ -237,7 +237,7 @@ static function oik_query_themes_server( $slug ) {
 	} else {
 		$theme_settings = bw_array_get( $bw_theme_slugs, $slug, null );
 		if ( $theme_settings ) {
-			$server = bw_array_get_dcb( $theme_settings, "server", null, "oik_plugins::oik_get_themes_server" );
+			$server = bw_array_get_dcb( $theme_settings, "server", null, "oik_update::oik_get_themes_server" );
 		}
 		// apikey doesn't default here 
 	}  
@@ -302,6 +302,39 @@ static function oik_pluginsapi( $false, $action, $args ) {
 static function oik_themes_api( $false, $action, $args ) {
 	oik_require_lib( "class-oik-remote" );
 	return( oik_remote::oik_lazy_themes_api( $false, $action, $args ) );
+}
+
+
+  
+/** 
+ * Return the URL for the Premium (Pro) or Freemium version
+ * 
+ * If BW_OIK_PLUGINS_SERVER is defined we'll use that.
+ * Else, we'll use the value of OIK_PLUGINS_COM
+ * which we'll define if it's not already defined
+ * 
+ * @return string URL for an oik-plugins server
+ */
+static function oik_get_plugins_server() {
+		if ( defined( 'BW_OIK_PLUGINS_SERVER' )) {
+			$url = BW_OIK_PLUGINS_SERVER;
+		} else {
+		if ( !defined( "OIK_PLUGINS_COM" ) ) {
+			define( "OIK_PLUGINS_COM", "http://www.oik-plugins.com" );
+		}
+			$url = OIK_PLUGINS_COM;
+		}
+		return( $url );
+	}
+	
+	
+/** 
+ * Return the URL for the theme server
+ * 
+ * @return string URL for an oik-plugins server
+ */
+static function oik_get_themes_server() {
+	return( self::oik_get_plugins_server() );
 }
 
 } /* end class */

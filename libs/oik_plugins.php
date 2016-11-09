@@ -579,12 +579,6 @@ if ( !function_exists( "oik_get_plugins_server" ) ) {
 	}
 }
 
-if ( !function_exists( "oik_get_themes_server" ) ) {
-	function oik_get_themes_server() {
-		return( oik_get_plugins_server() );
-	}
-}
-
 } else {
 	//echo __FILE__;
 }

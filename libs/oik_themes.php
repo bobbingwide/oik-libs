@@ -124,7 +124,7 @@ function _oik_themes_load_registered_themes() {
   global $bw_registered_themes;
   if ( is_array( $bw_registered_themes) && count( $bw_registered_themes )) {
     foreach ( $bw_registered_themes as $theme => $theme_data ) {
-      $theme = bw_last_path( $theme_data['file'] );
+      $theme = oik_update::bw_last_path( $theme_data['file'] );
       bw_trace2( $theme );
       if ( !isset( $bw_themes[$theme] ) ) {
         $bw_themes[$theme] = $theme_data;
@@ -218,7 +218,7 @@ function _oik_themes_settings_validate( $add_theme=true ) {
 }
 
 function oik_themes_settings() {
-  $default_theme_server = oik_get_plugins_server();
+  $default_theme_server = oik_update::oik_get_themes_server();
   $link = retlink( null, $default_theme_server, $default_theme_server , "default oik themes server" );
   p( "The default oik themes server is currently set to: " . $link );
   bw_form();
@@ -266,8 +266,8 @@ function oik_themes_check() {
   if ( $check_theme && $check_version ) {
     // Check the theme from the remote server ? What does this mean? Validate the apikey perhaps?
     //$response = oik_themes
-    oik_require( "includes/oik-remote.inc" );
-    $response = oik_check_for_theme_update( $check_theme, $check_version, true );
+    oik_require_lib( "class-oik-remote" );
+    $response = oik_remote::oik_check_for_theme_update( $check_theme, $check_version, true );
     bw_trace2( $response, "response-octfu" );
     if ( is_wp_error( $response ) ) {
       p( "Error checking the theme: $check_theme" );
@@ -484,6 +484,7 @@ function bw_get_theme_server( $theme="oik", $theme_object, $theme_data ) {
   bw_trace2( $server, "theme-server" );
   return( $server );
 }
+
 
 } else {
 	//echo __FILE__;

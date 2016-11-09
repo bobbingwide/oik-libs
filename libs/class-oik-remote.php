@@ -446,7 +446,7 @@ static function oik_check_for_update( $plugin, $version ) {
 static function oik_check_for_theme_update( $theme, $version ) {
 	bw_trace2();
 	$response = null;
-	$theme_settings = oik__update::oik_query_themes_server( $theme );
+	$theme_settings = oik_update::oik_query_themes_server( $theme );
 	if ( $theme_settings ) {
 		$url = bw_array_get( $theme_settings, 'server', null );
 		$url .= '/themes/update-check/';
