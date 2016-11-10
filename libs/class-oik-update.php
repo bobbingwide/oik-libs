@@ -228,7 +228,7 @@ static function oik_query_themes_server( $slug ) {
 			 $value = bw_array_get( $bw_theme_slugs, $slug, null );
 		}   
 		if ( !$server ) {   
-			$server = bw_array_get_dcb( $value, "server", null, "oik_update::oik_get_themes_server" );
+			$server = bobbcomp::bw_array_get_dcb( $value, "server", null, "oik_update::oik_get_themes_server" );
 			bw_trace2( $server, $slug, false );
 		}
 		if ( !$apikey ) {
@@ -237,7 +237,7 @@ static function oik_query_themes_server( $slug ) {
 	} else {
 		$theme_settings = bw_array_get( $bw_theme_slugs, $slug, null );
 		if ( $theme_settings ) {
-			$server = bw_array_get_dcb( $theme_settings, "server", null, "oik_update::oik_get_themes_server" );
+			$server = bobbcomp::bw_array_get_dcb( $theme_settings, "server", null, "oik_update::oik_get_themes_server" );
 		}
 		// apikey doesn't default here 
 	}  

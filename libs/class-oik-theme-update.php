@@ -100,46 +100,73 @@ class OIK_Theme_Update {
 		return( $links );
 	}
 	
+	/**
+	 * Query if the menu item already exists
+	 * 
+	 * @param string $menu_slug e.g. "oik_menu"
+	 * @return bool true if the menu item exists
+	 */
 	function query_menu( $menu_slug ) {
-		global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;
+		global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;	
+		bw_trace2();
 		
 		//$menu_slug = bw_array_get( $submenu, $menu_slug, null );
 		$menu_slug = array_key_exists( $menu_slug, $submenu );
+		
+		$hookname = get_plugin_page_hook( $menu_slug, "toplevel" );
+		bw_trace2( $hookname, "hookname", false ); 
+		
+		//bw_trace2( $submenu, "submenu", true );
+		//bw_trace2( $menu, "menu", false );
+		bw_trace2( $_registered_pages, "_registered_pages", false );
+		bw_trace2( $_parent_pages, "_parent_pages", false );
+		return( $menu_slug );
+	}
+	
+	/**
+	 * Query if the menu subitem exists
+	 * 
+	 * We probably want to use get_plugin_page_hookname()
+	 *
+	 * @param string $menu_slug e.g. "oik_menu"
+	 * @param string $sub_item e.g. "oik_themes"
+	 * @return 
+	 */
+	
+	function query_menu_subitem( $menu_slug, $parent ) {
+	
+		//global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;
+		
+		$hookname = get_plugin_page_hook( $menu_slug, $parent );
 		
 		//bw_trace2( $submenu, "submenu", true );
 		//bw_trace2( $menu, "menu", false );
 		//bw_trace2( $_registered_pages, "_registered_pages", false );
 		//bw_trace2( $_parent_pages, "_parent_pages", false );
-		return( $menu_slug );
+		return( $hookname );
+	
 	} 
+	 
+	function add_oik_menu( $callback ) {
+		$menu_slug = $this->query_menu( "oik_menu" );
+		if ( !$menu_slug ) {
+			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik ', 'oik'), 'manage_options', 'oik_menu', $callback );
+		}
+	}
 
 	/**
-	 * Implement "admin_menu" 
+	 * Implement "admin_menu" for theme updates 
 	 *
-	 * We do not need to implement the "admin_menu" if oik has already done it.
-	 * Can we check did_action( "oik_admin_menu" ) ?
-	 * 
+	 * - We need to add the oik_themes submenu if it's not already present
+	 * - We may need to create the oik menu.
 	 *
-	 * Actually, we need to check for both oik_menu and oik_themes 
-		
-	 * 
-	 * 
-		//add_options_page( __( 'oik themes', 'oik' ), __( 'themes', 'oik' ), 'manage_options', "api-key-config", array( $this, 'oik_themes_do_page' ) );
 	 */
 	function admin_menu() {
-		$oik_themes = array( $this, 'oik_themes_do_page' );
-		$menu_slug = $this->query_menu( "oik_menu" );
-		bw_trace2( $menu_slug, "menu_slug" );
-		$themes_slug = $this->query_menu( "oik_themes" );
-		if ( !$menu_slug ) {
-			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik themes', 'oik'), 'manage_options', 'oik_themes', $oik_themes );
-			bw_trace2( $hook, "hook" );
-			
-		}
-		
+		$themes_slug = $this->query_menu_subitem( "oik_themes", "oik_menu" );
 		if ( !$themes_slug ) {
+			$oik_themes = array( $this, 'oik_themes_do_page' );
+			$this->add_oik_menu( $oik_themes );
 			add_submenu_page( 'oik_menu', __( 'oik themes', 'oik' ), __('themes', 'oik'), 'manage_options', 'oik_themes', $oik_themes );
-			add_submenu_page( 'oik_plugins', __( 'oik themes', 'oik' ), __('themes', 'oik'), 'manage_options', 'oik_themes', $oik_themes );
 			$loaded = $this->bootstrap_oik_libs();
 			if ( $loaded ) {
 				$dependencies = array( "class-bobbcomp" => "0.0.1" 
@@ -153,7 +180,7 @@ class OIK_Theme_Update {
 			}	
 		}		
 	}
-
+	
 	/**
 	 * Implement oik's themes page
 	 *
@@ -171,7 +198,7 @@ class OIK_Theme_Update {
 													 , "bobbfunc" => "3.0.0"
 													 , "bobbforms" => "3.0.1"
 													 , "oik-admin" => "3.0.1"
-													 , "oik-depends" => "3.1.0"
+													 , "oik-depends" => "3.0.0"
 													 , "oik_themes" => "0.0.2"
 													 );
 			
@@ -243,9 +270,13 @@ class OIK_Theme_Update {
 	function version_check( $lib, $version='*' ) {
 		$constant_name = str_replace( "-", "_", $lib );
 		$constant_name = strtoupper( $constant_name );
-		$constant_name .= '_INCLUDED';
-		if ( defined( $constant_name ) ) {
-			$current_version = constant( $constant_name );
+		$constant_included = $constant_name . '_INCLUDED';
+		$constant_loaded = $constant_name . '_LOADED';
+		if ( defined( $constant_included ) ) {
+			$current_version = constant( $constant_included );
+			$acceptable = $this->compatible_version( $current_version, $version );
+		} elseif ( defined( $constant_loaded ) ) {
+			$current_version = constant( $constant_loaded );
 			$acceptable = $this->compatible_version( $current_version, $version );
 		} else {
 			$current_version = "unknown";
