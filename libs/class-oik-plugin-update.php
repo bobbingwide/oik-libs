@@ -112,26 +112,51 @@ class OIK_Plugin_Update {
 		//bw_trace2( $_parent_pages, "_parent_pages", false );
 		return( $menu_slug );
 	} 
+	
+	/**
+	 * Query if the menu subitem exists
+	 * 
+	 * We probably want to use get_plugin_page_hookname()
+	 *
+	 * @param string $menu_slug e.g. "oik_menu"
+	 * @param string $sub_item e.g. "oik_themes"
+	 * @return 
+	 */
+	
+	function query_menu_subitem( $menu_slug, $parent ) {
+	
+		//global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;
+		
+		$hookname = get_plugin_page_hook( $menu_slug, $parent );
+		
+		//bw_trace2( $submenu, "submenu", true );
+		//bw_trace2( $menu, "menu", false );
+		//bw_trace2( $_registered_pages, "_registered_pages", false );
+		//bw_trace2( $_parent_pages, "_parent_pages", false );
+		return( $hookname );
+	
+	}
+	
+	function add_oik_menu( $callback ) {
+		$menu_slug = $this->query_menu( "oik_menu" );
+		if ( !$menu_slug ) {
+			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik ', 'oik'), 'manage_options', 'oik_menu', $callback );
+		}
+	}
 
 	/**
-	 * Implement "admin_menu" 
+	 * Implement "admin_menu" for plugin updates 
 	 *
-	 * We do not need to implement the "admin_menu" if oik has already done it.
-	 * Can we check did_action( "oik_admin_menu" ) ?
-	 * 
-	 * 
-		//add_options_page( __( 'oik plugins', 'oik' ), __( 'Plugins', 'oik' ), 'manage_options', "api-key-config", array( $this, 'oik_plugins_do_page' ) );
+	 * - We need to add the oik_plugins submenu if it's not already present
+	 * - We may need to create the oik menu.
+	 *
 	 */
 	function admin_menu() {
-	
-		$menu_slug = $this->query_menu( "oik_menu" );
-		if ( $menu_slug ) {
-			// oik_menu is already defined. No need to add it again
-		} else { 
+		$plugins_slug = $this->query_menu_subitem( "oik_plugins", "oik_menu" );
+		if ( !$plugins_slug ) {
 			$oik_plugins = array( $this, 'oik_plugins_do_page' );
-			//$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik plugins', 'oik'), 'manage_options', 'oik_plugins', $oik_plugins, 'div' );
-			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik plugins', 'oik'), 'manage_options', 'oik_plugins', $oik_plugins );
-			add_submenu_page( 'oik_menu', __( 'oik plugins', 'oik' ), __('Plugins', 'oik'), 'manage_options', 'oik_plugins', $oik_plugins );
+			$this->add_oik_menu( $oik_plugins );
+			add_submenu_page( 'oik_menu', __( 'oik plugins', 'oik' ), __('plugins', 'oik'), 'manage_options', 'oik_plugins', $oik_plugins );
 			$loaded = $this->bootstrap_oik_libs();
 			if ( $loaded ) {
 				$dependencies = array( "class-bobbcomp" => "0.0.1" 
