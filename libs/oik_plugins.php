@@ -4,7 +4,7 @@ if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
 
 /**
  * Library: oik_plugins
- * Provided: oik_plugins
+ * Provides: oik_plugins
  * Depends: oik-admin, class-oik-update
  * Deferred dependencies: oik-depends, class-oik-remote
  * Version: see above ?
@@ -96,17 +96,26 @@ function oik_lazy_plugins_server_settings() {
  * Display current settings for a plugin
  *
  * Note: The Delete function doesn't delete the plugin, just the profile information that overrides the values set by oik_register_plugin_server()
+ *
+ * @param string $theme - theme slug
+ * @param string $version - current theme version
+ * @param string $server - theme server
+ * @param string $apikey - API key for premium theme
+ * @param bool $programmatically_registered - true if registered by the theme
  */
-function _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $expiration ) {
+function _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $programmatically_registered ) {
   $row = array();
   $row[] = $plugin;
   $row[] = $version . "&nbsp;"; 
   $row[] = $server . "&nbsp;"; //itext( "server[$plugin]", 100, $server ); //esc_html( stripslashes( $server ) )); //iarea( $plugin, 100, $server, 10 );
   $row[] = $apikey . "&nbsp;"; //itext( "apikey[$plugin]", 26, $apikey );
-  $row[] = $expiration . "&nbsp;";
-  // $row[] = itext( "expand[$plugin]", $expand, true );
   $links = null;
-  $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), "Delete", "Delete plugin's profile entry" ); 
+	
+	if ( $programmatically_registered ) {
+		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), "Reset", "Reset plugin's profile entry" ); 
+	} else {
+		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), "Delete", "Delete plugin's profile entry" ); 
+	}
   $links .= "&nbsp;";
   $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;edit_plugin=$plugin"), "Edit" ); 
   $links .= "&nbsp;"; 
@@ -115,6 +124,7 @@ function _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $expira
   $row[] = $links;
   bw_tablerow( $row );
 }
+
 
 /**
  * Load registered plugins
@@ -137,6 +147,7 @@ function _oik_plugins_load_registered_plugins() {
       if ( !isset( $bw_plugins[$plugin] ) ) {
         $bw_plugins[$plugin] = $plugin_data;
       }  
+			$bw_plugins[$plugin]['programmatically_registered'] = true;
     }
   }
   //bw_trace2( $bw_plugins );
@@ -158,8 +169,8 @@ function _oik_plugins_settings_table() {
       $version = bw_get_plugin_version( $plugin );
       $server = bw_array_get( $plugin_data, "server", "&nbsp;" );
       $apikey = bw_array_get( $plugin_data, "apikey", null );
-      $expiration = bw_array_get( $plugin_data, "expiration", null );
-      _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $expiration );
+			$programmatically_registered = bw_array_get( $plugin_data, "programmatically_registered", false );
+      _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $programmatically_registered );
     }
   }  
 }
@@ -228,24 +239,23 @@ function oik_plugins_validate_plugin( $plugin ) {
  * @return bool - validation result
  */
 function _oik_plugins_settings_validate( $add_plugin=true ) {
-  global $bw_plugin;
-  $bw_plugin['plugin'] = trim( bw_array_get( $_REQUEST, "plugin", null ) );
-  $bw_plugin['server'] = trim( bw_array_get( $_REQUEST, "server", null ) );
-  $bw_plugin['apikey'] = trim( bw_array_get( $_REQUEST, "apikey", null ) );
-  $bw_plugin['expiration'] = trim( bw_array_get( $_REQUEST, "expiration", null ) );
+	global $bw_plugin;
+	$bw_plugin['plugin'] = trim( bw_array_get( $_REQUEST, "plugin", null ) );
+	$bw_plugin['server'] = trim( bw_array_get( $_REQUEST, "server", null ) );
+	$bw_plugin['apikey'] = trim( bw_array_get( $_REQUEST, "apikey", null ) );
   
-  $ok = oik_plugins_validate_plugin( $bw_plugin['plugin'] );
+	$ok = oik_plugins_validate_plugin( $bw_plugin['plugin'] );
   
-  // validate the fields and add the settings IF it's OK to add
-  // $add_plugin = bw_array_get( $_REQUEST, "_oik_plugins_add_settings", false );
-  if ( $ok ) {
-    if ( $add_plugin ) {
-      $ok = _oik_plugins_add_settings( $bw_plugin );  
-    } else {
-      $ok = _oik_plugins_update_settings( $bw_plugin );
-    }
-  }  
-  return( $ok );
+	// validate the fields and add the settings IF it's OK to add
+	// $add_plugin = bw_array_get( $_REQUEST, "_oik_plugins_add_settings", false );
+	if ( $ok ) {
+		if ( $add_plugin ) {
+			$ok = _oik_plugins_add_settings( $bw_plugin );  
+		} else {
+			$ok = _oik_plugins_update_settings( $bw_plugin );
+		}
+	}  
+	return( $ok );
 }
 
 /**
@@ -258,7 +268,7 @@ function oik_plugins_settings() {
   bw_form();
   stag( "table", "widefat " );
   stag( "thead");
-  bw_tablerow( array( "plugin", "version", "server", "apikey", "expiration", "actions" ));
+  bw_tablerow( array( "plugin", "version", "server", "apikey", "actions" ));
   etag( "thead");
   _oik_plugins_settings_table();
   etag( "table" );
