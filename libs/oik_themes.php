@@ -17,15 +17,15 @@ if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
  *
  * Processing depends on the button that was pressed. There should only be one!
  * 
- * Selection                       Validate? Perform action          Display check Display add  Display edit Display select list
- * ------------------------------- --------  -------------------     ------------- ------------ ------------ -------------------
- * check_theme                    No        n/a                     Yes           -            -            -
- * delete_theme                   No        delete selected theme  -             -            -            Yes
- * edit_theme                     No        n/a                     -             -            Yes          Yes
+ * Selection                     | Validate? | Perform action      | Display check | Display add | Display edit | Display select list
+ * ----------------------------- | -------- |  ------------------- | ------------- | ----------- | ------------ | -------------------
+ * check_theme                   | No       | n/a                  |   Yes         |  -          |  -           | -
+ * delete_theme                  | No       | delete selected theme |  -           |  -          |  -           | Yes
+ * edit_theme                    | No       | n/a                   |  -           |  -          |  Yes         | Yes
  *                                                                              
- * _oik_themes_edit_settings      Yes       update selected theme  -             -            Yes          Yes
- * _oik_themes_add_theme
- * _oik_themes_add_settings
+ * _oik_themes_edit_settings     | Yes      | update selected theme | -            | -           | Yes          | Yes
+ * _oik_themes_add_theme         |
+ * _oik_themes_add_settings      |
  * 
 */
 function oik_lazy_themes_server_settings() {
@@ -93,24 +93,32 @@ function oik_lazy_themes_server_settings() {
  *
  * Note: Delete may not appear to work as the entry is created automatically by the theme when it registers itself.
  * The Delete action will delete the theme's profile entry.
+ *
+ * @param string $theme - theme slug
+ * @param string $version - current theme version
+ * @param string $server - theme server
+ * @param string $apikey - API key for premium theme
+ * @param bool $programmatically_registered - true if registered by the theme
  */
-function _oik_themes_settings_row( $theme, $version, $server, $apikey, $expiration ) {
-  $row = array();
-  $row[] = $theme;
-  $row[] = $version . "&nbsp;"; 
-  $row[] = $server . "&nbsp;"; //itext( "server[$theme]", 100, $server ); //esc_html( stripslashes( $server ) )); //iarea( $theme, 100, $server, 10 );
-  $row[] = $apikey . "&nbsp;"; //itext( "apikey[$theme]", 26, $apikey );
-  $row[] = $expiration . "&nbsp;";
-  // $row[] = itext( "expand[$theme]", $expand, true );
-  $links = null;
-  $links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;delete_theme=$theme"), "Delete", "Delete theme's profile entry" ); 
-  $links .= "&nbsp;";
-  $links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;edit_theme=$theme"), "Edit" ); 
-  $links .= "&nbsp;"; 
-  $links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;check_theme=$theme&amp;check_version=$version"), "Check" );
-  $links .= "&nbsp;";
-  $row[] = $links;
-  bw_tablerow( $row );
+function _oik_themes_settings_row( $theme, $version, $server, $apikey, $programmatically_registered ) {
+	$row = array();
+	$row[] = $theme;
+	$row[] = $version . "&nbsp;"; 
+	$row[] = $server . "&nbsp;"; //itext( "server[$theme]", 100, $server ); //esc_html( stripslashes( $server ) )); //iarea( $theme, 100, $server, 10 );
+	$row[] = $apikey . "&nbsp;"; //itext( "apikey[$theme]", 26, $apikey );
+	$links = null;
+	if ( $programmatically_registered ) {
+		$links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;delete_theme=$theme"), "Reset", "Reset theme's profile entry" ); 
+	} else {
+		$links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;delete_theme=$theme"), "Delete", "Delete theme's profile entry" ); 
+	}
+	$links .= "&nbsp;";
+	$links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;edit_theme=$theme"), "Edit" ); 
+	$links .= "&nbsp;"; 
+	$links .= retlink( null, admin_url("admin.php?page=oik_themes&amp;check_theme=$theme&amp;check_version=$version"), "Check" );
+	$links .= "&nbsp;";
+	$row[] = $links;
+	bw_tablerow( $row );
 }
 
 /**
@@ -118,6 +126,8 @@ function _oik_themes_settings_row( $theme, $version, $server, $apikey, $expirati
  * 
  * We don't override the values that the user has defined with the hardcoded values
  * Only apply the hardcoded values when the profile entry does not exist.
+ * 
+ * @return array of registered themes and their overrides
  */
 function _oik_themes_load_registered_themes() {
   $bw_themes = get_option( "bw_themes" );
@@ -128,7 +138,8 @@ function _oik_themes_load_registered_themes() {
       bw_trace2( $theme );
       if ( !isset( $bw_themes[$theme] ) ) {
         $bw_themes[$theme] = $theme_data;
-      }  
+      } 
+			$bw_themes[$theme]['programmatically_registered'] = true;
     }
   }
   return( $bw_themes );
@@ -145,8 +156,8 @@ function _oik_themes_settings_table() {
       $version = bw_get_theme_version( $theme, $theme_object );
       $server = bw_get_theme_server( $theme, $theme_object, $theme_data );
       $apikey = bw_array_get( $theme_data, "apikey", null );
-      $expiration = bw_array_get( $theme_data, "expiration", null );
-      _oik_themes_settings_row( $theme, $version, $server, $apikey, $expiration );
+			$programmatically_registered = bw_array_get( $theme_data, "programmatically_registered", false );
+      _oik_themes_settings_row( $theme, $version, $server, $apikey, $programmatically_registered );
     }
   }  
 }
@@ -201,7 +212,6 @@ function _oik_themes_settings_validate( $add_theme=true ) {
   $bw_theme['theme'] = trim( bw_array_get( $_REQUEST, "theme", null ) );
   $bw_theme['server'] = trim( bw_array_get( $_REQUEST, "server", null ) );
   $bw_theme['apikey'] = trim( bw_array_get( $_REQUEST, "apikey", null ) );
-  $bw_theme['expiration'] = trim( bw_array_get( $_REQUEST, "expiration", null ) );
   
   $ok = oik_themes_validate_theme( $bw_theme['theme'] );
   
@@ -224,7 +234,7 @@ function oik_themes_settings() {
   bw_form();
   stag( "table", "widefat " );
   stag( "thead");
-  bw_tablerow( array( "theme", "version", "server", "apikey", "expiration", "actions" ));
+  bw_tablerow( array( "theme", "version", "server", "apikey", "actions" ));
   etag( "thead");
   _oik_themes_settings_table();
   etag( "table" );

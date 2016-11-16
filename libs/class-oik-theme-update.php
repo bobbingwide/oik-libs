@@ -101,56 +101,42 @@ class OIK_Theme_Update {
 	}
 	
 	/**
-	 * Query if the menu item already exists
+	 * Query if the primary menu exists
 	 * 
 	 * @param string $menu_slug e.g. "oik_menu"
 	 * @return bool true if the menu item exists
 	 */
 	function query_menu( $menu_slug ) {
-		global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;	
-		bw_trace2();
-		
-		//$menu_slug = bw_array_get( $submenu, $menu_slug, null );
+		global $submenu;
 		$menu_slug = array_key_exists( $menu_slug, $submenu );
-		
-		$hookname = get_plugin_page_hook( $menu_slug, "toplevel" );
-		bw_trace2( $hookname, "hookname", false ); 
-		
-		//bw_trace2( $submenu, "submenu", true );
-		//bw_trace2( $menu, "menu", false );
-		bw_trace2( $_registered_pages, "_registered_pages", false );
-		bw_trace2( $_parent_pages, "_parent_pages", false );
 		return( $menu_slug );
-	}
+	} 
 	
 	/**
 	 * Query if the menu subitem exists
 	 * 
-	 * We probably want to use get_plugin_page_hookname()
+	 * We probably want to use get_plugin_page_hook()
 	 *
 	 * @param string $menu_slug e.g. "oik_menu"
 	 * @param string $sub_item e.g. "oik_themes"
-	 * @return 
+	 * @return string|null the hookname it's registered
 	 */
-	
 	function query_menu_subitem( $menu_slug, $parent ) {
-	
-		//global $submenu, $menu, $_wp_real_parent_file, $_wp_submenu_nopriv, $_registered_pages, $_parent_pages;
-		
 		$hookname = get_plugin_page_hook( $menu_slug, $parent );
-		
-		//bw_trace2( $submenu, "submenu", true );
-		//bw_trace2( $menu, "menu", false );
-		//bw_trace2( $_registered_pages, "_registered_pages", false );
-		//bw_trace2( $_parent_pages, "_parent_pages", false );
 		return( $hookname );
+	}
 	
-	} 
-	 
-	function add_oik_menu( $callback ) {
+	/**
+	 * Add the oik updates and Updates menu items if required
+	 * 
+	 * If oik or another plugin or theme has already added the oik_menu then we don't need to
+	 * Otherwise we add the primary menu item and its first child
+	 */
+	function add_oik_menu() {
 		$menu_slug = $this->query_menu( "oik_menu" );
 		if ( !$menu_slug ) {
-			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik ', 'oik'), 'manage_options', 'oik_menu', $callback );
+			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik updates', 'oik'), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
+			$hook = add_submenu_page( 'oik_menu', __( 'oik updates', 'oik' ), __( 'Updates', 'oik'), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
 		}
 	}
 
@@ -164,9 +150,8 @@ class OIK_Theme_Update {
 	function admin_menu() {
 		$themes_slug = $this->query_menu_subitem( "oik_themes", "oik_menu" );
 		if ( !$themes_slug ) {
-			$oik_themes = array( $this, 'oik_themes_do_page' );
-			$this->add_oik_menu( $oik_themes );
-			add_submenu_page( 'oik_menu', __( 'oik themes', 'oik' ), __('themes', 'oik'), 'manage_options', 'oik_themes', $oik_themes );
+			$this->add_oik_menu();
+			add_submenu_page( 'oik_menu', __( 'oik themes', 'oik' ), __('Themes', 'oik'), 'manage_options', 'oik_themes', array( $this, 'oik_themes_do_page' ) );
 			$loaded = $this->bootstrap_oik_libs();
 			if ( $loaded ) {
 				$dependencies = array( "class-bobbcomp" => "0.0.1" 
@@ -340,6 +325,31 @@ class OIK_Theme_Update {
 		//echo "Loaded!";
 		//print_r( get_included_files() );
 		return( $loaded );
+	}
+	
+	/**
+	 * Implement oik_menu for oik_themes
+	 * 
+	 * This page should be similar to oik_server
+	 */
+	function oik_menu() {
+		$this->oik_plugins_servers();
+		do_action( "oik_menu_box" );
+	}
+	
+	function oik_plugins_servers() {
+		p( "Some oik plugins and themes are supported from servers other than WordPress.org" );
+		p( "Premium plugin and theme versions require API keys." );
+		
+		if ( $this->query_menu_subitem( "oik_plugins", "oik_menu" ) ) {
+			p( "Use the Plugins page to manage oik plugins servers and API keys" );
+      _alink( "button-secondary", admin_url("admin.php?page=oik_plugins"), "Plugins", "Manage plugin servers and API keys" );
+		}
+		if ( $this->query_menu_subitem( "oik_themes", "oik_menu" ) ) {
+			p( "Use the Themes page to manage oik themes servers and API keys" );
+			_alink( "button-secondary", admin_url("admin.php?page=oik_themes"), "Themes", "Manage theme servers and API keys" );
+		}
+		bw_flush();
 	}
 
 }
