@@ -4,9 +4,9 @@ if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
 
 /**
  * Library: oik_themes
- * Provided: oik_themes
- * Depends: oik-admin
- * Version: v0.0.2
+ * Provides: oik_themes
+ * Depends: oik-admin, class-oik-update
+ * Deferred dependencies: oik-depends, class-oik-remote
  * 
  * Implements oik/admin/oik-themes.inc as a shared library: bobbingwide/oik_themes
  * Note: hyphens for plugins, underscores for libraries
