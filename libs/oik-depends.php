@@ -1,8 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2016
+<?php // (C) Copyright Bobbing Wide 2012-2017
 if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
-define( "OIK_DEPENDS_INCLUDED", "3.1.0" );
-
-
+define( "OIK_DEPENDS_INCLUDED", "3.1.2" );
 
 /**
  * Dependency checking library functions
@@ -19,38 +17,39 @@ define( "OIK_DEPENDS_INCLUDED", "3.1.0" );
  * 
  *
  */
- 
- 
-
 
 /**
- * Return an associative version of the active plugins array  
+ * Returns an associative version of the active plugins array  
  *
- * $active_plugins is an array that looks like this.
- * bw_plug() is able to handle it so we can do the same here
- * EXCEPT bw_plug works at the "top level" not the child plugins
- * We convert this array into an associative array keyed on the sub-plugin name
+ * - $active_plugins is an array that looks like column 1 in the table below.
+ * - bw_plug() is able to handle it so we can do the same here
+ * - EXCEPT bw_plug works at the "top level" not the child plugins
+ * - We convert this array into an associative array keyed on the sub-plugin name
  *
  * $active_plugins                                     | $names (keys only - 
  * --------------------------------------------------- | -------------------------------
- *  [0] => abt-featured-heroes/abt-featured-heroes.php |   ['abt-featured-heros'] 
+ *  [0] => abt-featured-heroes/abt-featured-heroes.php |   ['abt-featured-heroes'] 
  *  [1] => effort/tasks.php                            |   ['tasks'] 
  *  [2] => fancybox-for-wordpress/fancybox.php         |   ['fancybox']
  *  [3] => oik/oik-bob-bing-wide.php                   |   ['oik-bob-bing-wide']
  *  [4] => oik/oik-bwtrace.php                         |   ['oik-bwtrace'] 
- *  etcetera      
- *                                     |   ...
- * We haven't tested what happens if TWO or more plugins offer the same plugin name!
- * One of the first problems we get is if the two plugins share the same function names.
- *                                                    
+ *  etcetera                                           |   ...
+ * 
+ * Note: If two or more plugins offer the same plugin name then we only return the last plugin with that name.
+ * This could cause problems with renamed plugin folders.
+ * 
+ * @param array $active_plugins, may be false
+ * @return array associative array of active plugins - may be empty, but very unlikely                                                  
  */
 function bw_get_all_plugin_names( $active_plugins ) {
   $names = array();
-  if ( count( $active_plugins ) ) {
-    foreach ( $active_plugins as $key => $value ) {
-      $name = basename( $value, '.php' );
-      $names[$name] = $value;
-    } 
+  if ( is_array( $active_plugins ) ) {
+		if ( count( $active_plugins ) ) {
+			foreach ( $active_plugins as $key => $value ) {
+				$name = basename( $value, '.php' );
+				$names[$name] = $value;
+			} 
+		}	
   }
   return( $names ); 
 } 
@@ -194,8 +193,11 @@ function oik_check_version( $depend, $version ) {
  */
 function bw_get_active_plugins() {
   $active_plugins = get_option( 'active_plugins' );
-  //bw_trace2( $active_plugins, "active plugins" );
-  $names = bw_get_all_plugin_names( $active_plugins );
+  bw_trace2( $active_plugins, "active plugins", false );
+	$names = array();
+	if ( $active_plugins ) {
+		$names = bw_get_all_plugin_names( $active_plugins );
+	}
   if ( is_multisite() ) {
     $active_plugins = get_site_option( 'active_sitewide_plugins');
     $ms_names = bw_ms_get_all_plugin_names( $active_plugins );
