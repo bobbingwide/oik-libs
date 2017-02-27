@@ -102,7 +102,7 @@ function oik_batch_locate_wp_config() {
 		}
 	}
 	//echo "wp-config in: $abspath" . PHP_EOL;
-	echo "ABSPATH: $abspath" . PHP_EOL;
+	//echo "ABSPATH: $abspath" . PHP_EOL;
 	return( $abspath );
 }
 
