@@ -1,4 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2015, 2016
+if ( !defined( "OIK_GIT_INCLUDED" ) ) {
+define( "OIK_GIT_INCLUDED", "0.0.1" );
 /**
  * git functions
  * 
@@ -24,3 +26,6 @@ function git() {
 	$git = Git::instance();
 	return( $git );
 }
+
+
+} /* end if !defined */
