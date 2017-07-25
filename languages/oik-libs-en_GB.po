@@ -7,7 +7,7 @@ msgstr ""
 "POT-Creation-Date: 2017-07-11 15:49:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
-"Language: bb_BB\n"
+"Language: en_GB\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
@@ -15,308 +15,246 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 #: libs/bobbforms.php:510
 msgid "None"
-msgstr "Nnoe"
-
+msgstr "None"
 
 #: libs/class-oik-plugin-update.php:139 libs/class-oik-theme-update.php:138
 msgid "[oik] Options"
-msgstr "[oik] Otpoins"
-
+msgstr "[oik] Options"
 
 #: libs/class-oik-plugin-update.php:139 libs/class-oik-plugin-update.php:140
 #: libs/class-oik-theme-update.php:138 libs/class-oik-theme-update.php:139
 msgid "oik updates"
-msgstr "OIk udptaes"
-
+msgstr "oik updates"
 
 #: libs/class-oik-plugin-update.php:140 libs/class-oik-theme-update.php:139
 msgid "Updates"
-msgstr "Udptaes"
-
+msgstr "Updates"
 
 #: libs/class-oik-plugin-update.php:155
 msgid "oik plugins"
-msgstr "OIk puligns"
-
+msgstr "oik plugins"
 
 #: libs/class-oik-plugin-update.php:155 libs/class-oik-plugin-update.php:347
 #: libs/class-oik-theme-update.php:346
 msgid "Plugins"
-msgstr "Puligns"
-
+msgstr "Plugins"
 
 #: libs/class-oik-plugin-update.php:342 libs/class-oik-theme-update.php:341
 msgid ""
 "Some oik plugins and themes are supported from servers other than WordPress."
 "org"
-msgstr ""
-"Smoe OIk puligns And tehems ArE spuoptred form sreevrs ohter tahn WroPderss."
-"Org"
-
+msgstr "Some oik plugins and themes are supported from servers other than WordPress.org"
 
 #: libs/class-oik-plugin-update.php:343 libs/class-oik-theme-update.php:342
 msgid "Premium plugin and theme versions require API keys."
-msgstr "Perimum pulign And tehme vreisnos rqeiure API kyes."
-
+msgstr "Premium plugin and theme versions require API keys."
 
 #: libs/class-oik-plugin-update.php:346 libs/class-oik-theme-update.php:345
 msgid "Use the Plugins page to manage oik plugins servers and API keys"
-msgstr "UsE thE Puligns pgae tO mnagae OIk puligns sreevrs And API kyes"
-
+msgstr "Use the Plugins page to manage oik plugins servers and API keys"
 
 #: libs/class-oik-plugin-update.php:347 libs/class-oik-theme-update.php:346
 msgid "Manage plugin servers and API keys"
-msgstr "Mnagae pulign sreevrs And API kyes"
-
+msgstr "Manage plugin servers and API keys"
 
 #: libs/class-oik-plugin-update.php:350 libs/class-oik-theme-update.php:349
 msgid "Use the Themes page to manage oik themes servers and API keys"
-msgstr "UsE thE Tehems pgae tO mnagae OIk tehems sreevrs And API kyes"
-
+msgstr "Use the Themes page to manage oik themes servers and API keys"
 
 #: libs/class-oik-plugin-update.php:351 libs/class-oik-theme-update.php:154
 #: libs/class-oik-theme-update.php:350
 msgid "Themes"
-msgstr "Tehems"
-
+msgstr "Themes"
 
 #: libs/class-oik-plugin-update.php:351 libs/class-oik-theme-update.php:350
 msgid "Manage theme servers and API keys"
-msgstr "Mnagae tehme sreevrs And API kyes"
-
+msgstr "Manage theme servers and API keys"
 
 #: libs/class-oik-theme-update.php:98 libs/oik_plugins.php:90
 #: libs/oik_themes.php:86
 msgid "Settings"
-msgstr "Steitgns"
-
+msgstr "Settings"
 
 #: libs/class-oik-theme-update.php:154
 msgid "oik themes"
-msgstr "OIk tehems"
-
+msgstr "oik themes"
 
 #: libs/oik-activation.php:24
 msgid "Install"
-msgstr "Isnatll"
-
+msgstr "Install"
 
 #: libs/oik-activation.php:53
 msgid "Activate"
-msgstr "Atcvitae"
-
+msgstr "Activate"
 
 #: libs/oik-activation.php:73
 msgid "Update"
-msgstr "Udptae"
-
+msgstr "Update"
 
 #: libs/oik-activation.php:191 libs/oik-depends.php:138
 msgid "%1$s may not be fully functional."
-msgstr "%1$s mAy nOt bE fluly fnutcoianl."
-
+msgstr "%1$s may not be fully functional."
 
 #: libs/oik-activation.php:193 libs/oik-depends.php:140
 msgid ""
 "Please install and activate the required minimum version of this plugin:"
-msgstr ""
-"Pelsae isnatll And atcvitae thE rqeiuerd mnimium vreison Of tihs pulign:"
-
+msgstr "Please install and activate the required minimum version of this plugin:"
 
 #: libs/oik-admin.php:56
 msgid "Click to toggle"
-msgstr "Cilck tO tgolge"
-
+msgstr "Click to toggle"
 
 #: libs/oik-cli.php:300
 msgid "oik-wp running WordPress %s"
-msgstr "OIk-wp rnuinng WroPderss %s"
-
+msgstr "oik-wp running WordPress %s"
 
 #: libs/oik-honeypot.php:45
 msgid "Humans leave this blank"
-msgstr "Hmunas laeve tihs balnk"
-
+msgstr "Humans leave this blank"
 
 #: libs/oik_plugins.php:36
 msgid "plugin server settings"
-msgstr "pulign sreevr steitgns"
-
+msgstr "plugin server settings"
 
 #: libs/oik_plugins.php:57 libs/oik_plugins.php:122 libs/oik_themes.php:53
 #: libs/oik_themes.php:118
 msgid "Check"
-msgstr "Cehck"
-
+msgstr "Check"
 
 #: libs/oik_plugins.php:84 libs/oik_themes.php:80
 msgid "Add new"
-msgstr "Add nEw"
-
+msgstr "Add new"
 
 #: libs/oik_plugins.php:88
 msgid "Edit plugin"
-msgstr "Eidt pulign"
-
+msgstr "Edit plugin"
 
 #: libs/oik_plugins.php:115 libs/oik_themes.php:111
 msgid "Reset"
-msgstr "Rseet"
-
+msgstr "Reset"
 
 #: libs/oik_plugins.php:115
 msgid "Reset plugin's profile entry"
-msgstr "Rseet pulign's porifle etnry"
-
+msgstr "Reset plugin's profile entry"
 
 #: libs/oik_plugins.php:117 libs/oik_themes.php:113
 msgid "Delete"
-msgstr "Dletee"
-
+msgstr "Delete"
 
 #: libs/oik_plugins.php:117
 msgid "Delete plugin's profile entry"
-msgstr "Dletee pulign's porifle etnry"
-
+msgstr "Delete plugin's profile entry"
 
 #: libs/oik_plugins.php:120 libs/oik_themes.php:116
 msgid "Edit"
-msgstr "Eidt"
-
+msgstr "Edit"
 
 #: libs/oik_plugins.php:230 libs/oik_themes.php:202
 msgid "settings must not be blank"
-msgstr "steitgns msut nOt bE balnk"
-
+msgstr "settings must not be blank"
 
 #: libs/oik_plugins.php:266
 msgid "default oik plugins server"
-msgstr "dfeualt OIk puligns sreevr"
-
+msgstr "default oik plugins server"
 
 #: libs/oik_plugins.php:267
 msgid "The default oik plugins server is currently set to: %1$s"
-msgstr "ThE dfeualt OIk puligns sreevr Is cruertnly sEt tO: %1$s"
-
+msgstr "The default oik plugins server is currently set to: %1$s"
 
 #: libs/oik_plugins.php:271 libs/oik_plugins.php:290
 msgid "plugin"
-msgstr "pulign"
-
+msgstr "plugin"
 
 #: libs/oik_plugins.php:272 libs/oik_themes.php:238
 msgid "version"
-msgstr "vreison"
-
+msgstr "version"
 
 #: libs/oik_plugins.php:273 libs/oik_plugins.php:291 libs/oik_plugins.php:306
 #: libs/oik_themes.php:239 libs/oik_themes.php:254 libs/oik_themes.php:266
 msgid "server"
-msgstr "sreevr"
-
+msgstr "server"
 
 #: libs/oik_plugins.php:274 libs/oik_plugins.php:292 libs/oik_themes.php:240
 #: libs/oik_themes.php:255
 msgid "apikey"
-msgstr "aipeky"
-
+msgstr "apikey"
 
 #: libs/oik_plugins.php:275 libs/oik_themes.php:241
 msgid "actions"
-msgstr "atcoins"
-
+msgstr "actions"
 
 #: libs/oik_plugins.php:279
 msgid "Add plugin"
-msgstr "Add pulign"
-
+msgstr "Add plugin"
 
 #: libs/oik_plugins.php:307 libs/oik_themes.php:267
 msgid "apikey?"
-msgstr "aipeky?"
-
+msgstr "apikey?"
 
 #: libs/oik_plugins.php:341
 msgid "A new version of the plugin is available"
-msgstr "A nEw vreison Of thE pulign Is aavlibale"
-
+msgstr "A new version of the plugin is available"
 
 #: libs/oik_plugins.php:348
 msgid "Plugin is up to date."
-msgstr "Pulign Is Up tO dtae."
-
+msgstr "Plugin is up to date."
 
 #: libs/oik_themes.php:32
 msgid "theme server settings"
-msgstr "tehme sreevr steitgns"
-
+msgstr "theme server settings"
 
 #: libs/oik_themes.php:84
 msgid "Edit theme"
-msgstr "Eidt tehme"
-
+msgstr "Edit theme"
 
 #: libs/oik_themes.php:111
 msgid "Reset theme's profile entry"
-msgstr "Rseet tehme's porifle etnry"
-
+msgstr "Reset theme's profile entry"
 
 #: libs/oik_themes.php:113
 msgid "Delete theme's profile entry"
-msgstr "Dletee tehme's porifle etnry"
-
+msgstr "Delete theme's profile entry"
 
 #: libs/oik_themes.php:232
 msgid "default oik themes server"
-msgstr "dfeualt OIk tehems sreevr"
-
+msgstr "default oik themes server"
 
 #: libs/oik_themes.php:233
 msgid "The default oik themes server is currently set to: %1$s"
-msgstr "ThE dfeualt OIk tehems sreevr Is cruertnly sEt tO: %1$s"
-
+msgstr "The default oik themes server is currently set to: %1$s"
 
 #: libs/oik_themes.php:237 libs/oik_themes.php:253
 msgid "theme"
-msgstr "tehme"
-
+msgstr "theme"
 
 #: libs/oik_themes.php:245
 msgid "Add theme"
-msgstr "Add tehme"
-
+msgstr "Add theme"
 
 #: libs/oik_themes.php:293
 msgid "A new version of the theme is available"
-msgstr "A nEw vreison Of thE tehme Is aavlibale"
-
+msgstr "A new version of the theme is available"
 
 #: libs/oik_themes.php:300
 msgid "Theme is up to date."
-msgstr "Tehme Is Up tO dtae."
-
+msgstr "Theme is up to date."
 
 #. Plugin Name of the plugin/theme
 msgid "oik-libs"
-msgstr "OIk-lbis"
-
+msgstr "oik-libs"
 
 #. Plugin URI of the plugin/theme
 msgid ""
 "http://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository"
-msgstr ""
-"http://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository"
-
+msgstr "http://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository"
 
 #. Description of the plugin/theme
 msgid "Master repository for shared libraries"
-msgstr "Msaetr rpesotiroy fOr saherd lbiarires"
-
+msgstr "Master repository for shared libraries"
 
 #. Author of the plugin/theme
 msgid "bobbingwide"
-msgstr "bboibgniwde"
-
+msgstr "bobbingwide"
 
 #. Author URI of the plugin/theme
 msgid "http://www.oik-plugins.com/author/bobbingwide"

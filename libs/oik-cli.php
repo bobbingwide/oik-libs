@@ -1,12 +1,19 @@
 <?php // (C) Copyright Bobbing Wide 2015,2016
+if ( !defined( "OIK_CLI_INCLUDED" ) ) {
+	define( "OIK_CLI_INCLUDED", "0.9.0" );
 
 /**
  * Command Line Interface (CLI) functions
+ * 
+ * Library: oik-cli
+ * Provides: oik-cli
+ * Depends: 
  *
- * This file should eventually be a shared library file
- * containing some of the common routines used in the oik-zip, oik-tip and other routines
+ * This is planned to be a shared library file
+ * containing some of the common functions used in oik-zip, oik-tip and other routines
  * including those that deal with directory changes in symlinked environments
  * and others that return responses to the calling routines and make decisions based on them
+ *
  */
  
 /**
@@ -478,7 +485,9 @@ function oik_batch_debug() {
 function oik_batch_trace( $trace_on=false ) {
 	if ( $trace_on ) {
 		if ( !defined( 'BW_TRACE_ON' )  ) {
-			define( 'BW_TRACE_CONFIG_STARTUP', true );
+			if ( !defined( 'BW_TRACE_CONFIG_STARTUP' ) ) {
+				define( 'BW_TRACE_CONFIG_STARTUP', true );
+			}
 			define( 'BW_TRACE_ON', true);
 			define( 'BW_TRACE_RESET', false );
 		}  
@@ -595,7 +604,7 @@ function oik_batch_run_script( $script ) {
 }
 
 
-
+} /* end if !defined */
 
 
 
