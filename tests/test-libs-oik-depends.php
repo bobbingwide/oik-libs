@@ -52,14 +52,14 @@ class Tests_libs_oik_depends extends BW_UnitTestCase {
 	 * Test the TODO
    * 
 	 * Testing two plugins which have the main plugin file called z.php
-	 * The result is that index 'z' gets overridden by the last plugin.
+	 * The result is that index 'z' gets overridden by the first plugin.
 	 * This is not really an issue for us, since we don't have any plugins that still deliver
 	 * multiple plugins with the same name.
 	 */
 	function test_bw_get_all_plugin_names_two_plugins_with_same_main_file() {
 		$active_plugins = array( "y/z.php", "z/z.php" );
 		$plugins = bw_get_all_plugin_names( $active_plugins );
-		$expected_output = array( "z" => "z/z.php" );
+		$expected_output = array( "z" => "y/z.php" );
 		$this->assertEquals( $plugins, $expected_output );
 		
 	} 
