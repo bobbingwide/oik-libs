@@ -182,6 +182,7 @@ if ( !function_exists( "oik_require_lib" ) ) {
 			bw_trace2( $library_file, "library_file: $library", true, BW_TRACE_VERBOSE );
 			bw_backtrace( BW_TRACE_VERBOSE );
 		}
+		oik_require_library_textdomain( $library_file );
 		return( $library_file );
 	}
 }
@@ -276,6 +277,67 @@ if ( !function_exists( "bw_log" ) ) {
 		}
 		return( $value );
 	}
-} 
+}
+
+/**
+ * Loads the oik-libs text domain
+ *
+ * Load the oik-libs text domain from the \languages folder
+ * If it fails to load then we don't want to try again.
+ * So we need to pretend it's been loaded.
+ 
+ * 
+ * @param string|object $libary_file
+ 
+ */
+function oik_require_library_textdomain( $library_file ) {
+	static $loaded = false;
+	
+	if ( $loaded ) {
+		//echo ':';
+		return;
+	}
+
+	if ( !function_exists( "is_textdomain_loaded" ) || !function_exists( "is_admin" ) ) {
+		return;
+	}
+	
+	if ( is_textdomain_loaded( "oik-libs" ) ) {
+		$loaded = true;
+		//echo ".";
+		return;
+	}
+
+	if ( is_object( $library_file ) ) {
+		if ( $library_file instanceof OIK_lib ) {
+			$src = $library_file->src;
+		} else {
+			$src = null;
+		}
+	} else {
+		$src = $library_file;
+	}
+	
+	if ( $src ) {
+		//echo $src;
+		// The first dirname() locates the directory that the file's in
+		// The second locates its parent directory.
+		// 
+		$text_domain = dirname( dirname( $src ) );	
+		$text_domain .= "/languages/oik-libs";
+		
+		$locale = is_admin() ? get_user_locale() : get_locale();
+		$mofile = $text_domain . '-' . $locale . '.mo';
+		$loaded = load_textdomain( "oik-libs", $mofile );
+		if ( !$loaded ) {
+			// Note: This trace record can be produced for any locale, including en_US
+			bw_trace2( $mofile, "load_textdomain failed, but we'll pretend it succeeded", true, BW_TRACE_ERROR );
+			$loaded = true;
+		}	else {
+			bw_trace2( $loaded, "load_textdomain", true, BW_TRACE_VERBOSE );
+		}
+	}
+		
+}
 
 } /* end if !defined */

@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2012-2017
 if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
-define( "OIK_DEPENDS_INCLUDED", "3.1.2" );
+define( "OIK_DEPENDS_INCLUDED", "3.2.0" );
 
 /**
  * Dependency checking library functions
@@ -35,8 +35,8 @@ define( "OIK_DEPENDS_INCLUDED", "3.1.2" );
  *  [4] => oik/oik-bwtrace.php                         |   ['oik-bwtrace'] 
  *  etcetera                                           |   ...
  * 
- * Note: If two or more plugins offer the same plugin name then we only return the last plugin with that name.
- * This could cause problems with renamed plugin folders.
+ * Note: If two or more plugins offer the same plugin name then we only return the first plugin with that name.
+ * This should cater for copies of the plugins with suffixes. e.g `oik` and `oik v3.1`
  * 
  * @param array $active_plugins, may be false
  * @return array associative array of active plugins - may be empty, but very unlikely                                                  
@@ -47,7 +47,9 @@ function bw_get_all_plugin_names( $active_plugins ) {
 		if ( count( $active_plugins ) ) {
 			foreach ( $active_plugins as $key => $value ) {
 				$name = basename( $value, '.php' );
-				$names[$name] = $value;
+				if ( !isset( $names[ $name ] ) ) {
+					$names[$name] = $value;
+				}
 			} 
 		}	
   }

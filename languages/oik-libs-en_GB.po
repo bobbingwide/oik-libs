@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oik-libs 0.0.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/oik-libs\n"
-"POT-Creation-Date: 2017-07-11 15:49:33+00:00\n"
+"POT-Creation-Date: 2017-07-25 13:53:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 "Language: en_GB\n"
@@ -91,18 +91,18 @@ msgstr "Activate"
 msgid "Update"
 msgstr "Update"
 
-#: libs/oik-activation.php:191 libs/oik-depends.php:138
+#: libs/oik-activation.php:191 libs/oik-depends.php:140
 msgid "%1$s may not be fully functional."
 msgstr "%1$s may not be fully functional."
 
-#: libs/oik-activation.php:193 libs/oik-depends.php:140
+#: libs/oik-activation.php:193 libs/oik-depends.php:142
 msgid ""
 "Please install and activate the required minimum version of this plugin:"
 msgstr "Please install and activate the required minimum version of this plugin:"
 
-#: libs/oik-admin.php:56
-msgid "Click to toggle"
-msgstr "Click to toggle"
+#: libs/oik-admin.php:69
+msgid "Toggle panel: %s"
+msgstr "Toggle panel: %s"
 
 #: libs/oik-cli.php:300
 msgid "oik-wp running WordPress %s"

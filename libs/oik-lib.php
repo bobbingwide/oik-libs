@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015, 2016
+<?php // (C) Copyright Bobbing Wide 2015, 2017
 if ( !defined( 'OIK_LIB_INCLUDED' ) ) {
-define( 'OIK_LIB_INCLUDED', "0.0.4" );
+define( 'OIK_LIB_INCLUDED', "0.1.0" );
 
 /**
  * oik library management functions
@@ -131,6 +131,8 @@ function oik_require_lib( $library, $version=null, $args=null ) {
 	$oik_libs = oik_libs();
 	$library_file = $oik_libs->require_lib( $library, $version, $args );
 	bw_trace2( $library_file, "library_file", true, BW_TRACE_VERBOSE );
+	
+	oik_require_library_textdomain( $library_file );
 	return( $library_file );	
 }
 }
@@ -194,7 +196,7 @@ function oik_lib_register_default_libs() {
  * @TODO Note: This may be inefficient. There may be libraries that are hardly ever requested
  * It would be better if we defer the file_exists() logic until the library is actually requested. 
  * Similarly, we may defer the building of $src... which would require setting a "plugin" or "theme" parameter
- * and possible a "libs" path. 
+ * and possibly a "libs" path. 
  *
  * @param array $libraries array of registered libraries
  * @param array $libs array of libraries to add in form "library" => "dependencies"
@@ -207,10 +209,13 @@ function oik_lib_check_libs( $libraries, $libs, $plugin ) {
 		$src = oik_path( "libs/$library.php", $plugin ); 
 		if ( file_exists( $src ) ) {
 			$lib_args['library'] = $library;
-      $lib_args['src'] = $src;
+			$lib_args['src'] = $src;
 			$lib_args['deps'] = $depends;
 			$lib = new OIK_lib( $lib_args );
 			$libraries[] = $lib;
+		} else {
+			echo "$plugin does not deliver $library file in $src";
+			gob();
 		}
 	}
 	return( $libraries );

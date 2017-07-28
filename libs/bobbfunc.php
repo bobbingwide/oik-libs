@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2009-2016
+<?php // (C) Copyright Bobbing Wide 2009-2017
 if ( !defined( "BOBBFUNC_INCLUDED" ) ) {
-define( "BOBBFUNC_INCLUDED", "3.1.0" );
+define( "BOBBFUNC_INCLUDED", "3.2.0" );
 
 /**
  * HTML output library functions
@@ -180,6 +180,9 @@ function kv( $keyword, $value=null ) {
 
 /**
  * Format a sanitized title= parameter 
+ * 
+ * Note: More often than not, for a11y, the title= parameter is not recommended.
+ *
  * @param $string - the title
  * @return $string
  */  
@@ -497,6 +500,8 @@ function h6( $text, $class=NULL, $id=NULL ) {
  * Within functions where the $text parameter is translatable use:
  *   e( bw_translate( $text ) )
  * 
+ * Note: This function will be deprecated.
+ * 
  */  
 function bwt( $text=NULL ) {
   global $bbboing;  
@@ -509,11 +514,14 @@ function bwt( $text=NULL ) {
 }
 
 /**
- * @func e for bw_echo( if not NULL
+ * Outputs some translated / non-translatable text
+ * 
+ * @param string $text any translated text or non translatable HTML
  */
 function e( $text = NULL ) {
-  if ( !is_null( $text ))
-    bw_echo( $text );
+	if ( !is_null( $text )) {
+		bw_echo( $text );
+	}
 }
 
 /** 
@@ -916,16 +924,12 @@ function bw_sc_snippet( $shortcode="oik" ) {
 /**
  * Dynamic jQuery setting the selector, function and option parameters
  *
- * When should we use?
- * 
- * - jQuery(window).load(function() - when you need to wait for images to load?
- * - jQuery(function()
- * - jQuery(document).ready(function()
+ * Note: jQuery(document).ready( fn ) has been deprecated in jQuery 3.0
  *
  * @param string $selector - the jQuery selector
  * @param string $method - the jQuery method to invoke
  * @param string $parms - parameters overriding the method's defaults
- * @param bool $windowload
+ * @param bool $windowload - use true when you need to wait for images to load
  */  
 if ( !function_exists( "bw_jquery" ) ) {
 function bw_jquery( $selector, $method, $parms=null, $windowload=false ) {
@@ -934,9 +938,9 @@ function bw_jquery( $selector, $method, $parms=null, $windowload=false ) {
 	} 
 	bw_jq( "<script type=\"text/javascript\">" );
 	if ( $windowload ) {
-		$jqfn = "jQuery(window).load(function()";
+		$jqfn = 'jQuery(window).on( "load", function()';
 	} else {
-		$jqfn = "jQuery(document).ready(function()"; 
+		$jqfn = "jQuery( function()"; 
 	}    
 	$function = "$jqfn { jQuery( \"$selector\" ).$method( $parms ); });";
 	bw_jq( $function );
@@ -1175,11 +1179,13 @@ function bw_pick_one( $preferred, $alternate ) {
  * If the path is not given then it will be the root of the plugin directory.
  *
  * @param string $domain the plugin name
+ * @return bool 
  */
 function bw_load_plugin_textdomain( $domain="oik" ) {
   $languages_dir =  "$domain/languages";
-  //bw_trace2( $languages_dir, "languages dir" );
-  load_plugin_textdomain( $domain, false, $languages_dir );
+  bw_trace2( $languages_dir, "languages dir" );
+  $loaded = load_plugin_textdomain( $domain, false, $languages_dir );
+	return $loaded;
 }  
 
 /**
@@ -1298,14 +1304,27 @@ function bw_context( $field, $value=null ) {
 } 
 
 /**
- * Wrapper to translate - well it was! Herb 2013/10/31 
- *
- * Similar to __() but with overriding logic to disable translation
+ * Wrapper to translate 
+ * 
+ * - Similar to __() but with overriding logic to disable translation
+ * - translation can be disabled by using bw_translation_off()
+ * - translation can be re-enabled by using bw_translation_on()
+ * - the textdomain can be set using bw_context( "textdomain", 'plugin-slug' );
+ * - the textdomain can be reset to the default ( 'oik' ) using bw_context( "textdomain", false );
  * 
  * @param string $text - text to be translated
  * @return string $text - the translated text
  */
 function bw_translate( $text ) {
+	if ( function_exists( "_deprecated_function" ) ) {
+		if ( defined( 'BW_TRANSLATE_DEPRECATED' ) && BW_TRANSLATE_DEPRECATED ) {
+			_deprecated_function( __FUNCTION__, "oik v3.2.0", "a suitable replacement method from class BW_" );
+		}
+	} else {
+		//  Perhaps it's not WordPress;
+		bw_trace2();
+		bw_backtrace(); 
+	}
   $translation = bw_context( "bw_translation" );
   if ( $translation == "off" ) {
     // Text has already been translated? 
@@ -1319,8 +1338,9 @@ function bw_translate( $text ) {
     //if ( is_callable( "get_translations_for_domain" ) ) } 
       $translations = get_translations_for_domain( $textdomain );
       $text = $translations->translate( $text );
+			bw_trace2( $text, "Translation for: $textdomain", true, BW_TRACE_VERBOSE );  
     //}  
-  }  
+  }
   return( $text );
 } 
 

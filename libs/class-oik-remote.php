@@ -1,13 +1,13 @@
-<?php // (C) Copyright Bobbing Wide 2012-2016
+<?php // (C) Copyright Bobbing Wide 2012-2017
 
 if ( !defined( "CLASS_OIK_REMOTE_INCLUDED" ) ) {
-	define( "CLASS_OIK_REMOTE_INCLUDED", "0.0.0" );
+	define( "CLASS_OIK_REMOTE_INCLUDED", "0.1.0" );
 
 /**
  * Library: class-oik-remote
  * Provided: class-oik-remote
  * Depends: class-oik-update - a cyclical dependency
- * Version: v0.0.0
+ * Version: v0.1.0
  * 
  * Implements oik/includes/oik-remote.inc as a shared library.
  * Note: hyphens for plugins, underscores for libraries, hyphens for class libraries :-)
@@ -148,6 +148,7 @@ static function bw_retrieve_result( $request ) {
  * @return unserialized result or null
  */ 
 static function bw_remote_post( $url, $args ) {
+	$args = self::bw_adjust_args( $args, $url );
 	$request = wp_remote_post( $url, $args );
 	if ( is_wp_error ($request ) ) {
 		bw_trace2( $request, "request is_wp_error" );
@@ -722,9 +723,53 @@ static function bw_json_decode( $json, $assoc=false ) {
 	return( $decoded );
 }
 
+	/**
+	 * Adjust the args for the wp_remote_post
+	 * 
+	 * We're trying to avoid some common errors from cURL
+	 * Error														  |	Workaround
+	 * ---------------------------------- | -----------
+	 * cURL error 60: SSL certificate problem: unable to get local issuer certificate	 |	 Set sslverify false for local requests
+	 * cURL error 28: Operation timed out after 10000 milliseconds with 0 bytes received | Set timeout to 15 seconds
+	 * 
+	 * @param array $args
+	 * @param string $url
+	 * @return array adjusted args
+	 *
+	 * @TODO Decide if this should have been implemented as a filter for 'http_request_args' 
+	
+
+		$args["sslverify"] = false; 
+		//$args["sslverify"] = true;
+		//$args["sslcertificates"] = "C:/apache24/conf/cacert.pem";
+		//$args['local'] = true;
+	 * 
+	 */
+
+	static function bw_adjust_args( $args, $url ) {
+		if ( self::are_you_local( $url ) ) {
+			$args['sslverify'] = false;
+		}
+		$args['timeout'] = 15000;
+		return $args;
+	}
+	
+	/**
+	 * Determines if this is a local request
+	 * 
+	 * @param string $url
+	 * @return bool - true if the host parf of the $url is considered to be local
+	 */
+	static function are_you_local( $url ) {
+		$local_host = $_SERVER['SERVER_NAME'];
+		$remote_host = parse_url( $url, PHP_URL_HOST );
+		$local = $local_host == $remote_host;
+		//bw_trace2( $local_host, "local_host" );
+		//bw_trace2( $remote_host, "remote_host" );
+		return $local;
+	}
+
 }
-
-
 
 } else {
 	//echo __FILE__;
