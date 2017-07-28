@@ -10,9 +10,14 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	function setUp() {
 	}
 	
-	
+	/**
+	 * Demonstrates that we can do translation the normal way.
+	 * 
+	 * Note: Switch to locale is pretty useless with regards to loading the language files for the new domain ( see TRAC 39210 ).
+	 * We have to load the bb_BB file ourselves.
+	 * 
+	 */
 	function test_translate_null_domain() {
-	
 		$translated = __( "None", null );
 		$this->assertEquals( "None", $translated );
 	
@@ -22,10 +27,11 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 		$translated = __( "None", "oik-libs" );
 		$this->assertEquals( "Nnoe", $translated );
 		
-		
 	}
 	
 	/**
+	 * Tests load and unload with null domain
+	 * 
 	 * This test demonstrates that null is a valid value for $domain
 	 * How can we use this to determine how to proceed?
 	 * 
@@ -33,17 +39,20 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	function test_load_null_domain() {
 		$loaded = load_textdomain( null, dirname( __DIR__) . "/languages/oik-libs-bb_BB.mo" );
 		$this->assertTrue( $loaded );
+		$loaded = $this->null_domain_loaded();
+		$this->assertTrue( $loaded );
 		
 		$translated = __( "None", null );
 		$this->assertEquals( "Nnoe", $translated );
 		
 		unload_textdomain( null );
+		$loaded = $this->null_domain_loaded();
+		$this->assertFalse( $loaded );
 		
 		global $l10n;
 		bw_trace2( array_keys( $l10n) , "array keys" );
 		//bw_trace2( $l10n, "l10n after null load" );
 	}
-	
 	
 	/**
 	 * This test allows us to intercept translations for the null text domain
@@ -51,10 +60,6 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	 * So how do we populate the null text domain?
 	 */
 	function test_hook_gettext_null_domain() {
-		
-		//global $l10n;
-		//bw_trace2( array_keys( $l10n) , "array keys" );
-		//bw_trace2( $l10n, "l10n after null load" );
 		add_filter( "gettext", array( $this, "hook_gettext" ), 10, 3 );
 		
 		$translated = __( "None", null );
@@ -66,12 +71,11 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	}
 	
 	/**
-	 * Implement deferred translation for the null domain
+	 * Implements deferred translation for the null domain
 	 * 
-	 * Should we use oik-libs instead of the null domain
+	 * @TODO Should we use oik-libs instead of the null domain?
 	 */
 	function hook_gettext( $translation, $text, $domain ) {
-	
 		if ( null === $domain ) {
 			$try_again = !$this->null_domain_loaded();
 			bw_trace2();
@@ -92,10 +96,11 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	}
 	
 	/** 
-	 * Loads the anonymous domain
+	 * Loads the anonymous ( null ) domain
+	 * 
+	 * Just In Time ( JIT ) loading of the Just Translate It ( JTI ) domain
 	 * 
 	 * Merges the translation strings from each domain.
-	 
 	 */
 	function load_null_domain() {
 		global $l10n;
