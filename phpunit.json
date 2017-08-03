@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="10" assertions="41" errors="0" failures="0" skipped="0" time="3.493903">
+    <testsuite name="Tests_libs_oik_depends" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-depends.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.034840">
+      <testcase name="test_bw_get_all_plugin_names_false_parameter" class="Tests_libs_oik_depends" classname="Tests_libs_oik_depends" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-depends.php" line="17" assertions="1" time="0.014204"/>
+      <testcase name="test_bw_get_all_plugin_names_documented_example" class="Tests_libs_oik_depends" classname="Tests_libs_oik_depends" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-depends.php" line="34" assertions="1" time="0.010562"/>
+      <testcase name="test_bw_get_all_plugin_names_two_plugins_with_same_main_file" class="Tests_libs_oik_depends" classname="Tests_libs_oik_depends" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-depends.php" line="59" assertions="1" time="0.010074"/>
+    </testsuite>
+    <testsuite name="Tests_libs_l10n" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-l10n.php" tests="1" assertions="7" errors="0" failures="0" skipped="0" time="0.554008">
+      <testcase name="test_oik_l10n_enable_jti" class="Tests_libs_l10n" classname="Tests_libs_l10n" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik-l10n.php" line="39" assertions="7" time="0.554008"/>
+    </testsuite>
+    <testsuite name="Tests_libs_oik_plugins" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik_plugins.php" tests="3" assertions="23" errors="0" failures="0" skipped="0" time="2.433640">
+      <testcase name="test_oik_plugins_check_bb_BB_error" class="Tests_libs_oik_plugins" classname="Tests_libs_oik_plugins" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik_plugins.php" line="47" assertions="12" time="0.542697"/>
+      <testcase name="test_oik_plugins_check_bb_BB_new_version" class="Tests_libs_oik_plugins" classname="Tests_libs_oik_plugins" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik_plugins.php" line="70" assertions="6" time="1.099918"/>
+      <testcase name="test_oik_plugins_check_bb_BB_uptodate" class="Tests_libs_oik_plugins" classname="Tests_libs_oik_plugins" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-libs-oik_plugins.php" line="106" assertions="5" time="0.791025"/>
+    </testsuite>
+    <testsuite name="Tests_translate_null_domain" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-translate-null-domain.php" tests="3" assertions="8" errors="0" failures="0" skipped="0" time="0.471415">
+      <testcase name="test_translate_null_domain" class="Tests_translate_null_domain" classname="Tests_translate_null_domain" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-translate-null-domain.php" line="23" assertions="3" time="0.020144"/>
+      <testcase name="test_load_null_domain" class="Tests_translate_null_domain" classname="Tests_translate_null_domain" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-translate-null-domain.php" line="45" assertions="4" time="0.011897"/>
+      <testcase name="test_hook_gettext_null_domain" class="Tests_translate_null_domain" classname="Tests_translate_null_domain" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-libs\tests\test-translate-null-domain.php" line="69" assertions="1" time="0.439374"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -756,9 +756,11 @@ static function bw_json_decode( $json, $assoc=false ) {
 	
 	/**
 	 * Determines if this is a local request
+	 *
+	 * @TODO Decide whether or not to cater for "localhost"
 	 * 
 	 * @param string $url
-	 * @return bool - true if the host parf of the $url is considered to be local
+	 * @return bool - true if the host part of the $url is considered to be local
 	 */
 	static function are_you_local( $url ) {
 		$local_host = $_SERVER['SERVER_NAME'];

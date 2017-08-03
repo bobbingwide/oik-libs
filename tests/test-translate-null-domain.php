@@ -8,6 +8,9 @@
 class Tests_translate_null_domain extends BW_UnitTestCase {
 
 	function setUp() {
+		unload_textdomain( "oik" );
+		unload_textdomain( "oik-libs" );
+		unload_textdomain( null );
 	}
 	
 	/**
@@ -27,6 +30,9 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 		$translated = __( "None", "oik-libs" );
 		$this->assertEquals( "Nnoe", $translated );
 		
+		unload_textdomain( "oik-libs" );
+		unload_textdomain( null );
+		
 	}
 	
 	/**
@@ -45,6 +51,7 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 		$translated = __( "None", null );
 		$this->assertEquals( "Nnoe", $translated );
 		
+		unload_textdomain( "oik-libs" );
 		unload_textdomain( null );
 		$loaded = $this->null_domain_loaded();
 		$this->assertFalse( $loaded );
@@ -60,14 +67,19 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	 * So how do we populate the null text domain?
 	 */
 	function test_hook_gettext_null_domain() {
+	
+		$loaded = load_textdomain( null, dirname( __DIR__) . "/languages/oik-libs-bb_BB.mo" );
 		add_filter( "gettext", array( $this, "hook_gettext" ), 10, 3 );
 		
 		$translated = __( "None", null );
 		$this->assertEquals( "Nnoe", $translated );
 		
-		remove_filter( "gettext", array( $this, "hook_gettext" ) );
+		remove_filter( "gettext", array( $this, "hook_gettext" ), 10 );
 		
 		$this->trace_l10n();
+		
+		unload_textdomain( "oik-libs" );
+		unload_textdomain( null );
 	}
 	
 	/**

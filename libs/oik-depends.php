@@ -92,8 +92,12 @@ function oik_plugin_inactive( $plugin=null, $dependencies=null, $problem=null ) 
   $plug_name = basename( $plugin, '.php' );
   $dependencies = str_replace( ":", " version ", $dependencies );
   list( $depends ) = explode(' ', trim( $dependencies ));
-  $text = "<p><b>$plug_name may not be fully functional</b>. ";
-  $text.= "Please install and activate the required version of this plugin: $dependencies</p>";
+  $text = "<p><b>";
+	$text .= sprintf( __( 'Plugin %1$s may not be fully functional.', null ), $plug_name );
+	$text .= '</b>';
+	$text .= ' ';
+  $text .= sprintf( __( 'Please install and activate the required minimum version of this plugin: %1$s', null ), $dependencies );
+	$text .= "</p>";
   if ( current_filter() == "admin_notices" ) {
 		if ( !isset( $checked[ $depends] ) ) { 
 			$message = '<div class=" updated fade">';
@@ -270,8 +274,9 @@ function oik_install_plugin( $plugin ) {
   $url = wp_nonce_url( $url, "install-plugin_$plugin" ); 
   $link = '<a href="';
   $link .= $url;
-  $link .= '">Install';
-  $link .= " $plugin</a>";
+  $link .= '">';
+	$link .= sprintf( __( 'Install %1$s', null ), $plugin );
+	$link .= "</a>";
   return( $link );
 }
 
@@ -297,8 +302,9 @@ function oik_activate_plugin( $plugin, $plugin_name) {
     $url = wp_nonce_url( $url, "activate-plugin_$plugin" ); 
     $link = '<a href="';
     $link .= $url;
-    $link .= '">Activate';
-    $link .= " ${plugin_name}</a>";
+    $link .= '">';
+		$link .= sprintf( __( 'Activate %1$s', null ), $plugin );
+    $link .= "</a>";
     return( $link );
 } 
  
@@ -314,8 +320,9 @@ function oik_update_plugin( $plugin ) {
   $url = wp_nonce_url( $url, "upgrade-plugin_$plugin" ); 
   $link = '<a href="';
   $link .= $url;
-  $link .= '">Upgrade';
-  $link .= " $plugin</a>";
+  $link .= '">';
+	$link .= sprintf( __( 'Upgrade %1$s', null ), $plugin );
+  $link .= "</a>";
   return( $link );
 }
 

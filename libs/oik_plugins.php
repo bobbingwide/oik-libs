@@ -33,7 +33,7 @@ if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
 function oik_lazy_plugins_server_settings() {
 	//bw_trace2();
 	//bw_backtrace();
-  BW_::oik_menu_header( __( "plugin server settings", "oik-libs" ), "w100pc" );
+  BW_::oik_menu_header( __( "plugin server settings", null ), "w100pc" );
   $validated = false;
   
   $check_plugin = bw_array_get( $_REQUEST, "check_plugin", null );
@@ -54,7 +54,7 @@ function oik_lazy_plugins_server_settings() {
   }  
   
   if ( $check_plugin ) {
-    BW_::oik_box( NULL, NULL, __( "Check", "oik-libs") , "oik_plugins_check" );
+    BW_::oik_box( NULL, NULL, __( "Check", null) , "oik_plugins_check" );
   } 
   
   if ( $delete_plugin ) { 
@@ -81,13 +81,13 @@ function oik_lazy_plugins_server_settings() {
   }
   
   if ( $oik_plugins_add_plugin || ( $oik_plugins_add_settings && !$validated )  ) {
-    BW_::oik_box( NULL, NULL, __( "Add new", "oik-libs" ), "oik_plugins_add_settings" );
+    BW_::oik_box( NULL, NULL, __( "Add new", null ), "oik_plugins_add_settings" );
   }
   
   if ( $edit_plugin || $oik_plugins_edit_settings || $validated ) {
     BW_::oik_box( null, null, __( "Edit plugin", "oik_libs" ), "oik_plugins_edit_settings" );
   }
-  BW_::oik_box( NULL, NULL, __( "Settings", "oik-libs" ), "oik_plugins_settings" );
+  BW_::oik_box( NULL, NULL, __( "Settings", null ), "oik_plugins_settings" );
   oik_menu_footer();
   bw_flush();
 }
@@ -112,14 +112,14 @@ function _oik_plugins_settings_row( $plugin, $version, $server, $apikey, $progra
   $links = null;
 	
 	if ( $programmatically_registered ) {
-		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), __( "Reset", "oik-libs" ), __( "Reset plugin's profile entry", "oik-libs" ) ); 
+		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), __( "Reset", null ), __( "Reset plugin's profile entry", null ) ); 
 	} else {
-		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), __( "Delete", "oik-libs" ), __( "Delete plugin's profile entry", "oik-libs" ) ); 
+		$links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;delete_plugin=$plugin"), __( "Delete", null ), __( "Delete plugin's profile entry", null ) ); 
 	}
   $links .= "&nbsp;";
-  $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;edit_plugin=$plugin"), __( "Edit", "oik-libs" ) ); 
+  $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;edit_plugin=$plugin"), __( "Edit", null ) ); 
   $links .= "&nbsp;"; 
-  $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;check_plugin=$plugin&amp;check_version=$version"), __( "Check", "oik-libs" ) );
+  $links .= retlink( null, admin_url("admin.php?page=oik_plugins&amp;check_plugin=$plugin&amp;check_version=$version"), __( "Check", null ) );
   $links .= "&nbsp;";
   $row[] = $links;
   bw_tablerow( $row );
@@ -263,20 +263,20 @@ function _oik_plugins_settings_validate( $add_plugin=true ) {
  */
 function oik_plugins_settings() {
   $default_plugin_server = oik_get_plugins_server();
-  $link = retlink( null, $default_plugin_server, $default_plugin_server , __( "default oik plugins server", "oik-libs" ) );
-  BW_::p( sprintf( __( 'The default oik plugins server is currently set to: %1$s', "oik-libs" ),  $link ) );
+  $link = retlink( null, $default_plugin_server, $default_plugin_server , __( "default oik plugins server", null ) );
+  BW_::p( sprintf( __( 'The default oik plugins server is currently set to: %1$s', null ),  $link ) );
   bw_form();
   stag( "table", "widefat " );
   stag( "thead");
-  bw_tablerow( array( __( "plugin", "oik-libs" )
-										, __( "version", "oik-libs" )
-										, __( "server", "oik-libs" ) 
-										, __( "apikey", "oik-libs" )
-										, __( "actions", "oik-libs" ) ) );
+  bw_tablerow( array( __( "plugin", null )
+										, __( "version", null )
+										, __( "server", null ) 
+										, __( "apikey", null )
+										, __( "actions", null ) ) );
   etag( "thead");
   _oik_plugins_settings_table();
   etag( "table" );
-  BW_::p( isubmit( "_oik_plugins_add_plugin", __( "Add plugin", "oik-libs" ), null, "button-primary" ) );
+  BW_::p( isubmit( "_oik_plugins_add_plugin", __( "Add plugin", null ), null, "button-primary" ) );
   etag( "form" );
 }
 
@@ -287,11 +287,11 @@ function oik_plugins_add_settings( ) {
   global $bw_plugin;
   bw_form();
   stag( "table", "widefat" );
-  bw_textfield( "plugin", 20, "plugin", $bw_plugin['plugin'] );
-  bw_textfield( "server", 100, "server", stripslashes( $bw_plugin['server'] ) );
-  bw_textfield( "apikey", 26, "apikey", $bw_plugin["apikey"] );
+  BW_::bw_textfield( "plugin", 20, __( "plugin", null ), $bw_plugin['plugin'] );
+  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_plugin['server'] ) );
+  BW_::bw_textfield( "apikey", 26, __( "apikey", null ), $bw_plugin["apikey"] );
   etag( "table" );
-  p( isubmit( "_oik_plugins_add_settings", "Add new plugin", null, "button-primary" ) );
+  BW_::p( isubmit( "_oik_plugins_add_settings", __( "Add new plugin", null ), null, "button-primary" ) );
   etag( "form" );
 }
 
@@ -302,25 +302,27 @@ function oik_plugins_edit_settings( ) {
   global $bw_plugin;
   bw_form();
   stag( "table", "wide-fat" );
-  bw_tablerow( array( "plugin", $bw_plugin['plugin'] . ihidden( 'plugin', $bw_plugin['plugin']) ) );
-  bw_textfield( "server", 100, "server", stripslashes( $bw_plugin['server'] ) );
-  bw_textfield( "apikey", 26, "apikey?", $bw_plugin["apikey"] );
+  bw_tablerow( array( __( "plugin", null ), $bw_plugin['plugin'] . ihidden( 'plugin', $bw_plugin['plugin']) ) );
+  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_plugin['server'] ) );
+  BW_::bw_textfield( "apikey", 26, __( "apikey?", null ), $bw_plugin["apikey"] );
   etag( "table" );
-  p( isubmit( "_oik_plugins_edit_settings", "Change plugin", null, "button-primary" ));
+  BW_::p( isubmit( "_oik_plugins_edit_settings", __( "Change plugin", null ), null, "button-primary" ));
   etag( "form" );
 }
 
 /**
- * Check a plugin for updates
+ * Checks a plugin for updates
  *
- * The 
- (
-    [slug] => oik
-    [new_version] => 1.17.1030.1702
-    [url] => http://oik-plugins.co.uk/oik_plugin/oik
-    [package] => http://oik-plugins.co.uk/plugins/download?plugin=oik-often-included-key-information-kit&version=1.17.1030.1702&id=419&action=update
-)
-
+ * The expected response from oik_check_for_update() is an array.
+ * If it contains 'new_version' then there's an update.
+ *  
+ * `
+    [slug] => oik-fum
+    [new_version] => 1.2.1
+    [url] => https://oik-plugins.com/oik_plugin/oik-fum
+		[plugin] => "oik-fum/oik-fum.php"
+    [package] => "https://qw/oikcom/plugins/download?plugin=oik-fum-flexible-update-manager&version=1.2.1&id=29228&action=update"
+	 `
  */
 function oik_plugins_check() {
   $check_plugin = bw_array_get( $_REQUEST, "check_plugin", null );
@@ -332,22 +334,22 @@ function oik_plugins_check() {
     $response = oik_remote::oik_check_for_update( $check_plugin, $check_version, true );
     bw_trace2( $response );
     if ( is_wp_error( $response ) ) {
-      p( "Error checking the plugin: $check_plugin" );
-      $error_message =  $response->get_error_message();
-      p( $error_message );
+      BW_::p( sprintf( __( 'Error checking the plugin: %1$s', null ), $check_plugin ) );
+      $error_message = $response->get_error_message();
+      BW_::p( $error_message );
     } else {
       $new_version = bw_array_get( $response, "new_version", null );
       if ( $new_version ) { 
-        p( "A new version of the plugin is available" );
-        p( "Plugin: $check_plugin" );
-        p( "Current version: $check_version " );
-        p( "New version: $new_version " );
+        BW_::p( __( "A new version of the plugin is available", null ) );
+        BW_::p( sprintf( __( 'Plugin: %1$s', null ), $check_plugin ) );
+        BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
+        BW_::p( sprintf( __( 'New version: %1$s', null ), $new_version ) );
         oik_plugin_record_new_version( $check_plugin, $check_version, $response ); 
         oik_plugin_new_version( $response );
       } else {
-        p( "Plugin is up to date." );
-        p( "Plugin: $check_plugin" );
-        p( "Current version: $check_version " );
+        BW_::p( __( "Plugin is up to date.", null ) );
+        BW_::p( sprintf( __( 'Plugin: %1$s', null ), $check_plugin ) );
+        BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
       }  
     }
   }
@@ -435,7 +437,7 @@ function oik_plugin_record_new_version( $plugin, $check_version, $response ) {
 function oik_plugin_new_version( $response ) {
   $slug = bw_array_get( $response, "slug", null );
   $plugin_name = bw_get_plugin_name( $slug );
-  p( oik_update_plugin( $plugin_name ) );
+  BW_::p( oik_update_plugin( $plugin_name ) );
 
 }
 
@@ -585,7 +587,7 @@ if ( !function_exists( "oik_get_plugins_server" ) ) {
 			$url = BW_OIK_PLUGINS_SERVER;
 		} else {
 		if ( !defined( "OIK_PLUGINS_COM" ) ) {
-			define( "OIK_PLUGINS_COM", "http://www.oik-plugins.com" );
+			define( "OIK_PLUGINS_COM", "https://www.oik-plugins.com" );
 		}
 			$url = OIK_PLUGINS_COM;
 		}
