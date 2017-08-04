@@ -299,22 +299,22 @@ function oik_themes_check() {
     $response = oik_remote::oik_check_for_theme_update( $check_theme, $check_version, true );
     bw_trace2( $response, "response-octfu" );
     if ( is_wp_error( $response ) ) {
-      p( "Error checking the theme: $check_theme" );
-      $error_message =  $response->get_error_message();
-      p( $error_message );
+			BW_::p( sprintf( __( 'Error checking the theme: %1$s', null ), $check_theme ) );
+			$error_message = $response->get_error_message();
+			BW_::p( $error_message );
     } else {
       $new_version = bw_array_get( $response, "new_version", null );
       if ( $new_version ) { 
-        p( "A new version of the theme is available" );
-        p( "theme: $check_theme" );
-        p( "Current version: $check_version " );
-        p( "New version: $new_version " );
+				BW_::p( __( "A new version of the theme is available", null ) );
+				BW_::p( sprintf( __( 'Theme: %1$s', null ), $check_theme ) );
+				BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
+				BW_::p( sprintf( __( 'New version: %1$s', null ), $new_version ) );
         oik_theme_record_new_version( $check_theme, $check_version, $response ); 
         oik_theme_new_version( $response );
       } else {
-        p( "Theme is up to date." );
-        p( "Theme: $check_theme" );
-        p( "Current version: $check_version " );
+        BW_::p( __( "Theme is up to date.", null ) );
+        BW_::p( sprintf( __( 'Theme: %1$s', null ), $check_theme) );
+        BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
       }  
     }
   }
@@ -376,21 +376,25 @@ function oik_theme_record_new_version( $theme, $check_version, $response ) {
 function oik_theme_new_version( $response ) {
   $theme = bw_array_get( $response, "theme", null );
   //$theme_name = bw_get_theme_name( $slug );
-  p( oik_update_theme( $theme ) );
+  BW_::p( oik_update_theme( $theme ) );
 }
 
 /** 
- * Update the theme   
+ * Creates the Upgrade theme link
+ * 
+ * @param string $theme
+ * @return string the Upgrade theme link
  */
 function oik_update_theme( $theme ) {
-    $path = "update.php?action=upgrade-theme&theme=$theme";
-    $url = admin_url( $path );
-    $url = wp_nonce_url( $url, "upgrade-theme_$theme" ); 
-    $link = '<a href="';
-    $link .= $url;
-    $link .= '">Upgrade';
-    $link .= " $theme</a>";
-    return( $link );
+	$path = "update.php?action=upgrade-theme&theme=$theme";
+	$url = admin_url( $path );
+	$url = wp_nonce_url( $url, "upgrade-theme_$theme" ); 
+	$link = '<a href="';
+	$link .= $url;
+	$link .= '">';
+	$link .= sprintf( __( 'Upgrade %1$s', null ), $theme );
+	$link .= "</a>";
+	return $link ;
 }
 
 if ( !function_exists( "bw_update_option" ) ) {
