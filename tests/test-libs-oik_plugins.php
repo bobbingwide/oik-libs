@@ -54,7 +54,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		
 		$this->assertNotNull( $html );
 		$html = $this->replace_admin_url( $html );
-		$html = str_replace( oik_get_plugins_server(), "http://qw/oikcom", $html );
+		//$html = str_replace( oik_get_plugins_server(), "http://qw/oikcom", $html );
 		$html_array = $this->tag_break( $html );
 		$this->assertNotNull( $html_array );
 		//$this->generate_expected_file( $html_array );

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oik-libs 0.0.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/oik-libs\n"
-"POT-Creation-Date: 2017-07-25 13:53:37+00:00\n"
+"POT-Creation-Date: 2017-08-03 17:15:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,6 +14,10 @@ msgstr ""
 
 #: libs/bobbforms.php:510
 msgid "None"
+msgstr ""
+
+#: libs/class-BW-.php:104 libs/oik-admin.php:69
+msgid "Toggle panel: %s"
 msgstr ""
 
 #: libs/class-oik-plugin-update.php:139 libs/class-oik-theme-update.php:138
@@ -90,21 +94,38 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: libs/oik-activation.php:191 libs/oik-depends.php:140
+#: libs/oik-activation.php:191 libs/oik-depends.php:144
 msgid "%1$s may not be fully functional."
 msgstr ""
 
-#: libs/oik-activation.php:193 libs/oik-depends.php:142
+#: libs/oik-activation.php:193 libs/oik-depends.php:146
 msgid ""
 "Please install and activate the required minimum version of this plugin:"
 msgstr ""
 
-#: libs/oik-admin.php:69
-msgid "Toggle panel: %s"
-msgstr ""
-
 #: libs/oik-cli.php:300
 msgid "oik-wp running WordPress %s"
+msgstr ""
+
+#: libs/oik-depends.php:96
+msgid "Plugin %1$s may not be fully functional."
+msgstr ""
+
+#: libs/oik-depends.php:99
+msgid ""
+"Please install and activate the required minimum version of this plugin: %1$s"
+msgstr ""
+
+#: libs/oik-depends.php:278
+msgid "Install %1$s"
+msgstr ""
+
+#: libs/oik-depends.php:306
+msgid "Activate %1$s"
+msgstr ""
+
+#: libs/oik-depends.php:324
+msgid "Upgrade %1$s"
 msgstr ""
 
 #: libs/oik-honeypot.php:45
@@ -148,7 +169,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: libs/oik_plugins.php:230 libs/oik_themes.php:202
+#: libs/oik_plugins.php:230 libs/oik_themes.php:205
 msgid "settings must not be blank"
 msgstr ""
 
@@ -160,25 +181,25 @@ msgstr ""
 msgid "The default oik plugins server is currently set to: %1$s"
 msgstr ""
 
-#: libs/oik_plugins.php:271 libs/oik_plugins.php:290
+#: libs/oik_plugins.php:271 libs/oik_plugins.php:290 libs/oik_plugins.php:305
 msgid "plugin"
 msgstr ""
 
-#: libs/oik_plugins.php:272 libs/oik_themes.php:238
+#: libs/oik_plugins.php:272 libs/oik_themes.php:247
 msgid "version"
 msgstr ""
 
 #: libs/oik_plugins.php:273 libs/oik_plugins.php:291 libs/oik_plugins.php:306
-#: libs/oik_themes.php:239 libs/oik_themes.php:254 libs/oik_themes.php:266
+#: libs/oik_themes.php:248 libs/oik_themes.php:266 libs/oik_themes.php:281
 msgid "server"
 msgstr ""
 
-#: libs/oik_plugins.php:274 libs/oik_plugins.php:292 libs/oik_themes.php:240
-#: libs/oik_themes.php:255
+#: libs/oik_plugins.php:274 libs/oik_plugins.php:292 libs/oik_themes.php:249
+#: libs/oik_themes.php:267
 msgid "apikey"
 msgstr ""
 
-#: libs/oik_plugins.php:275 libs/oik_themes.php:241
+#: libs/oik_plugins.php:275 libs/oik_themes.php:250
 msgid "actions"
 msgstr ""
 
@@ -186,15 +207,39 @@ msgstr ""
 msgid "Add plugin"
 msgstr ""
 
-#: libs/oik_plugins.php:307 libs/oik_themes.php:267
+#: libs/oik_plugins.php:294
+msgid "Add new plugin"
+msgstr ""
+
+#: libs/oik_plugins.php:307 libs/oik_themes.php:282
 msgid "apikey?"
 msgstr ""
 
-#: libs/oik_plugins.php:341
+#: libs/oik_plugins.php:309
+msgid "Change plugin"
+msgstr ""
+
+#: libs/oik_plugins.php:337
+msgid "Error checking the plugin: %1$s"
+msgstr ""
+
+#: libs/oik_plugins.php:343
 msgid "A new version of the plugin is available"
 msgstr ""
 
-#: libs/oik_plugins.php:348
+#: libs/oik_plugins.php:344 libs/oik_plugins.php:351
+msgid "Plugin: %1$s"
+msgstr ""
+
+#: libs/oik_plugins.php:345 libs/oik_plugins.php:352
+msgid "Current version: %1$s"
+msgstr ""
+
+#: libs/oik_plugins.php:346
+msgid "New version: %1$s"
+msgstr ""
+
+#: libs/oik_plugins.php:350
 msgid "Plugin is up to date."
 msgstr ""
 
@@ -214,27 +259,35 @@ msgstr ""
 msgid "Delete theme's profile entry"
 msgstr ""
 
-#: libs/oik_themes.php:232
+#: libs/oik_themes.php:241
 msgid "default oik themes server"
 msgstr ""
 
-#: libs/oik_themes.php:233
+#: libs/oik_themes.php:242
 msgid "The default oik themes server is currently set to: %1$s"
 msgstr ""
 
-#: libs/oik_themes.php:237 libs/oik_themes.php:253
+#: libs/oik_themes.php:246 libs/oik_themes.php:265 libs/oik_themes.php:280
 msgid "theme"
 msgstr ""
 
-#: libs/oik_themes.php:245
+#: libs/oik_themes.php:254
 msgid "Add theme"
 msgstr ""
 
-#: libs/oik_themes.php:293
+#: libs/oik_themes.php:269
+msgid "Add new theme"
+msgstr ""
+
+#: libs/oik_themes.php:284
+msgid "Change theme"
+msgstr ""
+
+#: libs/oik_themes.php:308
 msgid "A new version of the theme is available"
 msgstr ""
 
-#: libs/oik_themes.php:300
+#: libs/oik_themes.php:315
 msgid "Theme is up to date."
 msgstr ""
 
