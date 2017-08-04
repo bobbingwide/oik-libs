@@ -61,7 +61,8 @@ define( 'OIK_L10N_INCLUDED', "3.2.0" );
 	/**
 	 * Implements gettext for Just In Time - Just Translate It logic
 	 * 
-	 * We only perform translation when the domain is null.
+	 * We only perform translation when the domain is null and the null domain has not 
+	 * already been loaded. 
 	 * 
 	 * @param string $translation the translated string
 	 * @param string $text the original string
@@ -70,9 +71,11 @@ define( 'OIK_L10N_INCLUDED', "3.2.0" );
 	function oik_l10n_gettext( $translation, $text, $domain ) {
 		if ( null === $domain ) {
 			$try_again = !oik_l10n_domain_loaded( $domain );
-			oik_l10n_load_domain( $domain );
-			if ( $try_again && oik_l10n_domain_loaded( $domain ) ) {
-				$translation = translate( $text, $domain );
+			if ( $try_again ) {
+				oik_l10n_load_domain( $domain );
+				if ( oik_l10n_domain_loaded( $domain ) ) {
+					$translation = translate( $text, $domain );
+				}
 			}
 		}
 		return $translation;

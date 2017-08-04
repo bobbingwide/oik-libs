@@ -131,8 +131,6 @@ function oik_require_lib( $library, $version=null, $args=null ) {
 	$oik_libs = oik_libs();
 	$library_file = $oik_libs->require_lib( $library, $version, $args );
 	bw_trace2( $library_file, "library_file", true, BW_TRACE_VERBOSE );
-	
-	oik_require_library_textdomain( $library_file );
 	return( $library_file );	
 }
 }
