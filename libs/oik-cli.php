@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015,2016
+<?php // (C) Copyright Bobbing Wide 2015-2017
 if ( !defined( "OIK_CLI_INCLUDED" ) ) {
-	define( "OIK_CLI_INCLUDED", "0.9.0" );
+	define( "OIK_CLI_INCLUDED", "0.9.1" );
 
 /**
  * Command Line Interface (CLI) functions
@@ -175,7 +175,7 @@ function oik_batch_cd_drill_down( $path, $locate_file="wp-config.php" ) {
  * and the directory for the subdomain
  * So we'll need a value for path too?
  * 
- * 
+ * Some logic also references $_SERVER['SERVER_PROTOCOL']. Setting it to null seems good enough for WordPress core.
  * 
  * 
  * @param string $abspath
@@ -201,6 +201,10 @@ function oik_batch_set_domain( $abspath ) {
 // $_SERVER['REQUEST_URI'] = $f('path') . ( isset( $url_parts['query'] ) ? '?' . $url_parts['query'] : '' );
 // $_SERVER['SERVER_PORT'] = \WP_CLI\Utils\get_flag_value( $url_parts, 'port', '80' );
 // $_SERVER['QUERY_STRING'] = $f('query');
+
+	if ( !isset( $_SERVER['SERVER_PROTOCOL'] ) ) {
+		$_SERVER['SERVER_PROTOCOL'] = null;
+	}
 }
 
 /**
@@ -278,6 +282,7 @@ function oik_batch_query_positional_value_from_argv( $argv, $index, $default ) {
  */
 function oik_batch_query_nvp_value_from_argv( $argv, $key, $default ) {
 	$value = $default;
+	$key = strtolower( $key );
 	foreach ( $argv as $arg_value ) {
 		if ( false !== strpos( $arg_value, "=" ) ) {
 			$arg_value = strtolower( $arg_value );
@@ -406,7 +411,6 @@ function oik_batch_define_oik_batch_dir() {
 	//  define( 'OIK_BATCH_DIR', getcwd() );
 	//}
 }
-
 
 /**
  * Define the mandatory constants that allow WordPress to work

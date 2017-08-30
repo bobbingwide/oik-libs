@@ -85,7 +85,7 @@ function oik_lazy_plugins_server_settings() {
   }
   
   if ( $edit_plugin || $oik_plugins_edit_settings || $validated ) {
-    BW_::oik_box( null, null, __( "Edit plugin", "oik_libs" ), "oik_plugins_edit_settings" );
+    BW_::oik_box( null, null, __( "Edit plugin", null ), "oik_plugins_edit_settings" );
   }
   BW_::oik_box( NULL, NULL, __( "Settings", null ), "oik_plugins_settings" );
   oik_menu_footer();

@@ -732,20 +732,15 @@ static function bw_json_decode( $json, $assoc=false ) {
 	 * cURL error 60: SSL certificate problem: unable to get local issuer certificate	 |	 Set sslverify false for local requests
 	 * cURL error 28: Operation timed out after 10000 milliseconds with 0 bytes received | Set timeout to 15 seconds
 	 * 
+	 * This static method is also implemented as a filter hook for 'http_request_args'
+	 * as we need to cater for requests being performed for a plugin / theme download. 
+	 * 
+	 * @TODO Ensure we don't reduce the timeout time.
+	 * 
 	 * @param array $args
 	 * @param string $url
 	 * @return array adjusted args
-	 *
-	 * @TODO Decide if this should have been implemented as a filter for 'http_request_args' 
-	
-
-		$args["sslverify"] = false; 
-		//$args["sslverify"] = true;
-		//$args["sslcertificates"] = "C:/apache24/conf/cacert.pem";
-		//$args['local'] = true;
-	 * 
 	 */
-
 	static function bw_adjust_args( $args, $url ) {
 		if ( self::are_you_local( $url ) ) {
 			$args['sslverify'] = false;
@@ -754,21 +749,63 @@ static function bw_json_decode( $json, $assoc=false ) {
 		return $args;
 	}
 	
+	
 	/**
 	 * Determines if this is a local request
-	 *
-	 * @TODO Decide whether or not to cater for "localhost"
 	 * 
 	 * @param string $url
 	 * @return bool - true if the host part of the $url is considered to be local
 	 */
 	static function are_you_local( $url ) {
-		$local_host = $_SERVER['SERVER_NAME'];
-		$remote_host = parse_url( $url, PHP_URL_HOST );
-		$local = $local_host == $remote_host;
-		//bw_trace2( $local_host, "local_host" );
-		//bw_trace2( $remote_host, "remote_host" );
+		$local = self::are_you_local_IP( $url );
+		if ( !$local ) {
+			$local = self::are_you_local_computer( $url );
+		}
 		return $local;
+	}
+	
+	/**
+	 * Determines if this is a local IP
+	 *
+	 * If the server IP is the same address as the URL IP then assume it's a local request
+	 *
+	 * @param string $url
+	 * @return bool
+	 */
+	static function are_you_local_IP( $url ) {
+		$local_host = $_SERVER['SERVER_NAME'];
+		$local_ip = gethostbyname( $local_host );
+		$remote_host = parse_url( $url, PHP_URL_HOST );
+		$remote_ip = gethostbyname( $remote_host );
+		$local = $local_ip == $remote_ip;
+		return $local;
+	}
+	
+	/**
+	 * Determines if the URL is on the local computer
+	 * 
+	 * @param string $url
+	 * @return bool 
+	 */
+	static function are_you_local_computer( $url ) {
+		$local_computer = self::get_computer_name();
+		$remote_host = parse_url( $url, PHP_URL_HOST );
+		$local = $local_computer == $remote_host;
+		return $local;
+	}
+	
+	/**
+	 * Gets the computer name
+	 * 
+	 * @return string lower case version of computer name, if set
+	 */
+	static function get_computer_name() {
+		$computer_name = bw_array_get( $_SERVER, "COMPUTERNAME", null );
+		if ( $computer_name ) {
+			$computer_name = strtolower( $computer_name );
+		}
+		//echo $computer_name;
+		return $computer_name;
 	}
 
 }

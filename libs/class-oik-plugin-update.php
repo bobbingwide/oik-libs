@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2016
+<?php // (C) Copyright Bobbing Wide 2016, 2017
 if ( !defined( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED" ) ) {
-define( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED", "0.0.1" );
+define( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED", "0.1.0" );
 
 /**
  * Implements oik's plugin update logic
@@ -136,9 +136,19 @@ class OIK_Plugin_Update {
 	function add_oik_menu() {
 		$menu_slug = $this->query_menu( "oik_menu" );
 		if ( !$menu_slug ) {
-			$hook = add_menu_page( __('[oik] Options', 'oik'), __('oik updates', 'oik'), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
-			$hook = add_submenu_page( 'oik_menu', __( 'oik updates', 'oik' ), __( 'Updates', 'oik'), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
+			$hook = add_menu_page( __('[oik] Options', null), __('oik updates', null), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
+			$hook = add_submenu_page( 'oik_menu', __( 'oik updates', null ), __( 'Updates', null), 'manage_options', 'oik_menu', array( $this, "oik_menu" ) );
 		}
+	}
+
+	/**
+	 * Prepares for converting local requests to use sslverify=false
+	 * 
+	 * When https is being used and we're operating on a local server then we need to cater for SSL certificate verification problems.
+	 * 
+	 */ 								 
+	function admin_action_upgrade_plugin() {
+		add_filter( "http_request_args", array( "oik_remote", "bw_adjust_args" ), 10, 2 );
 	}
 
 	/**
@@ -151,16 +161,21 @@ class OIK_Plugin_Update {
 	function admin_menu() {
 		$plugins_slug = $this->query_menu_subitem( "oik_plugins", "oik_menu" );
 		if ( !$plugins_slug ) {
-			$this->add_oik_menu();
-			add_submenu_page( 'oik_menu', __( 'oik plugins', 'oik' ), __('Plugins', 'oik'), 'manage_options', 'oik_plugins', array( $this, 'oik_plugins_do_page' ) );
 			$loaded = $this->bootstrap_oik_libs();
 			if ( $loaded ) {
-				$dependencies = array( "class-bobbcomp" => "0.0.1" 
-														 , "bobbfunc" => "3.0.0"
-														 , "class-oik-update" => "0.1.0"
+				$dependencies = array( "class-bobbcomp" => "3.1.0" 
+														 , "bobbfunc" => "3.2.0"
+														 , "class-oik-update" => "3.0.1"
+														 , "oik-l10n" => "3.2.0" 
+														 , "class-BW-" => "3.2.0"
+														 , "class-oik-remote" => "0.1.0"
 														 );
 				$loaded = $this->require_dependencies( $dependencies ); 
 				if ( $loaded ) {
+					oik_l10n_enable_jti();
+					$this->add_oik_menu();
+					add_submenu_page( 'oik_menu', __( 'oik plugins', null ), __('Plugins', null), 'manage_options', 'oik_plugins', array( $this, 'oik_plugins_do_page' ) );
+					$this->admin_action_upgrade_plugin();
 					do_action( "oik_register_plugin_server" );
 				}
 			}	
@@ -180,12 +195,13 @@ class OIK_Plugin_Update {
 	function oik_plugins_do_page() {
 		$loaded = $this->bootstrap_oik_libs();
 		if ( $loaded ) {
-			$dependencies = array( "class-bobbcomp" => "0.0.1" 
-													 , "bobbfunc" => "3.0.0"
-													 , "bobbforms" => "3.0.1"
-													 , "oik-admin" => "3.0.1"
-													 , "oik-depends" => "3.1.0"
-													 , "oik_plugins" => "0.1.0"
+			$dependencies = array( "class-bobbcomp" => "3.1.0" 
+													 , "bobbfunc" => "3.2.0"
+													 , "bobbforms" => "3.2.0"
+													 , "oik-admin" => "3.2.0"
+													 , "oik-depends" => "3.2.0"
+													 , "oik_plugins" => "0.2.0"
+													 , "class-BW-" => "3.2.0"
 													 );
 			
 			$loaded = $this->require_dependencies( $dependencies ); 
@@ -202,7 +218,9 @@ class OIK_Plugin_Update {
 			//						if ( $depends ) {
 			//							$plugins = $this->require_lib( "oik_plugins", "0.1.0" );
 			//							if ( $plugins ) {
-			if ( $loaded ) {							
+			if ( $loaded ) { 
+			 						
+				//oik_l10n_enable_jti();
 				oik_lazy_plugins_server_settings();
 				bw_flush()	;
 			} else {
@@ -339,16 +357,17 @@ class OIK_Plugin_Update {
 	 * Display the general messages about Updates
 	 */
 	function oik_plugins_servers() {
-		p( "Some oik plugins and themes are supported from servers other than WordPress.org" );
-		p( "Premium plugin and theme versions require API keys." );
+		//oik_l10n_enable_jti();
+		BW_::p( __( "Some oik plugins and themes are supported from servers other than WordPress.org", null ) );
+		BW_::p( __( "Premium plugin and theme versions require API keys.", null ) );
 		
 		if ( $this->query_menu_subitem( "oik_plugins", "oik_menu" ) ) {
-			p( "Use the Plugins page to manage oik plugins servers and API keys" );
-      _alink( "button-secondary", admin_url("admin.php?page=oik_plugins"), "Plugins", "Manage plugin servers and API keys" );
+			BW_::p( __( "Use the Plugins page to manage oik plugins servers and API keys", null ) );
+      BW_::alink( "button-secondary", admin_url("admin.php?page=oik_plugins"), __( "Plugins", null) , __( "Manage plugin servers and API keys", null ) );
 		}
 		if ( $this->query_menu_subitem( "oik_themes", "oik_menu" ) ) {
-			p( "Use the Themes page to manage oik themes servers and API keys" );
-			_alink( "button-secondary", admin_url("admin.php?page=oik_themes"), "Themes", "Manage theme servers and API keys" );
+			BW_::p( __( "Use the Themes page to manage oik themes servers and API keys", null ) );
+			BW_::alink( "button-secondary", admin_url("admin.php?page=oik_themes"), __( "Themes", null), __( "Manage theme servers and API keys", null ) );
 		}
 		bw_flush();
 	}

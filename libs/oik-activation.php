@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2016
+<?php // (C) Copyright Bobbing Wide 2012-2017
 if ( !defined( "OIK_ACTIVATION_INCLUDED" ) ) {
-define( "OIK_ACTIVATION_INCLUDED", "3.1.0" );
+define( "OIK_ACTIVATION_INCLUDED", "3.2.0" );
 
 
 if ( function_exists( "oik_plugin_lazy_activation" ) ) {
@@ -11,19 +11,18 @@ if ( function_exists( "oik_plugin_lazy_activation" ) ) {
  * Produce an install plugin link
  *
  * @param string $plugin plugin slug
- * 
  * @return string link for the plugin install
  */
 function oik_plugin_install_plugin( $plugin ) {
-  $path = "update.php?action=install-plugin&plugin=$plugin";
-  $url = admin_url( $path );
-  $url = wp_nonce_url( $url, "install-plugin_$plugin" ); 
-  $link = '<a href="';
-  $link .= $url;
-  $link .= '">';
-  $link . __('Install') ;
-  $link .= " $plugin</a>";
-  return( $link );
+	$path = "update.php?action=install-plugin&plugin=$plugin";
+	$url = admin_url( $path );
+	$url = wp_nonce_url( $url, "install-plugin_$plugin" ); 
+	$link = '<a href="';
+	$link .= $url;
+	$link .= '">';
+	$link .= sprintf( __( 'Install %1$s', null ), $plugin ) ;
+	$link .= "</a>";
+	return $link ;
 }
 
 /**

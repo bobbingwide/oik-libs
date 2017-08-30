@@ -126,7 +126,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 *
 	 * Note: For switch_to_locale() see https://core.trac.wordpress.org/ticket/26511 and https://core.trac.wordpress.org/ticket/39210 
 	 */
-	function switch_to_locale( $locale ) {
+	function switch_to_locale( $locale='bb_BB' ) {
 		$tdl = is_textdomain_loaded( "oik" );
 		$this->assertTrue( $tdl );
 		$switched = switch_to_locale( 'bb_BB' );
