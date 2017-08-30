@@ -100,9 +100,11 @@ define( 'OIK_L10N_INCLUDED', "3.2.0" );
 	function oik_l10n_load_domain( $domain ) {
 		global $l10n;
 		$merged_domain = new MO();
-		foreach (  $l10n as $loaded_domain => $MO ) {
-			if ( $domain !== $loaded_domain ) {
-				$merged_domain->merge_with( $MO );
+		if ( is_array( $l10n ) && count( $l10n ) ) {
+			foreach (  $l10n as $loaded_domain => $MO ) {
+				if ( $domain !== $loaded_domain ) {
+					$merged_domain->merge_with( $MO );
+				}
 			}
 		}
 		$l10n[ $domain ] = &$merged_domain;
@@ -114,7 +116,10 @@ define( 'OIK_L10N_INCLUDED', "3.2.0" );
 	 */
 	function oik_l10n_trace( $details=false ) {
 		global $l10n;
-		bw_trace2( array_keys( $l10n) , "array keys" );
+		
+		if ( is_array( $l10n ) && count( $l10n ) ) {
+			bw_trace2( array_keys( $l10n) , "array keys" );
+		}
 		if ( $details ) {
 			bw_trace2( $l10n, "l10n after null load" );
 		}

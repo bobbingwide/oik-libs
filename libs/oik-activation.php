@@ -26,32 +26,35 @@ function oik_plugin_install_plugin( $plugin ) {
 }
 
 /**
- * Produce an "activate" plugin link
+ * Produces an "activate" plugin link
  *
- * @param string $plugin_file - e.g. oik/oik-header.php
- * We may not be activating the main plugin, so we need the relative path filename of the plugin to activate
- * @return string link to enable activation - which user must choose
- * We probably don't need plugin_status OR paged parameters
+ * We probably don't need plugin_status, s(earch) or paged parameters
  *
  * `
    http://example.com/wp-admin/plugins.php?
      action=activate
      &plugin=oik%2Foik.php
      &plugin_status=all
-     &paged=1&s
+     &paged=1
+		 &s
      &_wpnonce=a53a158be5
  * `
+ *
+ * @param string $plugin_file - e.g. oik/oik-header.php
+ * We may not be activating the main plugin, so we need the relative path filename of the plugin to activate
+ * @param string $plugin_name - e.g. oik-header
+ * @return string link to enable activation - which user must choose
 */                              
 function oik_plugin_activate_plugin( $plugin, $plugin_name) {
-  $path = "plugins.php?action=activate&plugin_status=all&paged=1&s&plugin=$plugin";
-  $url = admin_url( $path );
-  $url = wp_nonce_url( $url, "activate-plugin_$plugin" ); 
-  $link = '<a href="';
-  $link .= $url;
-  $link .= '">';
-  $link .= __( 'Activate' );
-  $link .= " ${plugin_name}</a>";
-  return( $link );
+	$path = "plugins.php?action=activate&plugin_status=all&paged=1&s&plugin=$plugin";
+	$url = admin_url( $path );
+	$url = wp_nonce_url( $url, "activate-plugin_$plugin" ); 
+	$link = '<a href="';
+	$link .= $url;
+	$link .= '">';
+	$link .= sprintf( __( 'Activate %1$s', null ), $plugin_name );
+	$link .= "</a>";
+	return $link;
 } 
  
 /**

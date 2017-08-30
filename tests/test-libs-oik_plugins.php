@@ -37,8 +37,8 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	/**
 	 * Test oik_plugins_check for getting an error, bb_BB locale
 	 *
-	 * We want to get an error from the server that is NOT 
-	 *	cURL error 60: SSL certificate problem: unable to get local issuer certificate
+	 * We want to get an error from the server that is NOT
+	 * `cURL error 60: SSL certificate problem: unable to get local issuer certificate`
 	 * We can achieve this by communicating with a plugin server that supports the request
 	 * but where the plugin we're asking for is not registered. 
 	 * At the moment http://qw/oikcouk satisfies that; oik-fum is in Draft form.
@@ -65,7 +65,6 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	
 	/**
 	 * 
-	 * @TODO - handle the nonce in the link
 	 */
 	function test_oik_plugins_check_bb_BB_new_version() {
 	
@@ -103,7 +102,10 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * and the package file for that version must be loaded.
 	 * Otherwise we get <p>Package not found</p>
 	 */
-	function test_oik_plugins_check_bb_BB_uptodate() {
+	function test_oik_plugins_check_bb_BB_uptodate() {	
+		// Default server now uses the https protocol. Uncomment to test with http.
+	  //oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcom" );
+		
 		switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";
 		$_REQUEST['check_version'] = "1.2.1";
@@ -112,8 +114,6 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 	}
-	
-	
 	
 	/**
 	 * Switch to the required target language

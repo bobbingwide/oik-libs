@@ -35,9 +35,17 @@ class Tests_libs_l10n extends BW_UnitTestCase {
 	
 	/**
 	 * Tests Just Translate It logic
+	 * 
+	 * Note: Since other tests may use JTI logic we need to unload the domains manually
+	 * and disable its processing.
 	 */
 	function test_oik_l10n_enable_jti() {
 		$domain = null;
+		unload_textdomain( "oik-libs" );
+		unload_textdomain( $domain );
+		oik_l10n_enable_jti( false );
+		
+		
 		$loaded = oik_l10n_domain_loaded( "oik-libs" );
 		$this->assertFalse( $loaded );
 		$loaded = oik_l10n_domain_loaded( $domain );
