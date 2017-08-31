@@ -40,7 +40,7 @@ function oik_plugin_install_plugin( $plugin ) {
      &_wpnonce=a53a158be5
  * `
  *
- * @param string $plugin_file - e.g. oik/oik-header.php
+ * @param string $plugin - relative plugin file e.g. oik/oik-header.php
  * We may not be activating the main plugin, so we need the relative path filename of the plugin to activate
  * @param string $plugin_name - e.g. oik-header
  * @return string link to enable activation - which user must choose
@@ -60,21 +60,19 @@ function oik_plugin_activate_plugin( $plugin, $plugin_name) {
 /**
  * Create an Update plugin link
  *
- * Decided to use "Update" rather than " Upgrade". 
- *
  * @param string $plugin the plugin slug
  * @return string the update link
  */
 function oik_plugin_update_plugin( $plugin ) {
-  $path = "update.php?action=upgrade-plugin&plugin=$plugin";
-  $url = admin_url( $path );
-  $url = wp_nonce_url( $url, "upgrade-plugin_$plugin" ); 
-  $link = '<a href="';
-  $link .= $url;
-  $link .= '">'; 
-  $link .= __( 'Update' );
-  $link .= " $plugin</a>";
-  return( $link );
+	$path = "update.php?action=upgrade-plugin&plugin=$plugin";
+	$url = admin_url( $path );
+	$url = wp_nonce_url( $url, "upgrade-plugin_$plugin" ); 
+	$link = '<a href="';
+	$link .= $url;
+	$link .= '">'; 
+	$link .= sprintf( __( 'Upgrade %1$s', null ), $plugin );
+	$link .= "</a>";
+	return $link;
 }
 
 /** 

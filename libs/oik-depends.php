@@ -303,7 +303,7 @@ function oik_activate_plugin( $plugin, $plugin_name) {
     $link = '<a href="';
     $link .= $url;
     $link .= '">';
-		$link .= sprintf( __( 'Activate %1$s', null ), $plugin );
+		$link .= sprintf( __( 'Activate %1$s', null ), $plugin_name );
     $link .= "</a>";
     return( $link );
 } 

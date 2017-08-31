@@ -83,4 +83,37 @@ class Tests_libs_oik_activation extends BW_UnitTestCase {
 		$this->switch_to_locale( "en_GB" );
 	}
 	
+	/**
+	 */
+	function test_oik_plugin_update_plugin() {
+		$this->switch_to_locale( "en_GB" );
+		$html = oik_plugin_update_plugin( "us-tides" );
+		$html = $this->replace_admin_url( $html );
+		$html = $this->replace_created_nonce( $html, "upgrade-plugin_us-tides" );
+		
+		$html_array = $this->tag_break( $html );
+		
+		$this->assertNotNull( $html_array );
+		//$this->generate_expected_file( $html_array );
+		$this->assertArrayEqualsFile( $html_array );
+	}
+	
+	/**
+	 */
+	function test_oik_plugin_update_plugin_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$html = oik_plugin_update_plugin( "us-tides" );
+		$html = $this->replace_admin_url( $html );
+		$html = $this->replace_created_nonce( $html, "upgrade-plugin_us-tides" );
+		
+		$html_array = $this->tag_break( $html );
+		
+		$this->assertNotNull( $html_array );
+		//$this->generate_expected_file( $html_array );
+		$this->assertArrayEqualsFile( $html_array );
+		
+		$this->switch_to_locale( "en_GB" );
+	}
+	
+	
 }
