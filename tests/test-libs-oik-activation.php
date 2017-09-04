@@ -116,4 +116,46 @@ class Tests_libs_oik_activation extends BW_UnitTestCase {
 	}
 	
 	
+	/**
+	 * Tests the path where the current filter is not admin_notices
+	 * Functions in oik_plugin_oik_install_link() are tested elsewhere
+	 * 
+	 */
+	 
+	function test_oik_plugin_plugin_inactive() {
+
+		$this->switch_to_locale( "en_GB" );
+		ob_start(); 
+		oik_plugin_plugin_inactive( "us-tides/us-tides.php", "oik:2.5" );
+		$html = ob_get_contents();
+		ob_end_clean();
+		$this->assertNotNull( $html );
+
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+
+	}
+	
+	/**
+	 * Tests the path where the current filter is not admin_notices for bb_BB
+	 * Functions in oik_plugin_oik_install_link() are tested elsewhere
+	 * 
+	 */
+	function test_oik_plugin_plugin_inactive_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		ob_start(); 
+		oik_plugin_plugin_inactive( "us-tides/us-tides.php", "oik:3.1" );
+		$html = ob_get_contents();
+		ob_end_clean();
+		$this->assertNotNull( $html );
+
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		
+		$this->switch_to_locale( "en_GB" );
+	}
+
+
+	
+	
 }

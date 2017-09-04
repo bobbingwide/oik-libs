@@ -186,12 +186,12 @@ function oik_plugin_oik_install_link( $plugin, $problem="missing" ) {
 if ( !function_exists( "oik_plugin_plugin_inactive" ) ) {
 function oik_plugin_plugin_inactive( $plugin=null, $dependencies=null, $problem=null ) {
   $plugin_name = basename( $plugin, ".php" );
-  $dependencies = str_replace( ":", " version ", $dependencies );
+  $dependencies = str_replace( ":", __(" version ", null) , $dependencies );
   $text = "<p><b>";
-  $text .= sprintf( __( '%1$s may not be fully functional.','oik'), $plugin_name );
+  $text .= sprintf( __( '%1$s may not be fully functional.', null), $plugin_name );
   $text .= "</b> ";
-  $text .= __( 'Please install and activate the required minimum version of this plugin:', 'oik' );
-  $text .= "$dependencies</p>";
+  $text .= sprintf( __( 'Please install and activate the required minimum version of this plugin: %1$s', null ), $dependencies );
+	$text .= "</p>";
   
   if ( current_filter() == "admin_notices" ) {
     $message = '<div class=" updated fade">';
