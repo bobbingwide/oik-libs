@@ -140,7 +140,6 @@ function _bw_lazy_sc_help( $shortcode ) {
   return( $help );
 }
 
-
 /**
  * Display a shortcode example
  * 
@@ -159,9 +158,10 @@ function bw_lazy_sc_example( $shortcode, $atts=null ) {
  * @return array - shortcode syntax as an associative array 
  */
 function _bw_lazy_sc_syntax( $shortcode ) {
-  $funcname = bw_load_shortcode_suffix( $shortcode, "__syntax" ); 
-  $syntax = $funcname( $shortcode );
-  return( $syntax );
+	$funcname = bw_load_shortcode_suffix( $shortcode, "__syntax" );
+	$syntax = $funcname( $shortcode );
+	//bw_trace2( $syntax, "Syntax for $funcname" ); 
+	return $syntax ;
 } 
 
 /**
@@ -582,36 +582,6 @@ function bw_codes__example() {
   // e( "If you have a problem with hyphenated shortcodes not being chosen then it could be due to the order in which the shortcodes were registered using add_shortcode();" );
   // because the shortest shortcode has been added before the longer ones. 
   // See wp-1, wp-2, wp and wp-3 ");
-}
-
-function oik__help( $shortcode=NULL ) {
- if ( $shortcode == "OIK" ) {
-    return( "Spells out the ". bw_oik(). " backronym" );
- } else {
-    return( "Expand to the logo for oik" );
- }  
-}
-
-function oik__example( $shortcode=NULL ) {
- br( "e.g." );
- if ( $shortcode == "OIK" ) {
-   e( bw_oik_long() ); 
- }else {
-   e( bw_oik() );
- }  
-} 
-
-function bw_address__syntax( $shortcode="bw_address" ) {
-  $syntax = array( "type" => bw_skv( "Work", "<i>type</i>", "Address type." )
-                 , "alt" => bw_skv( "", "1", "suffix for alternative address" )
-                 );
-  return( $syntax );
-}
-
-function bw_address__example( $shortcode="bw_address" ) {
-  $text = "Display the address defined in oik options" ;
-  $example = '';
-  bw_invoke_shortcode( $shortcode, $example, $text );
 }
 
 /**
