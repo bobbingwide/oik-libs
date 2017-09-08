@@ -7,7 +7,7 @@ define( "OIK_SC_HELP_INCLUDED", "3.2.0" );
  * 
  * Library: oik-sc-help
  * Provides: oik-sc-help
- * Depends: on the oik plugin @TODO
+ * Depends: on the oik plugin @TODO,	class-BW-
  *
  * Implements low level functions for displaying shortcode help.
  * This includes the help functions for some base shortcodes.
@@ -246,25 +246,18 @@ function bw_lazy_sc_snippet( $shortcode=null, $example=null ) {
 }
 
 /**
+ * Returns the help for a shortcode
+ * 
  * Returns the default help for a shortcode if not provided by the "shortcode__help" function
  *
- * This default array should be a large array of all the "known" shortcodes for oik and WordPress
- * and possibly the "recommended" plugins that oik works closely with.
- *
- * - Some are shortcodes from Artisteer themes
- * - Some are default WordPress shortcodes
- * - The bob, bing, wide, etc. shortcodes are optional
- * - 
- * 
+ * @param string $shortcode
+ * @return string translated shortcode help
  */
 function _sc__help( $shortcode="bw_code" ) {
- 
-
 	$default_help = array();
-
   $default_help = apply_filters( "_sc__help", $default_help, $shortcode );
-  $help = bw_array_get( $default_help, $shortcode, "?" );
-  return( $help );
+  $help = bw_array_get( $default_help, $shortcode, __( "?", null ) );
+  return $help ;
 }
 
 /**
@@ -285,9 +278,16 @@ function _sc__syntax( $shortcode="bw_code" ) {
   return( $syntax );
 }
 
+
+/**
+ * Produces default example for this shortcode
+ * 
+ * @param string $shortcode
+ * @param array $atts
+ */
 function _sc__example( $shortcode="bw_code", $atts=null ) {
   //p( "oik doesn't know how to give an example for this shortcode: ". $shortcode );
-  bw_invoke_shortcode( $shortcode, $atts, "oik generated example." );
+  bw_invoke_shortcode( $shortcode, $atts, __( "oik generated example.", null ) );
 }
 
 /**
