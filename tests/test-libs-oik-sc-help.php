@@ -103,8 +103,33 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		return $string;
 	}
 	
+	/**
+	 * 
+	 */
+	function test_sc_posts() {
+		update_option( "posts_per_page", "10" );
+		$this->switch_to_locale( "en_GB" );
+		$array = _sc_posts();
+		$html = $this->arraytohtml( $array, true );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+	}
 	
-	// test_sc_posts
+	
+	/**
+	 * 
+	 */
+	function test_sc_posts_bb_BB() {
+		update_option( "posts_per_page", "10" );
+		$this->switch_to_locale( "bb_BB" );
+		$array = _sc_posts();
+		$html = $this->arraytohtml( $array, true );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
+	// test_sc_thumbnail
+
 	// test_sc_thumbnail
 
 }

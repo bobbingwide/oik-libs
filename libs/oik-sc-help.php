@@ -304,39 +304,38 @@ function _sc_classes() {
 
  
 /**
- *
  * Helper function for shortcodes that use bw_get_posts() 
  *
  * Note: post_mime_type= can have sub values. eg.
- *     application/pdf
- *      image/gif
- * 	image/jpeg
- * 	image/png
- * 	text/css
- *      video/mp4
+ * - application/pdf
+ * - image/gif
+ * - image/jpeg
+ * - image/png
+ * - text/css
+ * - video/mp4
  *
  * 'posts_per_page' added in oik v2.3
  *
  * @return array - associative array of bw_skv()'s  
  */
 function _sc_posts() {
-  return( array( 'numberposts'  => bw_skv( "5", "numeric", "number to return" )
-               , 'offset'          => bw_skv( 0, "numeric", "offset from which to start" )
-               , 'category'        => bw_skv( null, "<i>category ID</i>", "numeric ID of the post category" )
-               , 'category_name'        => bw_skv( null, "<i>category-slug</i>", "category slugs (comma separated)" )
-               , 'customcategoryname' => bw_skv( null, "category-slug", "custom category slug" )
-               , 'orderby'         => bw_skv( 'date', "ID|title|parent|rand|menu_order", "Sort sequence" )
-               , 'order'           => bw_skv( 'DESC', "ASC", "Sort order." )
-               , 'include'         => bw_skv( null, "<i>id1,id2</i>", "IDs to include" )
-               , 'exclude'         => bw_skv( null, "<i>id1,id2</i>", "IDs to exclude" )
-               , 'meta_key'        => bw_skv( null, "meta key", "post metadata key" )
-               , 'meta_value'      => bw_skv( null, "meta value", "post metadata value" )
-               , 'post_type'       => bw_skv( null, "page|post|attachment|custom post type", "Content type to display" )
-               , 'post_mime_type'  => bw_skv( null, "image|application|text|video|mime type", "Attached media MIME type" )
-               , 'post_parent'     => bw_skv( null, "ID", "Parent ID to use if not current post" )
-               , 'post_status'     => bw_skv( null,  "publish|inherit|pending|draft|auto-draft|future|private|trash|any", "Post status" )
-               , 'id'              => bw_skv( null, "<i>id1,id2</i>", "IDs of posts to display"  )
-               , 'posts_per_page'  => bw_skv( null, "numeric|.", "Number of posts per page. Use '.' for current value " . get_option( "posts_per_page" ) )
+  return( array( 'numberposts'  => BW_::bw_skv( "5", __( "numeric", null ), __( "number to return", null ) )
+               , 'offset'          => BW_::bw_skv( 0, __( "numeric", null ), __( "offset from which to start", null ) )
+               , 'category'        => BW_::bw_skv( null, "<i>" . __( "category ID", null ) . "</i>", __( "numeric ID of the post category", null ) )
+               , 'category_name'        => BW_::bw_skv( null, "<i>" . __( "category-slug", null ) . "</i>", __( "category slugs (comma separated)", null ) )
+               , 'customcategoryname' => BW_::bw_skv( null, __( "category-slug", null ), __( "custom category slug", null ) )
+               , 'orderby'         => BW_::bw_skv( 'date', "ID|title|parent|rand|menu_order", __( "Sort sequence", null ) )
+               , 'order'           => BW_::bw_skv( 'DESC', "ASC", __( "Sort order.", null ) )
+               , 'include'         => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to include", null ) )
+               , 'exclude'         => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to exclude", null ) )
+               , 'meta_key'        => BW_::bw_skv( null, __( "meta key", null ), __( "post metadata key", null ) )
+               , 'meta_value'      => BW_::bw_skv( null, __( "meta value", null ), __( "post metadata value", null ) )
+               , 'post_type'       => BW_::bw_skv( null, "page|post|attachment|" . __( "custom post type", null ), __( "Content type to display", null ) )
+               , 'post_mime_type'  => BW_::bw_skv( null, "image|application|text|video|" . __( "mime type", null ), __( "Attached media MIME type", null ) )
+               , 'post_parent'     => BW_::bw_skv( null, __( "ID" , null ) , __( "Parent ID to use if not current post", null ) )
+               , 'post_status'     => BW_::bw_skv( null,  "publish|inherit|pending|draft|auto-draft|future|private|trash|any", __( "Post status", null ) )
+               , 'id'              => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs of posts to display"  ) )
+               , 'posts_per_page'  => BW_::bw_skv( null, __( "numeric", null ) . "|.", sprintf( __( 'Number of posts per page. Use \'.\' for current value %1$s', null ) , get_option( "posts_per_page", null ) ) )
                ));
 } 
 
@@ -405,7 +404,7 @@ function caption__syntax() {
   $syntax = array( 'id' => bw_skv( null, "text", "value for CSS id= keyword" )
                  , 'class' => bw_skv( null, "classname", "custom class " )
                  , 'align' => bw_skv( "alignnone", "aligncenter|alignright|alignleft", "CSS alignment class" )
-                 , 'width' => bw_skv( null, "numeric", "width in pixels (Note: 10 is added to this number)" )
+                 , 'width' => bw_skv( null, __( "numeric", null ), "width in pixels (Note: 10 is added to this number)" )
                  //, 'content' => bw_skv( null, "textarea", "caption text" )
                  );
   return( $syntax );               
@@ -444,7 +443,7 @@ function gallery__syntax() {
 		, 'itemtag'    => bw_skv( 'dl', "<i>tag</i>", "Item tag" )
 		, 'icontag'    => bw_skv( 'dt', "<i>tag</i>", "Icon tag" )
 		, 'captiontag' => bw_skv( 'dd', "<i>tag</i>", "Caption tag" )
-	        , 'columns'    => bw_skv( 3, "numeric", "Columns" )
+	        , 'columns'    => bw_skv( 3, __( "numeric", null ), "Columns" )
 		, 'size'       => bw_skv( 'thumbnail', "medium|full", "Thumbnail image size" ) 
 		, 'include'    => bw_skv( '', "<i>id1,id2</i>", "IDs to include" )
 		, 'exclude'    => bw_skv( '', "<i>id1,id2</i>", "IDs to exclude" )
