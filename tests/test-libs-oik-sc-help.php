@@ -72,7 +72,38 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		$this->switch_to_locale( "en_GB" );
 	}
 	
-	// test_sc_classes
+	function test_sc_classes() {
+		$this->switch_to_locale( "en_GB" );
+		$array = _sc_classes();
+		$html = $this->arraytohtml( $array, true );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+	}
+	
+	
+	function test_sc_classes_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$array = _sc_classes();
+		$html = $this->arraytohtml( $array ); 
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
+	
+	/**
+	 * Reduce a print_r'ed string
+	 *
+	 * print_r's an array then removes unwanted white space
+	 */
+	function arraytohtml( $array ) {
+		$string = print_r( $array, true );
+		$again = explode( "\n", $string );
+		$again = array_map( "trim", $again );
+		$string = implode( "\n", $again );
+		return $string;
+	}
+	
+	
 	// test_sc_posts
 	// test_sc_thumbnail
 

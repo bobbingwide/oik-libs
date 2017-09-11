@@ -292,10 +292,12 @@ function _sc__example( $shortcode="bw_code", $atts=null ) {
 
 /**
  * Helper functions for shortcodes that support these atts
-*/
+ * 
+ * @return array with "class" and "id" keys
+ */
 function _sc_classes() {
- return( array( "class"=> bw_skv( "", "<i>class names</i>", "CSS class names" )
-              , "id" => bw_skv( "", "<i>id</i>", "unique identifier" )
+ return( array( "class"=> BW_::bw_skv( "", "<i>" . __( "class names", null ) . "</i>", __( "CSS class names", null ) )
+              , "id" => BW_::bw_skv( "", "<i>" . __( "id", null ) . "</i>", __( "unique identifier", null ) )
               ));
               
 }
@@ -540,12 +542,18 @@ function bw_codes__syntax() {
 /** 
  * Return the default, values and notes for a shortcode parameter
  *
- *  bw_skv is an abbreviation of bw_sc_key_values  
+ * - bw_skv is an abbreviation of bw_sc_key_values
+ * - Here we call bw_translate() to help identify code that should be changed to use BW_::bw_skv()
+ * 
+ * @param string|null $default default value
+ * @param string|null $values vertical bar separated possible values
+ * @param string $notes translatable text
+ * @return array
  */
 function bw_skv( $default, $values, $notes ) {
   return( array( "default" => $default
                , "values" => $values
-               , "notes" => __( $notes, "oik" )
+               , "notes" => bw_translate( $notes, "oik" )
                )  );
 }
 
