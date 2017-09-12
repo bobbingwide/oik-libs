@@ -345,7 +345,7 @@ function _sc_posts() {
  * @return array - associative array of bw_skv()'s
  */
 function _sc_thumbnail() {   
-  return( array( 'thumbnail'       => bw_skv( "thumbnail", "medium|large|full|nnn|wxh", "image size" )   
+  return( array( 'thumbnail'       => BW_::bw_skv( "thumbnail", "medium|large|full|" . __( "nnn", null ) . "|" . __( "wxh", null ), __( "image size", null ) )   
                ));
 }        
 

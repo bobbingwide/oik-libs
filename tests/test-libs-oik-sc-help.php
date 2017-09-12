@@ -128,8 +128,30 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
 	}
-	// test_sc_thumbnail
-
-	// test_sc_thumbnail
+	
+	/**
+	 * 
+	 */
+	function test_sc_thumbnail() {
+		$this->switch_to_locale( "en_GB" );
+		$array = _sc_thumbnail();
+		$html = $this->arraytohtml( $array, true );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+	}
+	
+	/**
+	 * Note: nnn and wxh do not translate in bb_BB 
+	 * 
+	 */
+	function test_sc_thumbnail_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$array = _sc_thumbnail();
+		$html = $this->arraytohtml( $array, true );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+		
+	}
 
 }
