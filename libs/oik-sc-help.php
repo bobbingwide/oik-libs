@@ -366,11 +366,10 @@ function wp_caption__help() {
 }
 
 function caption__syntax() {
-  $syntax = array( 'id' => bw_skv( null, "text", "value for CSS id= keyword" )
-                 , 'class' => bw_skv( null, "classname", "custom class " )
-                 , 'align' => bw_skv( "alignnone", "aligncenter|alignright|alignleft", "CSS alignment class" )
-                 , 'width' => bw_skv( null, __( "numeric", null ), "width in pixels (Note: 10 is added to this number)" )
-                 //, 'content' => bw_skv( null, "textarea", "caption text" )
+  $syntax = array( 'id' => BW_::bw_skv( null, __( "text", null ), __( "value for CSS id= keyword", null ) )
+                 , 'class' => BW_::bw_skv( null, __( "classname", null) , __( "custom class", null ) )
+                 , 'align' => BW_::bw_skv( "alignnone", "aligncenter|alignright|alignleft", __( "CSS alignment class", null ) )
+                 , 'width' => BW_::bw_skv( null, __( "numeric", null ), __( "width in pixels (Note: 10 is added to this number)", null ) )
                  );
   return( $syntax );               
 }
