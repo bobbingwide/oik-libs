@@ -349,44 +349,9 @@ function _sc_thumbnail() {
                ));
 }        
 
-/**  
- * These functions return the help and syntax for the shortcodes that are activated
- */
-function div__help() {
-  return( "start a &lt;div&gt; tag" );
-}
-
-function div__syntax( ) {
-  $syntax = _sc_classes();
-  return( $syntax );
-}
-
-function sdiv__syntax() {
-  $syntax = _sc_classes();
-  return( $syntax );
-}
-
-// We don't provide an example for the [div] shortcode as we want to deliver it using the shortcode server
-// where it can be created in the __oik_sc_example field
-/*
-function div__example() {
-
-  return( $example );
-}
-*/
- 
-/**
- */
-function ediv__help() { 
-  return( esc_html( "end a <div> with </div>") );
-}
-
-function ediv__syntax() {
-  return( null );
-}
 
 function caption__help() {
-  return( "Display the caption for an image. Standard WordPress shortcode" );
+  return( __( "Display the caption for an image. Standard WordPress shortcode", null ) );
 }
 
 function caption__example() {    
@@ -721,17 +686,6 @@ function bw_directions__syntax( $shortcode="bw_directions" ) {
   
 function bw_geo__syntax( $shortcode="bw_geo" ) {
   $syntax = array( "alt" => bw_skv( null, "1", "Use alternative value" ) );
-  return( $syntax );
-}
-  
-function stag__syntax( $shortcode="stag" ) {
-  $syntax = array( "name" => bw_skv( "", "<i>tag</i>", "HTML start tag" ) );
-  $syntax += _sc_classes();
-  return( $syntax );
-}
-
-function etag__syntax( $shortcode="etag" ) {
-  $syntax = array( "name" => bw_skv( "", "<i>tag</i>", "paired HTML tag for the stag shortcode" ) );
   return( $syntax );
 }
                   
