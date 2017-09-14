@@ -379,7 +379,7 @@ function wp_caption__syntax() {
 } 
 
 function gallery__help() {
-  return( "Display the attached images in a gallery" );
+  return( __( "Display the attached images in a gallery", null ) );
 }
 
 /**
