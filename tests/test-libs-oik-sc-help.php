@@ -172,6 +172,23 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
 	}
+	
+	function test_caption__example() {
+		//$this->setExpectedDeprecated( "bw_translate" );
+		$this->switch_to_locale( "en_GB" );
+		$html = bw_ret( caption__example( null ) );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+	}
+	
+	function test_caption__example_bb_BB() {
+		//$this->setExpectedDeprecated( "bw_translate" );
+		$this->switch_to_locale( "bb_BB" );
+		$html = bw_ret( caption__example( null ) );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
 		
 
 }

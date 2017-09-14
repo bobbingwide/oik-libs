@@ -355,9 +355,9 @@ function caption__help() {
 }
 
 function caption__example() {    
-  br( "e.g:");
+  BW_::br( __( "e.g:", null ) );
   // **?** The caption should surround an image - so we need to include an image in this
-  $ics = img_caption_shortcode( array( 'width' => 70, 'caption' => 'This is a caption') );
+  $ics = img_caption_shortcode( array( 'width' => 70, 'caption' => __( 'This is a caption', null ) ) );
   e( $ics );
 }
 
