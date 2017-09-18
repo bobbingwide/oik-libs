@@ -385,6 +385,7 @@ function gallery__help() {
 /**
  * Syntax help for the gallery shortcode
  *
+ * `
   $atts = shortcode_atts( array(
     'order'      => 'ASC',
     'orderby'    => 'menu_order ID', 
@@ -398,21 +399,21 @@ function gallery__help() {
     'include'    => '',
     'exclude'    => '',
     'link'       => ''
+ * `
  */
-
 function gallery__syntax() {
-  $syntax = array( 'order'   => bw_skv( 'ASC', "DESC", "Order" )
-		, 'orderby'    => bw_skv( 'menu_order ID', "ID|title|rand", "Order by field" )
-		, 'ids'         => bw_skv( "", "ID", 'Post ID. Default: Current post ID' )
-		, 'itemtag'    => bw_skv( 'dl', "<i>tag</i>", "Item tag" )
-		, 'icontag'    => bw_skv( 'dt', "<i>tag</i>", "Icon tag" )
-		, 'captiontag' => bw_skv( 'dd', "<i>tag</i>", "Caption tag" )
-	        , 'columns'    => bw_skv( 3, __( "numeric", null ), "Columns" )
-		, 'size'       => bw_skv( 'thumbnail', "medium|full", "Thumbnail image size" ) 
-		, 'include'    => bw_skv( '', "<i>id1,id2</i>", "IDs to include" )
-		, 'exclude'    => bw_skv( '', "<i>id1,id2</i>", "IDs to exclude" )
-                );
-  return( $syntax );
+	$syntax = array( 'order'   => BW_::bw_skv( 'ASC', "DESC", __( "Order", null ) )
+		, 'orderby'    => BW_::bw_skv( 'menu_order ID', "ID|title|rand", __( "Order by field", null ) )
+		, 'ids'         => BW_::bw_skv( "",  __( "ID" , null ), __( 'Post ID. Default: Current post ID', null ) )
+		, 'itemtag'    => BW_::bw_skv( 'dl', "<i>" . __( "tag", null ) . "</i>", __( "Item tag", null ) )
+		, 'icontag'    => BW_::bw_skv( 'dt', "<i>" . __( "tag", null ) . "</i>", __( "Icon tag", null ) )
+		, 'captiontag' => BW_::bw_skv( 'dd', "<i>" . __( "tag", null ) . "</i>", __( "Caption tag", null ) )
+		, 'columns'    => BW_::bw_skv( 3, __( "numeric", null ), __( "Columns", null ) )
+		, 'size'       => BW_::bw_skv( 'thumbnail', "medium|full", __( "Thumbnail image size", null ) ) 
+		, 'include'    => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to include", null ) )
+		, 'exclude'    => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to exclude", null ) )
+		);
+	return $syntax ;
 } 
  
 function embed__help( $shortcode='embed' ) {

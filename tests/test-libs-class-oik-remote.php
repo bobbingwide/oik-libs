@@ -47,6 +47,8 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
    * [0] => 192.168.50.1	 | Ethernet adapter VirtualBox Host-Only Network #2:
    * [1] => 192.168.56.1	 | Ethernet adapter VirtualBox Host-Only Network:
    * [2] => 192.168.1.10	 | Wireless LAN adapter WiFi:
+	 *
+	 * @TODO These IP addresses may change after a reboot. Cater for this somehow.
 	 */
 	function test_gethostbynamel() {
 		
@@ -59,9 +61,8 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 		$this->assertEquals( $expected, $hosts );
 		
 		if ( oik_remote::get_computer_name() == "qw" ) {
-		
 			$hosts = gethostbynamel( "qw" );
-			$expected = array( "192.168.50.1", "192.168.56.1", "192.168.1.10" );
+			$expected = array( "192.168.50.1", "192.168.56.1", "192.168.1.22" );
 			$this->assertEquals( $expected, $hosts );
 			$hosts = gethostbynamel( "qw." );
 			$this->assertEquals( $expected, $hosts );
