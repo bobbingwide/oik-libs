@@ -417,7 +417,7 @@ function gallery__syntax() {
 } 
  
 function embed__help( $shortcode='embed' ) {
-  return( "Embed media" );
+  return( __("Embed media", null ) );
 }
 
 function embed__example( $shortcode='embed' ) {
