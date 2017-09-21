@@ -174,7 +174,6 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 	}
 	
 	function test_caption__example() {
-		//$this->setExpectedDeprecated( "bw_translate" );
 		$this->switch_to_locale( "en_GB" );
 		$html = bw_ret( caption__example( null ) );
     //$this->generate_expected_file( $html );
@@ -254,6 +253,37 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		$this->switch_to_locale( "bb_BB" );
 		$html = embed__help( null );
     //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
+	
+	function test_embed__example() {
+		$this->switch_to_locale( "en_GB" );
+		$html = bw_ret( embed__example() );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+	}
+	
+	function test_embed__example_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$html = bw_ret( embed__example() );
+    //$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
+	
+	function test_embed__syntax() {
+		$this->switch_to_locale( "en_GB" );
+		$array = embed__syntax();
+		$html = $this->arraytohtml( $array, true );
+		$this->assertArrayEqualsFile( $html );
+	}
+	
+	function test_embed__syntax_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$array = embed__syntax();
+		$html = $this->arraytohtml( $array, true );
+		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
 	}

@@ -414,19 +414,44 @@ function gallery__syntax() {
 		, 'exclude'    => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to exclude", null ) )
 		);
 	return $syntax ;
-} 
- 
+}
+
+/**
+ * Help for the embed shortcode
+ */ 
 function embed__help( $shortcode='embed' ) {
   return( __("Embed media", null ) );
 }
 
+/**
+ * Example for the embed shortcode
+ *
+ * The embed shorcode requires an URL which can be provided as embedded content
+ * or passed in the `src=` parameter.
+ * 
+ * e.g. 
+ * `[embed width="480"]https://www.youtube.com/watch?v=nH228-XQ-A8[/embed]`
+ *
+ * @param string $shortcode
+ */
 function embed__example( $shortcode='embed' ) {
-  p( "Embed example" );
+	$atts = 'width="480" src=https://www.youtube.com/watch?v=nH228-XQ-A8';
+  bw_invoke_shortcode( $shortcode, $atts, __( "Embed example", null ) );
+	BW_::p( __( "Note: It's not possible to produce a proper working example due to the way the embed shortcode is handled.", null ) );
 }
 
+/**
+ * Syntax for embed shortcode
+ *
+ * - The default width comes from $GLOBALS['content_width'], if set
+ * - Default height is  min( ceil( $width * 1.5 ), 1000 );
+ */
 function embed__syntax( $shortcode='embed' ) {
-  $syntax = array( "width" => bw_skv( "width", "500|embed_size_w|content_width", "Required width" )
-                 , "height" => bw_skv( "height", "700|embed_size_h", "Required height" )
+
+
+  $syntax = array( "width" => BW_::bw_skv( "500",  __( "numeric", null ), __( "Required width", null ) )
+                 , "height" => BW_::bw_skv( "750",  __( "numeric", null ), __( "Required height", null ) )
+								 , "src" => BW_::bw_skv( null, __( "URL", null ), __( "URL to embed, if not provided in shortcode content", null ) )
                  );
   return( $syntax );
 }
