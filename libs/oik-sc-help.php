@@ -458,13 +458,14 @@ function embed__syntax( $shortcode='embed' ) {
 
 /**
  * Syntax for [audio] shortcode
- * @link http://codex.wordpress.org/Audio_Shortcode
+ * 
+ * @link https://codex.wordpress.org/Audio_Shortcode
  */
 function audio__syntax( $shortcode='audio' ) {
-  $syntax = array( "src,mp3,m4a,ogg,wav,wma" => bw_skv( null, "<i>source_url</i>", "If omitted uses first attachment" )
-                 , "loop" => bw_skv( "off", "on", "Allow looping of media" )
-                 , "autoplay" => bw_skv( "off", "on", "Causes media to autoplay" )
-                 , "preload" => bw_skv( "none", "auto|metadata", "How the audio should be loaded" )
+  $syntax = array( "src,mp3,m4a,ogg,wav,wma" => BW_::bw_skv( null, "<i>" . __( "URL", null ) . "</i>", __( "If omitted uses first attachment", null ) )
+                 , "loop" => BW_::bw_skv( "off", "on", __( "Allow looping of media", null ) )
+                 , "autoplay" => BW_::bw_skv( "off", "on", __( "Causes media to autoplay", null ) )
+                 , "preload" => BW_::bw_skv( "none", "auto|metadata", __( "How the audio should be loaded", null ) )
                  );
   return( $syntax ); 
 }
