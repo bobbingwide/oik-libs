@@ -473,16 +473,16 @@ function audio__syntax( $shortcode='audio' ) {
 /**
  * Syntax for [video] shortcode
  *
- * @link http://codex.wordpress.org/Video_Shortcode
+ * @link https://codex.wordpress.org/Video_Shortcode
  */
 function video__syntax( $shortcode='video' ) {
-  $syntax = array( "src,mp4,m4v,webm,ogv,wmv,flv" => bw_skv( null, "<i>source_url</i>", "If omitted uses first attachment" )
-                 , "poster" => bw_skv( null, "<i>image_url</i>", "Placeholder image" )
-                 , "loop" => bw_skv( "off", "on", "Allow looping of media" )
-                 , "autoplay" => bw_skv( "off", "on", "Causes media to autoplay" )
-                 , "preload" => bw_skv( "none", "auto|metadata", "How the audio should be loaded" )
-                 , "height" => bw_skv( "height", "<i>integer</i>", "Required height" )
-                 , "width" => bw_skv( "width", "<i>integer</i>", "Required width" )
+  $syntax = array( "src,mp4,m4v,webm,ogv,wmv,flv" => BW_::bw_skv( null, "<i>" . __( "URL", null ) . "</i>", __( "If omitted uses first attachment", null ) )
+                 , "poster" => BW_::bw_skv( null, "<i>" . __( "URL", null ) . "</i>", __( "Placeholder image", null ) )
+                 , "loop" => BW_::bw_skv( "off", "on", __( "Allow looping of media", null ) )
+                 , "autoplay" => BW_::bw_skv( "off", "on", __( "Causes media to autoplay", null ) )
+                 , "preload" => BW_::bw_skv( "none", "auto|metadata", __( "How the audio should be loaded", null ) )
+                 , "height" => BW_::bw_skv( null,  __( "numeric", null ), __( "Required height", null ) )
+                 , "width" => BW_::bw_skv( null, __( "numeric", null ), __( "Required width", null ) )
                  );
   return( $syntax ); 
 }
