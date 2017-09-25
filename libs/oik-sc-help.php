@@ -487,14 +487,6 @@ function video__syntax( $shortcode='video' ) {
   return( $syntax ); 
 }
 
-function wp__help() {
-  return( "Display a styled form of WordPress. " );
-}
-
-function wp__example() {  
-  oik_require( "shortcodes/oik-bob-bing-wide.php" );
-  e( "e.g.". bw_wp());
-}
 
 function bw_code__help() {
   return( "Display the help and syntax for a shortcode" );
