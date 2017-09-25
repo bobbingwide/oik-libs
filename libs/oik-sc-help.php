@@ -487,9 +487,11 @@ function video__syntax( $shortcode='video' ) {
   return( $syntax ); 
 }
 
-
+/**
+ * Help for [bw_code] shortcode
+ */
 function bw_code__help() {
-  return( "Display the help and syntax for a shortcode" );
+  return( __( "Display the help and syntax for a shortcode", null ) );
 }
 
 function bw_code__syntax() {
