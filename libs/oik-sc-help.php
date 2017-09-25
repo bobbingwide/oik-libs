@@ -494,13 +494,16 @@ function bw_code__help() {
   return( __( "Display the help and syntax for a shortcode", null ) );
 }
 
+/**
+ * Syntax for [bw_code] shortcode
+ */
 function bw_code__syntax() {
-  $syntax = array( "shortcode" => bw_skv( "bw_code", "<i>shortcode</i>", "The shortcode you want explained" )  
-                 , "help" => bw_skv( "Y", "N", "Display help for the shortcode" )
-                 , "syntax" => bw_skv( "Y", "N", "Display the syntax" )
-                 , "example" => bw_skv( "Y", "N", "Display an example, if possible" )
-                 , "live" => bw_skv( "N", "Y", "Display the live results using default values" )
-                 , "snippet" => bw_skv( "N", "Y", "Display the generated HTML" )
+  $syntax = array( "shortcode" => BW_::bw_skv( "bw_code", "<i>" . __( "shortcode", null) . "</i>", __( "The shortcode you want explained", null ) )  
+                 , "help" => BW_::bw_skv( "Y", "N", __( "Display help for the shortcode", null ) )
+                 , "syntax" => BW_::bw_skv( "Y", "N", __( "Display the syntax", null ) )
+                 , "example" => BW_::bw_skv( "Y", "N", __("Display an example, if possible", null ) )
+                 , "live" => BW_::bw_skv( "N", "Y", __( "Display the live results using default values", null ) )
+                 , "snippet" => BW_::bw_skv( "N", "Y", __( "Display the generated HTML", null ) )
                  );
   return( $syntax );
 }
