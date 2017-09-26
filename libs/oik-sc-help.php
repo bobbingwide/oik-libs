@@ -171,6 +171,7 @@ function _bw_lazy_sc_syntax( $shortcode ) {
  *
  */ 
 function bw_lazy_sc_syntax( $shortcode, $callback=null ) {
+	oik_require( "shortcodes/oik-codes.php" );
   stag("code");
   e( '[' );
   bw_sc_link( $shortcode, $callback );
@@ -487,38 +488,6 @@ function video__syntax( $shortcode='video' ) {
   return( $syntax ); 
 }
 
-/**
- * Help for [bw_code] shortcode
- */
-function bw_code__help() {
-  return( __( "Display the help and syntax for a shortcode", null ) );
-}
-
-/**
- * Syntax for [bw_code] shortcode
- */
-function bw_code__syntax() {
-  $syntax = array( "shortcode" => BW_::bw_skv( "bw_code", "<i>" . __( "shortcode", null) . "</i>", __( "The shortcode you want explained", null ) )  
-                 , "help" => BW_::bw_skv( "Y", "N", __( "Display help for the shortcode", null ) )
-                 , "syntax" => BW_::bw_skv( "Y", "N", __( "Display the syntax", null ) )
-                 , "example" => BW_::bw_skv( "Y", "N", __("Display an example, if possible", null ) )
-                 , "live" => BW_::bw_skv( "N", "Y", __( "Display the live results using default values", null ) )
-                 , "snippet" => BW_::bw_skv( "N", "Y", __( "Display the generated HTML", null ) )
-                 );
-  return( $syntax );
-}
-
-function bw_code__example() {
-  br();
-  e( "e.g. [bw_code shortcode=\"oik\"]" );
-  br();
-  e( "Display information about the [oik] shortcode" );
-  br();
-  oik__help();
-  br();
-  bw_lazy_sc_syntax( "oik" );
-  oik__example();
-}
 
 function bw_codes__syntax() {
   $syntax = array( "ordered" => bw_skv( "N", "Y", "Sort the shortcode codes by name." ) 
