@@ -488,13 +488,6 @@ function video__syntax( $shortcode='video' ) {
   return( $syntax ); 
 }
 
-
-function bw_codes__syntax() {
-  $syntax = array( "ordered" => bw_skv( "N", "Y", "Sort the shortcode codes by name." ) 
-                 ); 
-  return( $syntax );
-}
-
 /** 
  * Return the default, values and notes for a shortcode parameter
  *
@@ -532,10 +525,6 @@ function bw_format_skv( $value ) {
   } else {
     return( $value );
   }    
-}
-
-function bw_codes__help() {
-  return( "Display the currently available shortcodes" );
 }
 
 function bw_codes__example() {
