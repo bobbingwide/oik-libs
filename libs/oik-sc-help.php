@@ -527,36 +527,6 @@ function bw_format_skv( $value ) {
   }    
 }
 
-/**
- * Common parameters for bw_email, bw_mailto, etc. 
- */ 
-function _sc_email() {
-  $syntax = array( "prefix" => bw_skv( "Email", "<i>string</i>", "Prefix string" )
-                 , "sep" => bw_skv( ": ", "<i>string</i>", "Separator string" )
-                 , "alt" => bw_skv( null, "1", "Use alternative value" )
-                 , "title" => bw_skv( "Send email to: ", "<i>title string</i>", "Tool tip text" )
-                 );
-  return( $syntax );
-}                   
-
-function bw_email__syntax( $shortcode="bw_email" ) {
-  $syntax = _sc_email();
-  $syntax_email = array( "tag" => bw_skv( "span", "<i>tag</i>", "enclosing HTML tag" )
-                 , "index" => bw_skv( "email", "<i>field</i>", "oik options field to use" )
-                 );
-  $syntax += $syntax_email;                 
-  return( $syntax );
-}
-
-function bw_mailto__syntax( $shortcode="bw_mailto" ) {
-  $syntax = _sc_email();
-  $syntax_mailto = array( "tag" => bw_skv( "p", "<i>tag</i>", "enclosing HTML tag" )
-                 , "index" => bw_skv( "email", "<i>field</i>", "oik options field to use" )
-                 );
-  $syntax += $syntax_mailto;                
-  return( $syntax );
-}
-
 function _sc_telephone() {
   $syntax = array( "sep" => bw_skv( ": ", "<i>string</i>", "Separator string" )
                  , "alt" => bw_skv( null, "1", "Use alternative value" )
