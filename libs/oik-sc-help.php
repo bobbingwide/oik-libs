@@ -527,16 +527,6 @@ function bw_format_skv( $value ) {
   }    
 }
 
-function bw_codes__example() {
-  e( "The currently available shortcodes are displayed in a table with a brief description, the known syntax and a link to further help. " );
-  alink( null, "http://www.oik-plugins.com/oik-shortcodes/bw_codes/bw_codes", "[bw_codes] - list shortcodes" );
-  
-  // br( "Note: The default display lists the order in which the shortcodes are <i>evaluated</i>" );
-  // e( "If you have a problem with hyphenated shortcodes not being chosen then it could be due to the order in which the shortcodes were registered using add_shortcode();" );
-  // because the shortest shortcode has been added before the longer ones. 
-  // See wp-1, wp-2, wp and wp-3 ");
-}
-
 /**
  * Common parameters for bw_email, bw_mailto, etc. 
  */ 
