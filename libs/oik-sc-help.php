@@ -527,16 +527,6 @@ function bw_format_skv( $value ) {
   }    
 }
 
-function bw_copyright__syntax( $shortcode="bw_copyright" ) {
-  $syntax = array( "prefix" => bw_skv( "&copy; Copyright", "<i>string</i>", "Copyright text prefix" )
-                 , "company" => bw_skv( bw_get_option( "company" ), "<i>company name</i>", "from oik options - company" )
-                 , "suffix" => bw_skv( ". All rights reserved.", "<i>string</i>", "copyright suffix text" )
-                 , "from" => bw_skv( bw_get_option( "yearfrom" ), "<i>year</i>", "from oik options - yearfrom" )
-                 , "sep" => bw_skv( "-", ",|<i>string</i>", "default: ',' if one year difference '-' otherwise" )
-                 );
-  return( $syntax );
-} 
-
 function bw_qrcode__syntax( $shortcode="bw_qrcode" ) {
   $syntax = array( "link" => bw_skv( null, "<i>URL</i>", "Link URL for QR code image" )
                  , "text" => bw_skv( bw_get_option( "company" ), "<i>string</i>", "from oik options - company" )
