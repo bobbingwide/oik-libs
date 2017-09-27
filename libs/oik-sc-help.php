@@ -526,10 +526,6 @@ function bw_format_skv( $value ) {
     return( $value );
   }    
 }
-function bw_directions__syntax( $shortcode="bw_directions" ) {
-  $syntax = array( "alt" => bw_skv( null, "1", "Use alternative value" ) );
-  return( $syntax );
-}
   
 function bw_geo__syntax( $shortcode="bw_geo" ) {
   $syntax = array( "alt" => bw_skv( null, "1", "Use alternative value" ) );
