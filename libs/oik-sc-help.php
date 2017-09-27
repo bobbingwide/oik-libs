@@ -526,15 +526,6 @@ function bw_format_skv( $value ) {
     return( $value );
   }    
 }
-
-function bw_qrcode__syntax( $shortcode="bw_qrcode" ) {
-  $syntax = array( "link" => bw_skv( null, "<i>URL</i>", "Link URL for QR code image" )
-                 , "text" => bw_skv( bw_get_option( "company" ), "<i>string</i>", "from oik options - company" )
-                 , "width" => bw_skv( null, "<i>width</i>", "width of QR code image, if required" )
-                 , "height" => bw_skv( null, "<i>height</i>", "height of QR code image, if required" )
-                 );
-  return( $syntax );
-}
 function bw_contact__syntax( $shortcode="bw_contact" ) {
   $syntax = array( "alt" => bw_skv( null, "1", "Use alternative value" ) );
   return( $syntax );
