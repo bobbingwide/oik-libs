@@ -559,22 +559,25 @@ function bw_invoke_shortcode( $shortcode, $atts=null, $text=null ) {
   bw_trace2( $expanded, "expanded", true, BW_TRACE_DEBUG );
   //bw_backtrace();
 }
+
 /**
  * Syntax for [playlist] shortcode
+ *
+ * @link https://codex.wordpress.org/Playlist_Shortcode 
  */
 function playlist__syntax( $shortcode="playlist" ) {
-  $syntax = array( "ids" => bw_skv( null, "<i>id1,id2,</i", "IDs for the playlist" )
-                 , "id" => bw_skv( "current post", "<i>id</i>", "Post from which the playlist is chosen" )
-                 , "type" => bw_skv( "audio", "video", "Content type" )
-                 , "order" => bw_skv( "ASC", "DESC|RAND", "Ordering" )
-                 , "orderby" => bw_skv( "post__in", "<i>menu_order|ID|title|rand</i>", "Order by field" )
-                 , "include" => bw_skv( null, "<i>id1,id2</i>", "IDs to include" )
-                 , "exclude" => bw_skv( null, "<i>id1,id2</i>", "IDs to exclude" )
-                 , "style" => bw_skv( "light", "dark", "Playlist style" )
-                 , "tracklist" => bw_skv( "true", "false", "Display track list?" )
-                 , "tracknumbers" => bw_skv( "true", "false", "Display track numbers?" )
-                 , "images" => bw_skv( "true", "false", "Display images?" )
-                 , "artists" => bw_skv( "true", "false", "Display artists?" )
+  $syntax = array( "ids" => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs for the playlist", null ) )
+                 , "id" => BW_::bw_skv( __( "current post", null ) , "<i>" . __( "id", null ) . "</i>", __( "Post from which the playlist is chosen", "null" ) )
+                 , "type" => BW_::bw_skv( "audio", "video", __( "Content type", null ) )
+                 , "order" => BW_::bw_skv( "ASC", "DESC|RAND", __( "Ordering", null ) )
+                 , "orderby" => BW_::bw_skv( "post__in", "menu_order|ID|title|rand", __( "Order by field", null ) )
+                 , "include" => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to include", null ) )
+                 , "exclude" => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs to exclude", null ) )
+                 , "style" => BW_::bw_skv( "light", "dark", __( "Playlist style", null ) )
+                 , "tracklist" => BW_::bw_skv( "true", "false", __( "Display track list?", null ) )
+                 , "tracknumbers" => BW_::bw_skv( "true", "false", __( "Display track numbers?", null ) )
+                 , "images" => BW_::bw_skv( "true", "false", __( "Display images?", null ) )
+                 , "artists" => BW_::bw_skv( "true", "false", __( "Display artists?", null ) )
                  );
   return( $syntax );
 }                
