@@ -526,16 +526,17 @@ function bw_format_skv( $value ) {
     return( $value );
   }    
 }
+
 /**
- * Call a shortcode for a simple example
+ * Calls a shortcode for a simple example
+ *
+ * @uses apply_filters() rather than do_shortcode() since the shortcodes that get invoked
+ * may not support the current_filter() - which on an admin page could be oik-options_page_oik_options-1
+ * Nearly ALL shortcodes support 'the_content', so we will apply that filter.
  * 
  * @param string $shortcode - name of shortcode
  * @param string $atts - attribute parameters to the shortcode
  * @param string $text - translated brief description of the shortcode
- *
- * @uses apply_filters() rather than do_shortcode() since the shortcodes that get invoked
- * may not support the current_filter() - which on an admin page could be oik-options_page_oik_options-1
- * Nearly ALL shortcodes support 'the_content' so we will apply that filter
  */
 function bw_invoke_shortcode( $shortcode, $atts=null, $text=null ) {
   BW_::p( $text );
@@ -557,17 +558,6 @@ function bw_invoke_shortcode( $shortcode, $atts=null, $text=null ) {
   e( $expanded );
   bw_trace2( $expanded, "expanded", true, BW_TRACE_DEBUG );
   //bw_backtrace();
-}
-
-/**
- * Syntax for [ad] shortcode - Artisteer themes
- */  
-function ad__syntax( $shortcode='ad' ) {
-  $syntax = array( "code" => bw_skv( 1, "2|3|4|5", "Advertisement selection - Artisteer theme options" )
-                 , "align" => bw_skv( "left", "center|right", "Alignment" )
-                 , "inline" => bw_skv( 0, "1", "0 if inline, 1 for block" )
-                 );
-  return( $syntax );
 }
 
 /**
