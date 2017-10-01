@@ -4,6 +4,7 @@
  * Unit tests for the libs\oik-sc-help.php file
  * 
  * Note: Some of the logic in libs\oik-sc-help.php is tested implicitely by tests in tests\test-libs-bobbfunc.php
+ * Other functions are tested in the oik base plugin.
  *
  */
 class Tests_libs_oik_sc_help extends BW_UnitTestCase {
@@ -338,7 +339,6 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
 	}
-
 
 
 }

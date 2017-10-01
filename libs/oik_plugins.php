@@ -54,7 +54,7 @@ function oik_lazy_plugins_server_settings() {
   }  
   
   if ( $check_plugin ) {
-    BW_::oik_box( NULL, NULL, __( "Check", null) , "oik_plugins_check" );
+    BW_::oik_box( NULL, NULL, _x( "Check", "examine", null ) , "oik_plugins_check" );
   } 
   
   if ( $delete_plugin ) { 
@@ -227,7 +227,7 @@ function oik_plugins_validate_plugin( $plugin ) {
     $valid = strlen( $plugin ) > 0;
   } 
   if ( !$valid ) { 
-    p( "settings must not be blank" );   
+    BW_::p( __( "settings must not be blank", null ) );   
   }  
   return $valid;
 }

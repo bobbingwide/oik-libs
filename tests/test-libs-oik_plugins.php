@@ -24,6 +24,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * oik solves this... but how?
 	 */
 	function setUp() {
+		parent::setUp();
 		oik_require_lib( "oik_plugins" );
 		oik_require_lib( "class-oik-update" );
 		//oik_require( "libs/oik-l10n.php", "oik-libs" );
@@ -60,6 +61,8 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html_array );
 		
 		$this->assertArrayEqualsFile( $html_array );
+		
+		$this->switch_to_locale( "en_GB" );
 	}
 	
 	
@@ -70,7 +73,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	
 	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcom" );
 	
-		switch_to_locale( "bb_BB" );
+		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";
 		$_REQUEST['check_version'] = "0.0.0";
 		$html = bw_ret( oik_plugins_check() );
@@ -78,6 +81,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		$this->assertNotNull( $html );
 		$html = $this->replace_created_nonce( $html, "upgrade-plugin_oik-fum/oik-fum.php" );
 		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
 	}
 	
 	/**
@@ -106,14 +110,18 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		// Default server now uses the https protocol. Uncomment to test with http.
 	  //oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcom" );
 		
-		switch_to_locale( "bb_BB" );
+		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";
 		$_REQUEST['check_version'] = "1.2.1";
 		$html = bw_ret( oik_plugins_check() );
 		$this->assertNotNull( $html );
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
+		
+		$this->switch_to_locale( "en_GB" );
 	}
+	
+
 	
 	/**
 	 * Switch to the required target language
@@ -127,20 +135,22 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * Note: For switch_to_locale() see https://core.trac.wordpress.org/ticket/26511 and https://core.trac.wordpress.org/ticket/39210 
 	 */
 	function switch_to_locale( $locale='bb_BB' ) {
-		$tdl = is_textdomain_loaded( "oik" );
-		$this->assertTrue( $tdl );
-		$switched = switch_to_locale( 'bb_BB' );
+		//$tdl = is_textdomain_loaded( "oik" );
+		//$this->assertTrue( $tdl );
+		$switched = switch_to_locale( $locale );
 		if ( $switched ) {
 			$this->assertTrue( $switched );
 		}
-			$locale = $this->query_la_CY();
-			$this->assertEquals( "bb_BB", $locale );
-			$this->reload_domains();
-			$tdl = is_textdomain_loaded( "oik" );
-			$this->assertTrue( $tdl );
-			//$this->test_domains_loaded();
+		$new_locale = $this->query_la_CY();
+		$this->assertEquals( $locale, $new_locale );
+		$this->reload_domains();
+		$tdl = is_textdomain_loaded( "oik" );
+		$this->assertTrue( $tdl );
+		//$this->test_domains_loaded();
+		if ( $locale === 'bb_BB' ) {
 			$bw = translate( "bobbingwide", "oik" );
 			$this->assertEquals( "bboibgniwde", $bw );
+		}	
 			
 	}
 	
@@ -166,12 +176,39 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		global $bw_registered_plugins, $bw_slugs;
 		$bw_registered_plugins = null;
 		$bw_slugs = null;
-		
 	}
 	
+	/**
+	 * Tests the message from oik_plugins_validate_plugin
+	 */
+	function test_oik_plugins_validate_plugin() {
+		//$this->setExpectedDeprecated( "bw_translate" );
+		$this->switch_to_locale( "en_GB" );
+		$valid = oik_plugins_validate_plugin( null );
+		$html = bw_ret();
+		$this->assertFalse( $valid );
+		$this->assertNotNull( $html );
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		//$this->switch_to_locale( "en_GB" );
+	}
 	
-		
-	
+	/**
+	 * Tests the message from oik_plugins_validate_plugin
+	 */
+	function test_oik_plugins_validate_plugin_bb_BB() {
+		//$this->setExpectedDeprecated( "bw_translate" );
+		$this->switch_to_locale( "bb_BB" );
+		$valid = oik_plugins_validate_plugin( null );
+		$html = bw_ret();
+		$this->assertFalse( $valid );
+		$this->assertNotNull( $html );
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
+	}
+
+
 	
 }
 	

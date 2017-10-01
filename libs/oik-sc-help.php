@@ -69,7 +69,7 @@ function bw_form_sc_parm_help( $parameter, $shortcode ) {
 function bw_form_sc_syntax( $syntax, $shortcode ) {
   if ( count( $syntax ) ) { 
     foreach ( $syntax as $key => $value ) {
-      br();
+      BW_::br();
       span( "key" );
       //e( $key );
       e( bw_form_sc_parm_help( $key, $shortcode ) );
@@ -317,7 +317,7 @@ function _sc_classes() {
  *
  * 'posts_per_page' added in oik v2.3
  *
- * @return array - associative array of bw_skv()'s  
+ * @return array - associative array of BW_::bw_skv's  
  */
 function _sc_posts() {
   return( array( 'numberposts'  => BW_::bw_skv( "5", __( "numeric", null ), __( "number to return", null ) )
@@ -385,12 +385,12 @@ function gallery__help() {
 
 /**
  * Syntax help for the gallery shortcode
- *
+ * @TODO Find out if the post__in and HTML5 stuff should be mentioned or not. 
  * `
   $atts = shortcode_atts( array(
     'order'      => 'ASC',
     'orderby'    => 'menu_order ID', 
-                 , "orderby" => bw_skv( "post__in", "<i>menu_order|ID|title|rand</i>", "Order by field" )
+                 , "orderby" => BW_::bw_skv( "post__in", "<i>menu_order|ID|title|rand</i>", "Order by field" )
     'id'         => $post ? $post->ID : 0,
     'itemtag'    => $html5 ? 'figure'     : 'dl',
     'icontag'    => $html5 ? 'div'        : 'dt',

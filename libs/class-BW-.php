@@ -14,12 +14,12 @@ define( "CLASS_BW__INCLUDED", "3.2.0" );
  * To use the new functions prefix the original function call with BW_::
  * and change any translatable string parameter to a translated string
  * 
- * e.g.
- * ` 
- * p( "This page left intentionally blank" );
- * becomes
- * BW_::p( __( "This page left intentionally blank", "oik" ) );
- * `
+ * e.g. 
+ * `p( "This page left intentionally blank" );`
+ *
+ * becomes 
+ *
+ * `BW_::p( __( "This page left intentionally blank", "oik" ) );`
  */
 
 class BW_ {
@@ -274,7 +274,7 @@ class BW_ {
 	 *
 	* Similar to this but the checkbox appears in the label for the textarea
 	 *   bw_checkbox_arr( $option, "Include?", $options, 'intro_cb' );
-	 *   bw_textarea_arr( $option, "Introduction", $text, 'intro', 60, 5 );
+	 *   `bw_textarea_arr( $option, "Introduction", $text, 'intro', 60, 5 );`
 	 *
 	 * @param string $name field name
 	 * @param string $text field label

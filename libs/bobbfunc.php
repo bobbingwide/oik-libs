@@ -240,7 +240,7 @@ function alink( $class=NULL, $url, $linktori=NULL, $alt=NULL, $id=NULL, $extra=N
 /**
  * Return a well formed link
  *
- * Parameters as for alink()
+ * Parameters as for `alink()`
  *
  * @param string $class - the classes for the anchor tag
  * @param string $url - the fully formed URL e.g. http://www.oik-plugins.com
@@ -486,19 +486,19 @@ function h6( $text, $class=NULL, $id=NULL ) {
 /** 
  * Output some translated text
  * 
- * Function e() replaces the original t() function used in Bobbing Wide custom code
+ * Function `e()` replaces the original t() function used in Bobbing Wide custom code
  * since for Drupal t() is already defined for translatable text.
  *
- * Function bwt() does a similar job but also performs some strange filtering if required.
+ * Function `bwt()` does a similar job but also performs some strange filtering if required.
  *
  * When you want to output text that is translatable use: 
- *   bwt( $text ); 
+ *   `bwt( $text );` 
  *
  * When you want to output text that is NOT translatable use:
- *   e( $text );
+ *   `e( $text );`
  *
  * Within functions where the $text parameter is translatable use:
- *   e( bw_translate( $text ) )
+ *   `e( __( "translatable text", "plugn-text-domain" ) );`
  * 
  * Note: This function will be deprecated.
  * 
@@ -746,7 +746,7 @@ function bw_debug( $text ) {
   if ($bw_debug_on)
   {
     if ( $oktop )
-      p( $bw_debug_on . $text );
+      BW_::p( $bw_debug_on . $text );
     else
       _bw_c( $text ); 
   }     
@@ -1345,7 +1345,7 @@ function bw_translate( $text ) {
 } 
 
 /**
- * Turn off translation performed by bw_translate()
+ * Turn off translation performed by `bw_translate()`
  * 
  * Helper function for bw_translate()
  */
@@ -1354,7 +1354,7 @@ function bw_translation_off() {
 }
 
 /**
- * Turn on translation performed by bw_translate()
+ * Turn on translation performed by `bw_translate()`
  */
 function bw_translation_on() {
   bw_context( "bw_translation", "on" );
