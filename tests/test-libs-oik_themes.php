@@ -24,6 +24,7 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 * oik solves this... but how?
 	 */
 	function setUp() {
+		parent::setUp();
 		oik_require_lib( "oik_themes" );
 		oik_require_lib( "class-oik-update" );
 		//oik_require( "libs/oik-l10n.php", "oik-libs" );
@@ -57,6 +58,8 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 		$this->assertNotNull( $html_array );
 		
 		$this->assertArrayEqualsFile( $html_array );
+		
+		$this->switch_to_locale( "en_GB" );
 	}
 	
 	/**
@@ -73,6 +76,7 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 		$html = $this->replace_created_nonce( $html, "upgrade-theme_genesis-oik" );
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
 	}
 	
 	/**
@@ -99,68 +103,51 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 */
 	function test_oik_themes_check_bb_BB_uptodate() {
 	  //oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", "http://qw/oikcom" );
-		switch_to_locale( "bb_BB" );
+		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-oik";
 		$_REQUEST['check_version'] = "99.0.0";
 		$html = bw_ret( oik_themes_check() );
 		$this->assertNotNull( $html );
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
+		
+		$this->switch_to_locale( "en_GB" );
 	}
 	
-	
-	/**
-	 * Switch to the required target language
-	 * 
-	 * - WordPress core's switch_to_locale() function leaves much to be desired when the default language is en_US
-	 * - and/or when the translations are loaded from the plugin's language folders rather than WP_LANG_DIR
-	 * - We have to (re)load the language files ourselves.
-	 * 
-	 * @TODO We also need to remember to pass the slug/domain to translate() :-)
-	 *
-	 * Note: For switch_to_locale() see https://core.trac.wordpress.org/ticket/26511 and https://core.trac.wordpress.org/ticket/39210 
-	 */
-	function switch_to_locale( $locale="bb_BB" ) {
-		$tdl = is_textdomain_loaded( "oik" );
-		$this->assertTrue( $tdl );
-		$switched = switch_to_locale( 'bb_BB' );
-		if ( $switched ) {
-			$this->assertTrue( $switched );
-		}
-			$locale = $this->query_la_CY();
-			$this->assertEquals( "bb_BB", $locale );
-			$this->reload_domains();
-			$tdl = is_textdomain_loaded( "oik" );
-			$this->assertTrue( $tdl );
-			//$this->test_domains_loaded();
-			$bw = translate( "bobbingwide", "oik" );
-			$this->assertEquals( "bboibgniwde", $bw );
-			
-	}
-	
-	
-	/**
-	 * Reloads the text domains
-	 * 
-	 * - Loading oik-libs from oik-libs invalidates tests where the plugin is delivered from WordPress.org so oik-libs won't exist.
-	 * - but we do need to reload oik's text domain 
-	 * - and cause the null domain to be rebuilt.
-	 */
-	function reload_domains() {
-		$domains = array( "oik" );
-		foreach ( $domains as $domain ) {
-			$loaded = bw_load_plugin_textdomain( $domain );
-			$this->assertTrue( $loaded, "$domain not loaded" );
-		}
-		oik_require_lib( "oik-l10n" );
-		oik_l10n_enable_jti();
-	}
 	
 	function force_rebuild_bw_slugs() {
 		global $bw_registered_themes, $bw_theme_slugs;
 		$bw_registered_themes = null;
 		$bw_theme_slugs = null;
 		
+	}
+	
+	/**
+	 * Tests the message from oik_themes_validate_theme
+	 */
+	function test_oik_themes_validate_theme() {
+		$this->switch_to_locale( "en_GB" );
+		$valid = oik_themes_validate_theme( null );
+		$html = bw_ret();
+		$this->assertFalse( $valid );
+		$this->assertNotNull( $html );
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		//$this->switch_to_locale( "en_GB" );
+	}
+	
+	/**
+	 * Tests the message from oik_themes_validate_theme
+	 */
+	function test_oik_themes_validate_theme_bb_BB() {
+		$this->switch_to_locale( "bb_BB" );
+		$valid = oik_themes_validate_theme( null );
+		$html = bw_ret();
+		$this->assertFalse( $valid );
+		$this->assertNotNull( $html );
+		//$this->generate_expected_file( $html );
+		$this->assertArrayEqualsFile( $html );
+		$this->switch_to_locale( "en_GB" );
 	}
 	
 	

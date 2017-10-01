@@ -50,7 +50,7 @@ function oik_lazy_themes_server_settings() {
   }  
   
   if ( $check_theme ) {
-    BW_::oik_box( NULL, NULL, __( "Check", null ), "oik_themes_check" );
+    BW_::oik_box( NULL, NULL, _x( "Check", "examine", null ) , "oik_themes_check" );
   } 
   
   if ( $delete_theme ) { 
@@ -202,7 +202,7 @@ function oik_themes_validate_theme( $theme ) {
     $valid = strlen( $theme ) > 0;
   } 
   if ( !$valid ) { 
-    p( "settings must not be blank" );   
+    BW_::p( __( "settings must not be blank", null ) );   
   }  
   return $valid;
 }
