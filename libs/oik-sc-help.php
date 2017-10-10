@@ -343,7 +343,7 @@ function _sc_posts() {
 /**
  * Helper function for shortcodes that display images
  * 
- * @return array - associative array of bw_skv()'s
+ * @return array - associative array of `bw_skv()`'s
  */
 function _sc_thumbnail() {   
   return( array( 'thumbnail'       => BW_::bw_skv( "thumbnail", "medium|large|full|" . __( "nnn", null ) . "|" . __( "wxh", null ), __( "image size", null ) )   

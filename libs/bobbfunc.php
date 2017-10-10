@@ -1364,7 +1364,7 @@ function bw_translation_on() {
  * Register some text for localization as deferred translatable text
  *
  * Part of the internationalization process is to ensure text is translatable.
- * We use bw_dtt() to register strings of text destined for internationalization.
+ * We use `bw_dtt()` to register strings of text destined for internationalization.
  * This enables makepot/makeoik to extract the strings into the plugin's .pot file
  * from which localized versions can be created.
  * 

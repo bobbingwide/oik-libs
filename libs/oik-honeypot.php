@@ -42,7 +42,7 @@ function oik_honeypot_add_honeypot() {
 	//e( "Humans leave this blank" );
 	//epan();
 	stag( "div", null, null, kv( "style", "display:none" ));
-	bw_textfield( $field_name, 10, "Humans leave this blank", "" );
+	BW_::bw_textfield( $field_name, 10, "Humans leave this blank", "" );
 	etag( "div" );
 	
 
