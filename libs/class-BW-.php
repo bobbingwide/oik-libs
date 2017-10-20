@@ -84,7 +84,11 @@ class BW_ {
 	 */
 	static function oik_box( $class=null, $id=null, $title=null, $callback='oik_callback' ) {
 		if ( $id == null ) {
-			$id = $callback;
+			if ( is_array( $callback ) ) {
+				$id = $callback[1];
+			} else {
+				$id = $callback;
+			}
 		}  
 		sdiv( "postbox $class", $id );
 		self::oik_handlediv( $title );

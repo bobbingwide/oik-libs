@@ -186,27 +186,30 @@ function bw_lazy_sc_syntax( $shortcode, $callback=null ) {
  * 
  * We need to do the same for styles: wp_styles
  * We initialise $wp_scripts to ensure that $wp_scripts->registered is an array
+ * We also need to capture the output.
  */
 function bw_save_scripts() {
 	$dependencies_cache = oik_require_lib( "class-dependencies-cache" );
 	$dependencies_cache = dependencies_cache::instance();
-	$dependencies_cache->save_dependencies();
+	//$dependencies_cache->save_dependencies();
+	$dependencies_cache->capture_scripts();
 }
 
 
 /**
  * Report queued scripts
- * 
- * @TODO - decide how we're going to display the dependencies
  *  
- * 
+ * @param bool $verbose
+ * @return string most recently queued scripts and styles
  */ 
 function bw_report_scripts( $verbose=true ) {
 	$dependencies_cache = dependencies_cache::instance();
-	$dependencies_cache->query_dependencies_changes();
-	$dependencies = $dependencies_cache->serialize_dependencies();
-	$serialized = serialize( $dependencies );
+	//$dependencies_cache->query_dependencies_changes();
+	//$dependencies = $dependencies_cache->serialize_dependencies();
+	//$serialized = serialize( $dependencies );
 	//p( $serialized );
+	$latest_html = $dependencies_cache->get_latest_html();
+	return $latest_html;
 }
 
 /** 
@@ -220,16 +223,19 @@ function _sc__snippet( $shortcode="bw_code", $atts=null ) {
   if ( $atts ) 
     $example .= " $atts";
   $example .= ']';
-  bw_save_scripts(); 
-  bw_push();
-  $formatted_example = apply_filters( 'the_content', $example ); 
-  bw_pop();
+	$formatted_example = bw_expand_shortcode( $example );
   bw_trace2( $formatted_example, "formatted example" );
   $escaped_example = esc_html( $formatted_example );
   stag( 'p', null, null, 'lang="HTML" escaped="true"' );
   e( $escaped_example );
   etag( "p" );
-  bw_report_scripts();
+  $latest_html = bw_report_scripts();
+	if ( $latest_html ) {
+		$escaped_example = esc_html( $latest_html );
+		stag( 'p', null, null, 'lang="HTML" escaped="true"' );
+		e( $escaped_example );
+		etag( "p" );
+	}
 }
 
 /**
@@ -551,9 +557,7 @@ function bw_invoke_shortcode( $shortcode, $atts=null, $text=null ) {
   ep();
   //p( $example );
 	$saved = bw_global_post();
-  bw_push();
-  $expanded = apply_filters( 'the_content', $example );
-	bw_pop();
+	$expanded = bw_expand_shortcode( $example );
 	bw_global_post( $saved );
   e( $expanded );
   bw_trace2( $expanded, "expanded", true, BW_TRACE_DEBUG );
@@ -580,8 +584,38 @@ function playlist__syntax( $shortcode="playlist" ) {
                  , "artists" => BW_::bw_skv( "true", "false", __( "Display artists?", null ) )
                  );
   return( $syntax );
-}                
+} 
 
+/**
+ * Expand the shortcode
+ * 
+ * Returns the cached version if available
+ * 
+ * Note: The cached version may have been created for a different locale
+ * In tests we might need to reset it by calling bw_expand_shortcode with null
+ * 
+ * @param string|null $example shortcode to be expanded
+ * @return string the generated HTML
+ */
+function bw_expand_shortcode( $example=null ) {
+	static $previous_example = null;
+	static $previous_expanded = null;
+	static $previous_locale = null; 
+	$locale = get_locale();
+	if ( ( $previous_example == $example ) && ( $previous_locale == $locale ) ) {
+		$expanded = $previous_expanded;
+	} else {
+		bw_save_scripts(); 
+		bw_push();
+		$expanded = apply_filters( 'the_content', $example );
+		bw_pop();
+		bw_save_scripts(); 
+		$previous_example = $example;
+		$previous_expanded = $expanded;
+		$previous_locale = $locale;
+	}
+	return $expanded;
+}
 
 } /* end !defined */
 

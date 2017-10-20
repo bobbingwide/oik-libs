@@ -1,6 +1,6 @@
 <?php // (C) Copyright BobbingWide 2017
 if ( !defined( "CLASS_DEPENDENCIES_CACHE_INCLUDED" ) ) {
-define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.0.1" );
+define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.0.2" );
 
 /**
  * Script and style functions
@@ -30,6 +30,9 @@ class dependencies_cache {
 	public $queued_scripts;
 	public $queued_styles;
 	
+	public $captured_html = null;
+	public $latest_html = null;
+	
 	/**
 	 * @var dependencies_cache the true instance
 	 */
@@ -55,6 +58,8 @@ class dependencies_cache {
 	 *
 	 */
 	function __construct() {
+		add_action( "wp_footer", array( $this, "echo_captured_html" ) );
+		add_action( "admin_print_footer_scripts", array( $this, "echo_captured_html" ) );
 	}
 	
 	function reset_scripts() {
@@ -295,6 +300,56 @@ class dependencies_cache {
 			$this->enqueue_style( $queue );
 		}
 	}
+	
+	/**
+	 * Echoes captured HTML 
+	 * 
+	 * Since we're going to capture scripts ourselves then we need to implement
+	 * a footer function to echo the captured stuff later on.
+	 * We respond to wp_footer and admin_print_footer_scripts to do this.
+	 */
+	function echo_captured_html() {
+		if ( $this->captured_html ) {
+			echo $this->captured_html;
+		}
+		$this->captured_html = null;
+	}
+	
+	/**
+	 * Captures scripts
+	 *
+	 * Performs an early invocation of the code to display footer scripts, saving
+	 * the latest output in latest_html and accumulating the lot in captured_html.
+	 * 
+	 * Note: We don't use wp_print_footer_scripts() since this can have side effects
+	 * due to other hooks being attached to 'wp_print_footer_scripts'
+	 * We therefore directly call the private action hook that WordPress uses.
+	 * 
+	 * @TODO Confirm this is acceptable.
+	 */
+	function capture_scripts() {
+		ob_start();
+		_wp_footer_scripts();
+		$html = ob_get_contents();
+		ob_end_clean();
+		$this->captured_html .= $html;
+		$this->latest_html = $html;
+	}
+	
+	/** 
+	 * Returns the captured HTML
+	 */
+	function get_captured_html() {
+		return $this->captured_html;
+	}
+	
+	/** 
+	 * Returns the latest HTML
+	 */
+	function get_latest_html() {	
+		return $this->latest_html;
+	}
+	
 
 }
 
