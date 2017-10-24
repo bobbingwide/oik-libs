@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2011-2016
+<?php // (C) Copyright Bobbing Wide 2011-2017
 if ( !defined( "CLASS_OIK_UPDATE_INCLUDED" ) ) {
-define( "CLASS_OIK_UPDATE_INCLUDED", "3.0.1" );
+define( "CLASS_OIK_UPDATE_INCLUDED", "3.0.2" );
 
 /**
  *
@@ -320,7 +320,7 @@ static function oik_get_plugins_server() {
 			$url = BW_OIK_PLUGINS_SERVER;
 		} else {
 		if ( !defined( "OIK_PLUGINS_COM" ) ) {
-			define( "OIK_PLUGINS_COM", "http://www.oik-plugins.com" );
+			define( "OIK_PLUGINS_COM", "https://www.oik-plugins.com" );
 		}
 			$url = OIK_PLUGINS_COM;
 		}

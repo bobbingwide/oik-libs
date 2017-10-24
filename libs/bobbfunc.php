@@ -11,8 +11,8 @@ define( "BOBBFUNC_INCLUDED", "3.2.0" );
  *
  * These functions were part of the oik base plugin in bobbfunc.inc and bobbcomp.inc
  * Some functions may now be unused. This hasn't yet been confirmed.
- * 
- * 
+ *
+ *
  */
 
 /** 
@@ -225,7 +225,7 @@ function _alink( $class=NULL, $url, $linktori=NULL, $alt=NULL, $id=NULL, $extra=
  * @param string $class - the classes for the anchor tag
  * @param string $url - the fully formed URL e.g. http://www.oik-plugins.com
  * @param string $linktori - is the text or image
- * @param string $alt - if NULL will use $linktori
+ * @param string $alt - text for title= attribute. a11y recommendations are to leave this null
  * @param string $id - the unique ID for the anchor tag
  * @param string $extra - anything else that needs to go in the <a> tag. e.g. 'onclick=then some javascript' 
  *
@@ -243,31 +243,34 @@ function alink( $class=NULL, $url, $linktori=NULL, $alt=NULL, $id=NULL, $extra=N
  * Parameters as for `alink()`
  *
  * @param string $class - the classes for the anchor tag
- * @param string $url - the fully formed URL e.g. http://www.oik-plugins.com
+ * @param string $url - the fully formed URL e.g. https://www.oik-plugins.com
  * @param string $linktori - is the text or image
- * @param string $alt - if NULL will use $linktori
+ * @param string $alt - text for title= attribute. a11y recommendations are to leave this null
  * @param string $id - the unique ID for the anchor tag
  * @param string $extra - anything else that needs to go in the <a> tag. e.g. 'onclick=then some javascript' 
  * @return string the link
  * 
  */
 function retlink( $class=NULL, $url, $linktori=NULL, $alt=NULL, $id=NULL, $extra=NULL  ) {
-  if ( is_null( $linktori ) )
+  if ( is_null( $linktori ) )	{
     $linktori = $url;
+	}
   $link = "<a" ;
-  $link .= kv( "class", $class ); // aclass( $class );
-  $link .= kv( "id", $id ); // aid( $id );
-  $link .= kv( "href", $url ); // ahref( $url );
-  if ( is_null( $alt ) )
-     $alt = $linktori;
-  // Is alt= allowed with XHTML Strict 1.0?    
-  // aalt( $alt );
-  $link .= atitle( $alt );
-  if ( $extra )
-    $link .= $extra ;
+  $link .= kv( "class", $class ); 
+  $link .= kv( "id", $id ); 
+  $link .= kv( "href", $url ); 
+  if ( !is_null( $alt ) ) {
+		if ( $alt != $linktori ) {
+			$link .= atitle( $alt );
+		}
+	}
+  if ( $extra ) {
+    $link .= $extra;
+	}
   $link .= ">";
-  if ( $linktori )
+  if ( $linktori ) {
     $link .= $linktori;
+	}
   $link .= "</a>";
   return( $link );
 }  
@@ -399,14 +402,12 @@ function nullretetag( $tag, $class=NULL ) {
      $ret = retetag( $tag );
   return( $ret );   
 }
-
 /**
  * Return an end tag 
  */
 function retetag( $tag ) {
    return( '</'.$tag.'>');
 }  
-
 /** 
  * Output an end tag
  */
@@ -414,7 +415,6 @@ function etag( $tag ) {
   //  bw_echo( '</'.$tag.'>'."\n";
   bw_echo( '</'.$tag.'>' );
 }    
-
 /**
  * Start a paragraph
  * 
@@ -960,7 +960,10 @@ function bw_jq_flush() {
 }  
 
 /**
- * Append some more jQuery code to be output later
+ * Appends some more jQuery code to be output later
+ *
+ * If it's not already set then we need to enqueue jquery and ensure that all the jQuery gets flushed at the end of processing.
+ * Note: 
  * 
  * @param $text - some well formed jQuery code
  * @global $bw_jq
@@ -971,14 +974,25 @@ function bw_jq( $text ) {
 		wp_enqueue_script( 'jquery' ); 
 		if ( !is_admin() ) {
 			add_action( 'wp_footer', "bw_jq_flush", 25 );
-		}  
+		} else {
+			add_action( "admin_print_footer_scripts", "bw_jq_flush", 25 );
+		}
 	 //bw_trace2( $bw_jq, "bw_jq not set" );  
 	}
 	$bw_jq .=$text;
-	//bw_trace2( $bw_jq, "bw_jq", false );  
-	if ( is_admin() ) {
-		bw_jq_flush();
-	}  
+}
+
+/**
+ * Returns any queued jQuery
+ *
+ * @return string queued jQuery
+ */
+function bw_jq_get() {
+	global $bw_jq;
+	if ( isset( $bw_jq ) ) { 	
+		return $bw_jq;
+	}
+	return null;
 }
 
 /**
@@ -1347,7 +1361,7 @@ function bw_translate( $text ) {
 /**
  * Turn off translation performed by `bw_translate()`
  * 
- * Helper function for bw_translate()
+ * Helper function for `bw_translate()`
  */
 function bw_translation_off() {
   bw_context( "bw_translation", "off" );

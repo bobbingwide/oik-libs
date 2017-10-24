@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2016, 2017
 if ( !defined( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED" ) ) {
-define( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED", "0.1.0" );
+define( "CLASS_OIK_PLUGIN_UPDATE_INCLUDED", "0.1.1" );
 
 /**
  * Implements oik's plugin update logic
@@ -109,8 +109,11 @@ class OIK_Plugin_Update {
 	 */
 	function query_menu( $menu_slug ) {
 		global $submenu;
-		$menu_slug = array_key_exists( $menu_slug, $submenu );
-		return( $menu_slug );
+		$menu_slug = false;
+		if ( is_array( $submenu ) ) {
+			$menu_slug = array_key_exists( $menu_slug, $submenu );
+		}	
+		return $menu_slug;
 	} 
 	
 	/**

@@ -632,8 +632,7 @@ static function oik_lazy_themes_api_result( $result, $action, $args ) {
 		* http://api.wordpress.org/themes/info/1.0/', array( 'body' => array('action' => $action, 'request' => serialize($args)))
 		*
 		*/
-		$url = "http://www.oik-plugins.com";
-		//$url = "http://qw/wpit";
+		$url = oik_update::oik_get_themes_server();
 		$url .= "/themes/info/";
 		$post_args =  array( 'timeout' => 15
 											 , 'body' => array('action' => $action, 'request' => serialize($args))

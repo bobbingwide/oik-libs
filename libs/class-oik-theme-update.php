@@ -102,15 +102,19 @@ class OIK_Theme_Update {
 	
 	/**
 	 * Query if the primary menu exists
-	 * 
+	 *
 	 * @param string $menu_slug e.g. "oik_menu"
 	 * @return bool true if the menu item exists
 	 */
 	function query_menu( $menu_slug ) {
 		global $submenu;
-		$menu_slug = array_key_exists( $menu_slug, $submenu );
-		return( $menu_slug );
+		$menu_slug = false;
+		if ( is_array( $submenu ) ) {
+			$menu_slug = array_key_exists( $menu_slug, $submenu );
+		}	
+		return $menu_slug;
 	} 
+	
 	
 	/**
 	 * Query if the menu subitem exists
