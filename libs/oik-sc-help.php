@@ -370,9 +370,13 @@ function caption__help() {
   return( __( "Display the caption for an image. Standard WordPress shortcode", null ) );
 }
 
+/**
+ * Example hook for caption shortcode
+ *
+ * @TODO The caption should surround an image - so we need to include an image in this
+ */ 
 function caption__example() {    
-  BW_::br( __( "e.g:", null ) );
-  // **?** The caption should surround an image - so we need to include an image in this
+  BW_::br( __( "e.g.:", null ) );
   $ics = img_caption_shortcode( array( 'width' => 70, 'caption' => __( 'This is a caption', null ) ) );
   e( $ics );
 }
@@ -453,7 +457,10 @@ function embed__help( $shortcode='embed' ) {
 function embed__example( $shortcode='embed' ) {
 	$atts = 'width="480" src=https://www.youtube.com/watch?v=nH228-XQ-A8';
   bw_invoke_shortcode( $shortcode, $atts, __( "Embed example", null ) );
-	BW_::p( __( "Note: It's not possible to produce a proper working example due to the way the embed shortcode is handled.", null ) );
+	global $wp_version;
+	if ( version_compare( $wp_version, "4.9", "lt" ) ) {
+		BW_::p( __( "Note: It's not possible to produce a proper working example due to the way the embed shortcode is handled.", null ) );
+	}
 }
 
 /**
