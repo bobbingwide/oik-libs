@@ -109,11 +109,11 @@ class OIK_Plugin_Update {
 	 */
 	function query_menu( $menu_slug ) {
 		global $submenu;
-		$menu_slug = false;
+		$menu_exists = false;
 		if ( is_array( $submenu ) ) {
-			$menu_slug = array_key_exists( $menu_slug, $submenu );
+			$menu_exists = array_key_exists( $menu_slug, $submenu );
 		}	
-		return $menu_slug;
+		return $menu_exists;
 	} 
 	
 	/**

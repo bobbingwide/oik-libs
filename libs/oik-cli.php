@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2015-2017
 if ( !defined( "OIK_CLI_INCLUDED" ) ) {
-	define( "OIK_CLI_INCLUDED", "0.9.1" );
+	define( "OIK_CLI_INCLUDED", "0.9.3" );
 
 /**
  * Command Line Interface (CLI) functions
@@ -12,7 +12,7 @@ if ( !defined( "OIK_CLI_INCLUDED" ) ) {
  * This is planned to be a shared library file
  * containing some of the common functions used in oik-zip, oik-tip and other routines
  * including those that deal with directory changes in symlinked environments
- * and others that return responses to the calling routines and make decisions based on them
+ * and others that return responses to the calling routines and make decisions based on them.
  *
  */
  
@@ -169,14 +169,8 @@ function oik_batch_cd_drill_down( $path, $locate_file="wp-config.php" ) {
  * We extract it from $_SERVER['argv'] array, looking for url=domain/path
  *
  * We need to know the URL e.g. qw/oikcom or wp-a2z in order to be able to set both HTTP_HOST and REQUEST_URI
- *
- * For WPMS with a subdirectory install we need to be able to differentiate between the directory in which WordPress is installed
- * 
- * and the directory for the subdomain
- * So we'll need a value for path too?
  * 
  * Some logic also references $_SERVER['SERVER_PROTOCOL']. Setting it to null seems good enough for WordPress core.
- * 
  * 
  * @param string $abspath
  */
@@ -185,7 +179,6 @@ function oik_batch_set_domain( $abspath ) {
 	echo "Domain: $domain" . PHP_EOL;
 	
 	if ( !isset( $_SERVER['HTTP_HOST']) ) {
-		//print_r( $_SERVER );
 		$_SERVER['HTTP_HOST'] = $domain;
 	}
 	
@@ -209,11 +202,18 @@ function oik_batch_set_domain( $abspath ) {
 
 /**
  * Set the path for WPMS
+ *
+ * For WPMS with a subdirectory install we need to know the directory in which WordPress is installed and the directory for the sub site. 
+ * It turns out that, for WPMS subdirectory installs the url must contain the domain and the path contains the subdirectory and sub site.
+ * 
+ * Note: To work properly in WPMS the path should start and end with a slash.
  */
 function oik_batch_set_path() {
 	$path = oik_batch_query_value_from_argv( "path", null );
 	if ( $path ) {
+		$path = '/' . trim( $path, "/\\" ) . '/';
 		$_SERVER['REQUEST_URI'] = $path;
+		echo "Path: $path" . PHP_EOL;
 	}
 }
 
@@ -558,6 +558,15 @@ function oik_batch_run() {
     //print_r( $_SERVER['argc'] );
     oik_batch_run_script( $script );
   }   
+}
+
+/**
+ * Merges argv and argv-saved back into a single array
+ */
+function oik_batch_merge_argv() {
+	if ( isset( $_SERVER['argv-saved'] ) ) {
+		$_SERVER['argv'] = array_merge( $_SERVER['argv'], $_SERVER['argv-saved'] );
+	}
 }
 
 /**

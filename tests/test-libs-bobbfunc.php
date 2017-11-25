@@ -21,7 +21,7 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 	 * Do we need to test the help for a shortcode which exists?
 	 */ 
 	function test_bw_sc_help() {
-	
+		$this->switch_to_locale( "en_GB" );
 		do_action( "oik_add_shortcodes" );
 		bw_sc_help( "oik" );
 		$html = bw_ret();

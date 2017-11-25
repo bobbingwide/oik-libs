@@ -1,21 +1,20 @@
 <?php // (C) Copyright Bobbing Wide 2012-2017
 if ( !defined( "OIK_SC_HELP_INCLUDED" ) ) {
-define( "OIK_SC_HELP_INCLUDED", "3.2.0" );
+define( "OIK_SC_HELP_INCLUDED", "3.2.1" );
 
 /**
  * Shortcode help 
  * 
  * Library: oik-sc-help
  * Provides: oik-sc-help
- * Depends: on the oik plugin @TODO,	class-BW-
+ * Depends: on the oik plugin, class-BW-, bobbfunc  @TODO complete this
+ * Deferred dependencies: oik_plugins, class-dependencies-cache
  *
  * Implements low level functions for displaying shortcode help.
  * This includes the help functions for some base shortcodes.
  * Parts of this library file is now deprecated in favour of "class-oik-sc-help"
  *
  */
-
-//oik_require( "includes/oik-sc-help.inc" );
 
 /**
  * Get first parm name
@@ -39,7 +38,7 @@ function bw_form_sc_get_first_parm_name( $parameter ) {
  *
  * Links are of the form
  *
- * `http://oik-plugins.co.uk/oik_sc_param/$shortcode-$parameter-parameter/`
+ * `https://oik-plugins.com/oik_sc_param/$shortcode-$parameter-parameter/`
  *
  * where the URL is determined by oik_get_plugins_server()
  *
@@ -49,10 +48,16 @@ function bw_form_sc_get_first_parm_name( $parameter ) {
  */
 function bw_form_sc_parm_help( $parameter, $shortcode ) {
 	$parm = $parameter;
-	oik_require( "admin/oik-admin.inc" );
-	$url = oik_get_plugins_server();
-	$url .= "/oik_sc_param/$shortcode-$parm-parameter";
-	$ret = retlink( null, $url, $parameter, "$shortcode $parameter parameter" );
+	if ( !function_exists( "oik_get_plugins_server" ) ) {
+		oik_require_lib( "oik_plugins" );
+	} 
+	if ( function_exists( "oik_get_plugins_server" ) ) {
+		$url = oik_get_plugins_server();
+		$url .= "/oik_sc_param/$shortcode-$parm-parameter";
+		$ret = retlink( null, $url, $parameter, "$shortcode $parameter parameter" );
+	} else {
+		$ret = null;
+	}
 	return( $ret );
 }
 
@@ -210,7 +215,9 @@ function bw_report_scripts( $verbose=true ) {
 	//p( $serialized );
 	$latest_html = $dependencies_cache->get_latest_html();
 	//oik_require_lib( "bobbfunc" );
-	$latest_html .= bw_jq_get();
+    if ( function_exists( "bw_jq_get") ) {
+        $latest_html .= bw_jq_get();
+    }
 	return $latest_html;
 }
 
@@ -343,7 +350,7 @@ function _sc_posts() {
                , 'post_mime_type'  => BW_::bw_skv( null, "image|application|text|video|" . __( "mime type", null ), __( "Attached media MIME type", null ) )
                , 'post_parent'     => BW_::bw_skv( null, __( "ID" , null ) , __( "Parent ID to use if not current post", null ) )
                , 'post_status'     => BW_::bw_skv( null,  "publish|inherit|pending|draft|auto-draft|future|private|trash|any", __( "Post status", null ) )
-               , 'id'              => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs of posts to display"  ) )
+               , 'id'              => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs of posts to display", null ) )
                , 'posts_per_page'  => BW_::bw_skv( null, __( "numeric", null ) . "|.", sprintf( __( 'Number of posts per page. Use \'.\' for current value %1$s', null ) , get_option( "posts_per_page", null ) ) )
                ));
 } 

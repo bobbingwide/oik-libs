@@ -3,8 +3,8 @@ Contributors: bobbingwide
 Donate link: http://www.oik-plugins.com/oik/oik-donate/
 Tags: shared, library, repository
 Requires at least: 4.8
-Tested up to: 4.9-beta3
-Stable tag: 0.0.6
+Tested up to: 4.9
+Stable tag: 0.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ TBC
 None
 
 == Upgrade Notice ==
+= 0.0.7 = 
+Synchronized with oik v3.2.1, oik-bwtrace v2.1.1, oik-lib v0.1.1, etc
+
 = 0.0.6 = 
 Synchronized with oik v3.2.0-RC1, oik-bwtrace v2.1.1-beta-20171023, oik-lib v0.1.0, oik-weight-zone-shipping-pro v0.2.2, and genesis-image v1.1.1
 
@@ -54,27 +57,33 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 == Changelog ==
+= 0.0.7 = 
+* Added: bw_fields - from oik and oik-fields [github bobbingwide oik-libs issue 7]
+* Changed: Update shared library tests for WordPress 4.9 [github bobbingwide oik-libs issue 8]
+* Tested: With WordPress 4.9 and WordPress Multisite
+* Tested: With PHP 7.0 and 7.1
+
 = 0.0.6 = 
-Added: Implement i18n/l10n solution for shared library files [github bobbingwide oik-libs issue 7]
-Added: Reconcile updates for oik issue 55 - extract plugin and theme update into shared libraries [github bobbingwide oik-libs issue 5]
-Added: UK English language files 
-Added: bwtrace_log.php
-Added: class-BW-.php
-Added: class-bobbcomp.php
-Added: class-dependencies-cache.php
-Added: class-oik-autoload.php
-Added: class-oik-plugin-update.php
-Added: class-oik-remote.php
-Added: class-oik-theme-update.php
-Added: class-oik-update.php
-Added: oik-l10n.php
-Added: oik_themes.php
-Changed: Change tests associated with oik issue #80
-Changed: Changes associated with oik issue #67
-Changed: bb_BB language files
-Tested: Added PHPUnit tests for shared library functions [github bobbingwide oik-libs issue 6]
-Tested: With PHP 7.0 and 7.1 
-Tested: With WordPress 4.8.2 and 4.9-beta3
+* Added: Implement i18n/l10n solution for shared library files [github bobbingwide oik-libs issue 7]
+* Added: Reconcile updates for oik issue 55 - extract plugin and theme update into shared libraries [github bobbingwide oik-libs issue 5]
+* Added: UK English language files 
+* Added: bwtrace_log.php
+* Added: class-BW-.php
+* Added: class-bobbcomp.php
+* Added: class-dependencies-cache.php
+* Added: class-oik-autoload.php
+* Added: class-oik-plugin-update.php
+* Added: class-oik-remote.php
+* Added: class-oik-theme-update.php
+* Added: class-oik-update.php
+* Added: oik-l10n.php
+* Added: oik_themes.php
+* Changed: Change tests associated with oik issue #80
+* Changed: Changes associated with oik issue #67
+* Changed: bb_BB language files
+* Tested: Added PHPUnit tests for shared library functions [github bobbingwide oik-libs issue 6]
+* Tested: With PHP 7.0 and 7.1 
+* Tested: With WordPress 4.8.2 and 4.9-beta3
 
 = 0.0.5 = 
 * Added: libs/oik-honeypot.php
