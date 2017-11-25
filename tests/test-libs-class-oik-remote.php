@@ -62,7 +62,7 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 		
 		if ( oik_remote::get_computer_name() == "qw" ) {
 			$hosts = gethostbynamel( "qw" );
-			$expected = array( "192.168.50.1", "192.168.56.1", "192.168.1.22" );
+			$expected = array( "192.168.50.1", "192.168.56.1", "192.168.1.16" );
 			$this->assertEquals( $expected, $hosts );
 			$hosts = gethostbynamel( "qw." );
 			$this->assertEquals( $expected, $hosts );
