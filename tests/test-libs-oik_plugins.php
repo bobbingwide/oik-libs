@@ -67,18 +67,20 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	
 	
 	/**
+	 * Test for a new version of the plugin.
+	 * 
+	 * Note: The plugin must be installed, and recognized by WordPress, but does not have to be active.
 	 * 
 	 */
 	function test_oik_plugins_check_bb_BB_new_version() {
-	
 	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcom" );
-	
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";
 		$_REQUEST['check_version'] = "0.0.0";
 		$html = bw_ret( oik_plugins_check() );
-		
 		$this->assertNotNull( $html );
+		//$this->generate_expected_file( $html );
+		$html = $this->replace_admin_url( $html );
 		$html = $this->replace_created_nonce( $html, "upgrade-plugin_oik-fum/oik-fum.php" );
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
@@ -95,6 +97,10 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	function replace_created_nonce( $html, $action, $id='_wpnonce' ) {
 		$created_nonce = $id . '=' . wp_create_nonce( $action );
 		$pos = strpos( $html, $created_nonce );
+		if ( false === $pos ) {
+			echo $html . PHP_EOL;
+			echo $created_nonce . PHP_EOL;
+		}
 		$this->assertNotFalse( $pos );
 		$html = str_replace( $created_nonce, $id . "=nonsense", $html );
 		return $html;
