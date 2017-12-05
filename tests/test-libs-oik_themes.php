@@ -46,6 +46,8 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 * 
 	 */
 	function test_oik_themes_check_bb_BB_error() {
+	
+		$this->update_theme_options();
 	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-image/functions.php", "http://qw/oikcouk" );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-image";
