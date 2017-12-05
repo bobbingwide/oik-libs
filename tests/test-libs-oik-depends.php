@@ -45,22 +45,31 @@ class Tests_libs_oik_depends extends BW_UnitTestCase {
 													 , 'oik-bob-bing-wide' => 'oik/oik-bob-bing-wide.php'
 													 , 'oik-bwtrace' => 'oik/oik-bwtrace.php'
 													 );
-		$this->assertEquals( $plugins, $expected_output );
+		$this->assertEquals( $expected_output, $plugins );
 	}
 	
 	/**
-	 * Test the TODO
-   * 
-	 * Testing two plugins which have the main plugin file called z.php
-	 * The result is that index 'z' gets overridden by the first plugin.
-	 * This is not really an issue for us, since we don't have any plugins that still deliver
-	 * multiple plugins with the same name.
+	 * Testing two plugins which have the plugin files called y.php and z.php
+	 * 
+	 * We want to find the plugin which matches the folder name ( y => y/y.php  and z => z/z/php ) 
+	 * and ignore the plugins which appear to be in the wrong folder.
+	 * 
 	 */
-	function test_bw_get_all_plugin_names_two_plugins_with_same_main_file() {
-		$active_plugins = array( "y/z.php", "z/z.php" );
+	function test_bw_get_all_plugin_names_two_plugins_with_same_files() {
+		$active_plugins = array( "y/y.php", "y/z.php", "z/y.php", "z/z.php" );
 		$plugins = bw_get_all_plugin_names( $active_plugins );
-		$expected_output = array( "z" => "y/z.php" );
-		$this->assertEquals( $plugins, $expected_output );
-		
-	} 
+		$expected_output = array( "y" => "y/y.php", "z" => "z/z.php" );
+		$this->assertEquals( $expected_output,  $plugins );
+	}
+	
+	/**
+	 * Testing we find the correct versions of oik, oik-batch and oik-wp
+	 */
+	function test_bw_get_all_plugin_names_renamed_oik_and_oik_batch() {
+		$active_plugins = array( "oik-clone-20171114/oik.php", "oik/oik.php", "oik-batch/oik-batch.php", "oik-batch-renamed/oik-batch.php", "oik-batch/oik-wp.php" );
+		$plugins = bw_get_all_plugin_names( $active_plugins );
+		$expected_output = array( "oik" => "oik/oik.php", "oik-batch" => "oik-batch/oik-batch.php", "oik-wp" => "oik-batch/oik-wp.php" );
+		$this->assertEquals( $expected_output, $plugins );
+	}
+
 }
