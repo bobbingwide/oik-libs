@@ -63,9 +63,13 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	}
 	
 	/**
+	 * Test for a new version of genesis-oik
 	 * 
+	 * This test relies on the theme server not already being registered 
+	 * since the value from the bw_themes option field is used in preference.
 	 */
 	function test_oik_themes_check_bb_BB_new_version() {
+		$this->update_theme_options();
 	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", "http://qw/oikcom" );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-oik";
@@ -73,6 +77,8 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 		$html = bw_ret( oik_themes_check() );
 		
 		$this->assertNotNull( $html );
+		
+		$html = $this->replace_admin_url( $html );
 		$html = $this->replace_created_nonce( $html, "upgrade-theme_genesis-oik" );
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
@@ -148,6 +154,16 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
+	}
+	
+	
+	/**
+	 * Empty bw_themes so that the required theme server is used.
+	 *
+	 */
+	function update_theme_options() {
+		$bw_themes = array();
+		update_option( "bw_themes", $bw_themes );
 	}
 	
 	
