@@ -63,13 +63,15 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 	 * Tests bw_sc_example
 	 * 
 	 * - Here we're testing the example for the oik shortcode as well as bw_address
+	 * 
 	 * - wpautop() can create invalid HTML for the bw_address example. 
 	 * - We need to disable wpautop() processing for "the_content" filtering.
 	 * - See also notes for test_bw_sc_syntax
 	 */
 	function test_bw_sc_example() {
 	
-    remove_filter( 'the_content', 'bw_wpautop', 99 );
+    //remove_filter( 'the_content', 'bw_wpautop', 99 );
+		$this->update_options();
 		bw_sc_example();
 		bw_sc_example( "bw_address" );
 		$html = bw_ret();
@@ -82,6 +84,8 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 	 * Tests bw_sc_snippet
 	 */
 	function test_bw_sc_snippet() {
+	
+		$this->update_options();
 		bw_sc_snippet();
 		bw_sc_snippet( "bw_address" );
 		$html = bw_ret();
@@ -89,7 +93,19 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 	}
-		
 	
+	/**
+	 * Set the options to the values expected in the test output
+	 */
+	function update_options() {
+		$bw_options = get_option( "bw_options" );
+		$bw_options['extended-address'] = "";
+		$bw_options['street-address'] = "";
+		$bw_options['locality'] = "";
+		$bw_options['region'] = "";
+		$bw_options['postal-code'] = "";
+		$bw_options['country-name'] = "";
+		update_option( "bw_options", $bw_options );
+	}
 
 }
