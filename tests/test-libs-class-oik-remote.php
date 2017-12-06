@@ -12,6 +12,14 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 	}
 	
 	/**
+	 * Tests this machine is called QW
+	 */
+	function test_php_uname() {
+		$uname = php_uname();
+		$this->assertContains( " QW ", $uname );
+	}
+	
+	/**
 	 * We want to check that "qw" is the current machine? 
 	 * 
 	 * gethostbyname() returns the IP address associated with a particular host name.
@@ -82,6 +90,54 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 	}
 	
 	/**
+	 * Tests are_you_local_ip
+	 */
+	function test_are_you_local_ip() {
+		$local = oik_remote::are_you_local_ip( "https://localhost" );
+		$this->assertTrue( $local );
+		$local = oik_remote::are_you_local_ip( "http://localhost" );
+		$this->assertTrue( $local );
+		$local = oik_remote::are_you_local_ip( "http://q.w" );
+		$this->assertTrue( $local );
+		
+	}
+	
+	/**
+	 * Tests are_you_local_ip for qw 
+	 */
+	function test_are_you_local_ip_qw() {
+		
+		$local = oik_remote::are_you_local_ip( "http://qw" );
+		if ( $_SERVER['SERVER_NAME'] == 'qw' ) {
+			$this->assertTrue( $local, "qw is supposed to be local when it matches the SERVER_NAME ." );
+		} else {
+			$this->assertFalse( $local, "qw is not local when it doesn't match the SERVER_NAME" );
+		}
+	}
+	
+	
+	/**
+	 * Tests if this is a private IP
+	 * 
+	 * URL | Expected IP | Private?
+	 * ----- | --------- | --------
+	 * localhost | 127.0.0.1 | No
+	 * q.w | 127.0.0.1 | No
+	 * qw | 192.168.x.x | Yes
+	 * 
+	 */
+	function test_are_you_private_ip() {
+		$local = oik_remote::are_you_private_ip( "https://localhost" );
+		$this->assertFalse( $local ); 
+		
+		$local = oik_remote::are_you_private_ip( "https://qw" );
+		$this->assertTrue( $local ); 
+		$local = oik_remote::are_you_private_ip( "https://q.w" );
+		$this->assertFalse( $local ); 
+	} 
+	
+	
+	/**
 	 * These tests will pass if the local machine is called qw
 	 * and there is a host name of q.w
 	 */
@@ -92,24 +148,26 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 		$this->assertTrue( $local, "q.w is not local" );
 		$local = oik_remote::are_you_local( "https://localhost" );
 		$this->assertTrue( $local, "localhost is not local" );
-	}
-	
-	function test_are_you_local_ip() {
-		$local = oik_remote::are_you_local_ip( "https://localhost" );
-		$this->assertTrue( $local );
-		$local = oik_remote::are_you_local_ip( "http://localhost" );
-		$this->assertTrue( $local );
-		$local = oik_remote::are_you_local_ip( "http://q.w" );
-		$this->assertTrue( $local );
 		
-		$local = oik_remote::are_you_local_ip( "http://qw" );
-		$this->assertFalse( $local, "qw is not local" );
 	}
 	
-	function test_php_uname() {
-		$uname = php_uname();
-		$this->assertContains( " QW ", $uname );
+	/**
+	 * Simulate tests with multisite where the $_SERVER['SERVER_NAME'] is not localhost.
+	 * 
+	 */	
+	function test_simulate_multisite() {
+		$saved =  $_SERVER['SERVER_NAME'];
+		$_SERVER['SERVER_NAME'] = "qw";
+		$this->test_are_you_local_ip();
+		$this->test_are_you_local_ip_qw();
+		$this->test_are_you_private_ip();
+    $this->test_are_you_local();
+		$_SERVER['SERVER_NAME'] = $saved;
 	}
+	
+	
+	
+	
 		
 		
 

@@ -1,13 +1,13 @@
 <?php // (C) Copyright Bobbing Wide 2012-2017
 
 if ( !defined( "CLASS_OIK_REMOTE_INCLUDED" ) ) {
-	define( "CLASS_OIK_REMOTE_INCLUDED", "0.1.0" );
+	define( "CLASS_OIK_REMOTE_INCLUDED", "0.2.0" );
 
 /**
  * Library: class-oik-remote
  * Provided: class-oik-remote
  * Depends: class-oik-update - a cyclical dependency
- * Version: v0.1.0
+ * Version: v0.2.0
  * 
  * Implements oik/includes/oik-remote.inc as a shared library.
  * Note: hyphens for plugins, underscores for libraries, hyphens for class libraries :-)
@@ -758,7 +758,10 @@ static function bw_json_decode( $json, $assoc=false ) {
 	static function are_you_local( $url ) {
 		$local = self::are_you_local_IP( $url );
 		if ( !$local ) {
-			$local = self::are_you_local_computer( $url );
+			$local = self::are_you_private_IP( $url );
+			if ( !$local ) {
+				$local = self::are_you_local_computer( $url );
+			}
 		}
 		return $local;
 	}
@@ -766,17 +769,42 @@ static function bw_json_decode( $json, $assoc=false ) {
 	/**
 	 * Determines if this is a local IP
 	 *
-	 * If the server IP is the same address as the URL IP then assume it's a local request
+	 * If the URL is the same as the server then it's a local request.
+	 * If the IP for the URL is 127.0.0.1 then it's local.
+	 * @TODO Determine whether or not to test for just 127.
 	 *
-	 * @param string $url
-	 * @return bool
+	 * @param string $url e.g. https://qw/wordpress
+	 * @return bool - true if a local IP
 	 */
 	static function are_you_local_IP( $url ) {
 		$local_host = $_SERVER['SERVER_NAME'];
-		$local_ip = gethostbyname( $local_host );
 		$remote_host = parse_url( $url, PHP_URL_HOST );
-		$remote_ip = gethostbyname( $remote_host );
-		$local = $local_ip == $remote_ip;
+		$local = ( $local_host == $remote_host ); 
+		if ( !$local ) {
+			$remote_ip = gethostbyname( $remote_host );
+			$local = $remote_ip === "127.0.0.1";
+		}	
+		return $local;
+	}
+	
+	/**
+	 * Determines if this is a private IP
+	 * 
+	 * The following ranges are reserved for private networks.
+	 *
+   * - 192.168.0.0 - 192.168.255.255 (65,536 IP addresses)
+	 * - 172.16.0.0 - 172.31.255.255 (1,048,576 IP addresses)
+	 * - 10.0.0.0 - 10.255.255.255 (16,777,216 IP addresses)
+	 *
+	 * @TODO - Determine if we need to check all ranges. 
+	 * 
+	 * @param string $url e.g. https://qw/wordpress
+	 * @return bool - true if a private IP
+	 */
+	static function are_you_private_ip( $url ) {
+		$host = parse_url( $url, PHP_URL_HOST );
+		$local_ip = gethostbyname( $host );
+		$local = ( 0 === strpos( $local_ip, "192.168" ) );
 		return $local;
 	}
 	
