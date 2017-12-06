@@ -30,10 +30,8 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		//oik_require( "libs/oik-l10n.php", "oik-libs" );
 		bw_load_plugin_textdomain( "oik" );
 		$this->force_rebuild_bw_slugs();
-		
-		
+		$this->update_plugin_options();
 	}
-	
 	
 	/**
 	 * Test oik_plugins_check for getting an error, bb_BB locale
@@ -212,6 +210,15 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 		$this->switch_to_locale( "en_GB" );
+	}
+	
+	/**
+	 * Empty bw_plugins so that the required plugin server is used.
+	 *
+	 */
+	function update_plugin_options() {
+		$bw_plugins = array();
+		update_option( "bw_plugins", $bw_plugins );
 	}
 
 
