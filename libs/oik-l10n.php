@@ -4,21 +4,23 @@ define( 'OIK_L10N_INCLUDED', "3.2.0" );
 /**
  * Library: oik-l10n
  * Provides: oik-l10n
- * Type:
+ * Type: shared
+ * Depends:	bwtrace
+ * 
  *
  * The theory is something like this:
  * 
- * - makepot's job is to find strings that can be translated
- * - WordPress.org expects each plugin and theme to use a unique domain
- * - though it doesn't enforce it
- * - So makepot outputs any translatable string regardless of the value of $domain
+ * - makepot's job is to find strings that can be translated.
+ * - WordPress.org expects each plugin and theme to use a unique domain.
+ * - though it doesn't enforce it.
+ * - So makepot outputs any translatable string regardless of the value of $domain.
  * - Prove this. 
  * 
  * - which means translators end up translating the same string over and over
  * - especially if we use shared libraries ( a la oik ) or Composer dependency
  * 
- * - Users don't really care who did the translation
- * - They just want it in their language
+ * - Users don't really care who did the translation.
+ * - They just want it in their language.
  * 
  * - If we use oik_require_lib() 
  * - AND the library file knows that translation will be required
