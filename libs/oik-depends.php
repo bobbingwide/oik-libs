@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2012-2017
 if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
-define( "OIK_DEPENDS_INCLUDED", "3.2.0" );
+define( "OIK_DEPENDS_INCLUDED", "3.2.3" );
 
 /**
  * Dependency checking library functions
@@ -47,10 +47,17 @@ function bw_get_all_plugin_names( $active_plugins ) {
 		if ( count( $active_plugins ) ) {
 			foreach ( $active_plugins as $key => $value ) {
 				$name = basename( $value, '.php' );
-				if ( !isset( $names[ $name ] ) ) {
+				$dir = dirname( $value );
+				if ( ( $name == $dir ) && !isset( $names[ $name ] ) ) {
 					$names[$name] = $value;
 				}
-			} 
+			}
+			foreach ( $active_plugins as $key => $value ) {
+				$name = basename( $value, '.php' );
+				if ( !isset( $names[ $name ] ) ) {
+					$names[ $name ] = $value;
+				}
+			}
 		}	
   }
   return( $names ); 
