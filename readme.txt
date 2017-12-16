@@ -36,7 +36,7 @@ None
 
 == Upgrade Notice ==
 = 0.0.7 = 
-Synchronized with oik v3.2.1, oik-bwtrace v2.1.1, oik-lib v0.1.1, etc
+Synchronized with oik v3.2.3, oik-bwtrace v2.1.1, oik-lib v0.1.1, etc
 
 = 0.0.6 = 
 Synchronized with oik v3.2.0-RC1, oik-bwtrace v2.1.1-beta-20171023, oik-lib v0.1.0, oik-weight-zone-shipping-pro v0.2.2, and genesis-image v1.1.1
@@ -60,8 +60,9 @@ First version containing the merged libraries from: oik-lib, oik base plugin and
 = 0.0.7 = 
 * Added: bw_fields - from oik and oik-fields [github bobbingwide oik-libs issue 7]
 * Changed: Update shared library tests for WordPress 4.9 [github bobbingwide oik-libs issue 8]
-* Tested: With WordPress 4.9 and WordPress Multisite
-* Tested: With PHP 7.0 and 7.1
+* Changed: Reconcile tests with oik v3.2.3 and update for environment independence [github bobbingwide oik-libs issue 9]
+* Tested: With WordPress 4.9.1 and WordPress Multisite
+* Tested: With PHP 7.0, 7.1 and 7.2
 
 = 0.0.6 = 
 * Added: Implement i18n/l10n solution for shared library files [github bobbingwide oik-libs issue 7]
