@@ -1,6 +1,6 @@
-<?php // (C) Copyright BobbingWide 2017
+<?php // (C) Copyright BobbingWide 2017, 2018
 if ( !defined( "CLASS_DEPENDENCIES_CACHE_INCLUDED" ) ) {
-define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.0.2" );
+define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.1.1" );
 
 /**
  * Script and style functions
@@ -204,8 +204,9 @@ class dependencies_cache {
 	 * @param _WP_Dependency $register
 	 */
 	function register_script( $register ) {
+		$src = set_url_scheme( $register->src );
 		$footer = bw_array_get( $register->extra, 'group', false );
-		wp_register_script( $register->handle, $register->src, $register->deps, $register->ver, $register->args, $footer );
+		wp_register_script( $register->handle, $src, $register->deps, $register->ver, $register->args, $footer );
 	}
 	
 	/**
@@ -214,8 +215,9 @@ class dependencies_cache {
 	 * @param _WP_Dependency $register
 	 */
 	function register_style( $register ) {
+		$src = set_url_scheme( $register->src );
 		$footer = bw_array_get( $register->extra, 'group', false );
-		wp_register_style( $register->handle, $register->src, $register->deps, $register->ver, $register->args, $footer );
+		wp_register_style( $register->handle, $src, $register->deps, $register->ver, $register->args, $footer );
 	}
 	
 	/** 
@@ -328,13 +330,15 @@ class dependencies_cache {
 	 * @TODO Confirm this is acceptable.
 	 */
 	function capture_scripts() {
-		ob_start();
-		_wp_footer_scripts();
-		$html = ob_get_contents();
-		ob_end_clean();
-		$this->captured_html .= $html;
-		$this->latest_html = $html;
-	}
+		if ( !doing_filter( "replace_editor" ) ) {
+			ob_start();
+			_wp_footer_scripts();
+			$html = ob_get_contents();
+			ob_end_clean();
+			$this->captured_html .= $html;
+			$this->latest_html = $html;
+		}
+	}	
 	
 	/** 
 	 * Returns the captured HTML

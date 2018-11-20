@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2017
+<?php // (C) Copyright Bobbing Wide 2012-2018
 if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
-	define( "OIK_PLUGINS_INCLUDED", "0.2.0" );
+	define( "OIK_PLUGINS_INCLUDED", "0.2.1" );
 
 /**
  * Library: oik_plugins
@@ -539,6 +539,7 @@ function _bw_get_plugins() {
 		oik_require_lib( "oik-depends" );
     $plugins = bw_get_all_plugin_names( $plugin_slugs);
   }
+	bw_trace2( $plugins, "plugins", false, BW_TRACE_VERBOSE );
   return( $plugins );
 } 
 
@@ -567,6 +568,7 @@ function bw_get_plugin_version( $plugin="oik" ) {
     $version = _bw_get_plugin_version( $plugin_name );
   } else {
     $version = null;
+		bw_trace2( $plugin, "Can't get plugin_name" );
   }
   return( $version );      
 }

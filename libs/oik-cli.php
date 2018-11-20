@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015-2017
+<?php // (C) Copyright Bobbing Wide 2015-2018
 if ( !defined( "OIK_CLI_INCLUDED" ) ) {
-	define( "OIK_CLI_INCLUDED", "0.9.3" );
+	define( "OIK_CLI_INCLUDED", "0.9.4" );
 
 /**
  * Command Line Interface (CLI) functions
@@ -176,7 +176,7 @@ function oik_batch_cd_drill_down( $path, $locate_file="wp-config.php" ) {
  */
 function oik_batch_set_domain( $abspath ) {
 	$domain = oik_batch_query_value_from_argv();
-	echo "Domain: $domain" . PHP_EOL;
+	//echo "Domain: $domain" . PHP_EOL;
 	
 	if ( !isset( $_SERVER['HTTP_HOST']) ) {
 		$_SERVER['HTTP_HOST'] = $domain;

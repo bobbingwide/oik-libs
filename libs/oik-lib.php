@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015, 2017
+<?php // (C) Copyright Bobbing Wide 2015, 2018
 if ( !defined( 'OIK_LIB_INCLUDED' ) ) {
-define( 'OIK_LIB_INCLUDED', "0.1.0" );
+define( 'OIK_LIB_INCLUDED', "0.1.1" );
 
 /**
  * oik library management functions
@@ -212,8 +212,7 @@ function oik_lib_check_libs( $libraries, $libs, $plugin ) {
 			$lib = new OIK_lib( $lib_args );
 			$libraries[] = $lib;
 		} else {
-			echo "$plugin does not deliver $library file in $src";
-			gob();
+			bw_log( $src, "$plugin does not deliver $library file in $src", false );
 		}
 	}
 	return( $libraries );

@@ -1,11 +1,11 @@
 # oik-libs 
 ![banner](https://raw.githubusercontent.com/bobbingwide/oik-libs/master/assets/oik-libs-banner-772x250.jpg)
 * Contributors: bobbingwide
-* Donate link: http://www.oik-plugins.com/oik/oik-donate/
+* Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: shared, library, repository
-* Requires at least: 4.8
-* Tested up to: 4.9
-* Stable tag: 0.0.7
+* Requires at least: 4.9.8
+* Tested up to: 5.0-beta5
+* Stable tag: 0.0.8
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,9 @@ TBC
 None
 
 ## Upgrade Notice 
+# 0.0.8 
+Synchronized with oik v3.2.6, oik-bwtrace v3.0.0-alpha, oik-batch v0.9.4, etc
+
 # 0.0.7 
 Synchronized with oik v3.2.3, oik-bwtrace v2.1.1, oik-lib v0.1.1, etc
 
@@ -58,8 +61,11 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 * First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 ## Changelog 
+# 0.0.8 
+* Added: bw_fields - from oik and oik-fields https://github.com/bobbingwide/oik-libs/issues/9
+* Changed: Updated other library files as necessary
+
 # 0.0.7 
-* Added: bw_fields - from oik and oik-fields https://github.com/bobbingwide/oik-libs/issues/7
 * Changed: Update shared library tests for WordPress 4.9 https://github.com/bobbingwide/oik-libs/issues/8
 * Changed: Reconcile tests with oik v3.2.3 and update for environment independence https://github.com/bobbingwide/oik-libs/issues/9
 * Tested: With WordPress 4.9.1 and WordPress Multisite

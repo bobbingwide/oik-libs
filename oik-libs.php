@@ -1,9 +1,9 @@
-<?php // (C) Copyright Bobbing Wide 2015-2017
+<?php // (C) Copyright Bobbing Wide 2015-2018
 /*
 Plugin Name: oik-libs
 Plugin URI: https://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository
 Description: Master repository for shared libraries
-Version: 0.0.7
+Version: 0.0.8
 Author: bobbingwide
 Author URI: https://www.oik-plugins.com/author/bobbingwide
 Text Domain: oik-libs
@@ -11,7 +11,7 @@ Domain Path: /languages/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-    Copyright 2015-2017 Bobbing Wide (email : herb@bobbingwide.com )
+    Copyright 2015-2018 Bobbing Wide (email : herb@bobbingwide.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License version 2,

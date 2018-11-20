@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2016
+<?php // (C) Copyright Bobbing Wide 2016-2018
 if ( !defined( "CLASS_OIK_THEME_UPDATE_INCLUDED" ) ) {
-define( "CLASS_OIK_THEME_UPDATE_INCLUDED", "0.0.1" );
+define( "CLASS_OIK_THEME_UPDATE_INCLUDED", "0.0.2" );
 
 /**
  * Implements oik's theme update logic
@@ -108,11 +108,11 @@ class OIK_Theme_Update {
 	 */
 	function query_menu( $menu_slug ) {
 		global $submenu;
-		$menu_slug = false;
+		$found_slug = false;
 		if ( is_array( $submenu ) ) {
-			$menu_slug = array_key_exists( $menu_slug, $submenu );
+			$found_slug = array_key_exists( $menu_slug, $submenu );
 		}	
-		return $menu_slug;
+		return $found_slug;
 	} 
 	
 	
