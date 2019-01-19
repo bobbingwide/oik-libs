@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2017
+<?php // (C) Copyright Bobbing Wide 2017, 2018
 
 /** 
  * Unit tests for the libs\bobbfunc.php file
@@ -28,7 +28,10 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 		//$this->generate_expected_file( $html );
 		$this->assertArrayEqualsFile( $html );
 	}
-	
+
+	/**
+	 * For switch_to_locale to bb_BB to work we need to have installed the bb_BB language files in wp-content/languages
+	 */
 	function test_bw_sc_help_bb_BB() {
 		$this->switch_to_locale( "bb_BB" );
 		bw_sc_help( "bw" );

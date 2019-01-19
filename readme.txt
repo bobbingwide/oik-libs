@@ -3,8 +3,8 @@ Contributors: bobbingwide
 Donate link: https://www.oik-plugins.com/oik/oik-donate/
 Tags: shared, library, repository
 Requires at least: 4.9.8
-Tested up to: 5.0-beta5
-Stable tag: 0.0.8
+Tested up to: 5.0.3
+Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ TBC
 None
 
 == Upgrade Notice ==
+= 0.1.0 =
+Synchronized with oik v3.2.9, oik-batch v1.0.0
+
 = 0.0.8 = 
 Synchronized with oik v3.2.6, oik-bwtrace v3.0.0-alpha, oik-batch v0.9.4, etc
 
@@ -60,6 +63,13 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 == Changelog ==
+= 0.1.0 =
+* Added: hexdump, [github bobbingwide oik-libs issue 11]
+* Changed: bobbforms, class-oik-remote, oik-cli, [github bobbingwide oik-libs issue 11]
+* Changed: Updated PHPUnit tests for WordPress 5.0, [github bobbingwide oik-libs issue 10]
+* Tested: With WordPress 5.0.3
+* Tested: With PHP 7.2
+
 = 0.0.8 = 
 * Added: bw_fields - from oik and oik-fields [github bobbingwide oik-libs issue 9]
 * Changed: Updated other library files as necessary

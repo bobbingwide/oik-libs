@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2017
+<?php // (C) Copyright Bobbing Wide 2017-2019
 
 /**
  * @package libs-class-oik-remote
@@ -7,16 +7,33 @@
  */
 class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 
+
+
 	function setUp() {
 		oik_require_lib( "class-oik-remote" ); 
 	}
+
+	function get_computername() {
+		$computername = getenv( "COMPUTERNAME");
+		$computername = strtolower( $computername );
+		return $computername;
+
+	}
+
+	function test_computername() {
+		$computername = $this->get_computername();
+		$this->assertEquals( "sb", $computername );
+	}
 	
 	/**
-	 * Tests this machine is called QW
+	 * Tests this machine is called QW or SB
 	 */
 	function test_php_uname() {
 		$uname = php_uname();
+		$uname = str_replace( " SB ", " QW ", $uname );
 		$this->assertContains( " QW ", $uname );
+		//echo $uname;
+
 	}
 	
 	/**
@@ -34,14 +51,20 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 		$this->assertEquals( "127.0.0.1", $ip_localhost );
 		$ip_localhost = gethostbyname( "localhost." );
 		$this->assertEquals( "127.0.0.1", $ip_localhost );
-		$ip_qw = gethostbyname( "qw" );
-		$this->assertEquals( "192.168.50.1", $ip_qw, "qw failed" );
-		$ip_qw = gethostbyname( "qw." );
-		$this->assertEquals( "192.168.50.1", $ip_qw, "qw. failed" );
-		$ip_qw = gethostbyname( "q.w" );
-		$this->assertEquals( "127.0.0.1", $ip_qw, "q.w failed" );
-		$ip_qw = gethostbyname( "q.w." );
-		$this->assertEquals( "127.0.0.1", $ip_qw, "q.w. failed" );
+
+		$computername = $this->get_computername();
+		$ip_qw        = gethostbyname( $computername );
+		if ( $computername == "qw" ) {
+			$this->assertEquals( "192.168.50.1", $ip_qw, "qw failed" );
+			$ip_qw = gethostbyname( "qw." );
+			$this->assertEquals( "192.168.50.1", $ip_qw, "qw. failed" );
+		}
+		if ( $computername == "sb" ) {
+			$ip_qw = gethostbyname( "s.b" );
+			$this->assertEquals( "127.0.0.1", $ip_qw, "s.b failed" );
+			$ip_qw = gethostbyname( "s.b." );
+			$this->assertEquals( "127.0.0.1", $ip_qw, "s.b. failed" );
+		}
 	}
 	
 	/**
@@ -86,7 +109,8 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 	 * This test will fail if the local machine is not called 'qw'
 	 */
 	function test_get_computer_name() {
-		$this->assertEquals( "qw", oik_remote::get_computer_name() );
+		$computername = $this->get_computername();
+		$this->assertEquals( $computername, oik_remote::get_computer_name() );
 	}
 	
 	/**
@@ -97,8 +121,10 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 		$this->assertTrue( $local );
 		$local = oik_remote::are_you_local_ip( "http://localhost" );
 		$this->assertTrue( $local );
-		$local = oik_remote::are_you_local_ip( "http://q.w" );
-		$this->assertTrue( $local );
+		if ( $this->get_computername() == "sb") {
+			$local = oik_remote::are_you_local_ip( "https://s.b" );
+			$this->assertTrue( $local );
+		}
 		
 	}
 	
@@ -141,11 +167,13 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 	 * These tests will pass if the local machine is called qw
 	 * and there is a host name of q.w
 	 */
-	function test_are_you_local() { 
-		$local = oik_remote::are_you_local( "https://qw" );
-		$this->assertTrue( $local, "qw is not local" );
-		$local = oik_remote::are_you_local( "https://q.w" );
-		$this->assertTrue( $local, "q.w is not local" );
+	function test_are_you_local() {
+		if ( $this->get_computername() == "sb" ) {
+			$local = oik_remote::are_you_local( "https://sb" );
+			$this->assertTrue( $local, "sb is not local" );
+			$local = oik_remote::are_you_local( "https://s.b" );
+			$this->assertTrue( $local, "s.b is not local" );
+		}
 		$local = oik_remote::are_you_local( "https://localhost" );
 		$this->assertTrue( $local, "localhost is not local" );
 		

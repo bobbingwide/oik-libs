@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2017
+<?php // (C) Copyright Bobbing Wide 2017-2019
 
 /**
  * @package libs-oik_plugins
@@ -68,10 +68,11 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * Test for a new version of the plugin.
 	 * 
 	 * Note: The plugin must be installed, and recognized by WordPress, but does not have to be active.
-	 * 
+	 * If the plugin is not installed and recognised by WordPress then the nonce will not be created properly.
+	 * @TODO Find the URL name automatically, instead of https://s.b/oikcom
 	 */
 	function test_oik_plugins_check_bb_BB_new_version() {
-	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcom" );
+	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "https://s.b/oikcom" );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";
 		$_REQUEST['check_version'] = "0.0.0";
