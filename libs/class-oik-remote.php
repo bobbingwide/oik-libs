@@ -1,13 +1,13 @@
-<?php // (C) Copyright Bobbing Wide 2012-2017
+<?php // (C) Copyright Bobbing Wide 2012-2019
 
 if ( !defined( "CLASS_OIK_REMOTE_INCLUDED" ) ) {
-	define( "CLASS_OIK_REMOTE_INCLUDED", "0.2.0" );
+	define( "CLASS_OIK_REMOTE_INCLUDED", "0.3.0" );
 
 /**
  * Library: class-oik-remote
  * Provided: class-oik-remote
  * Depends: class-oik-update - a cyclical dependency
- * Version: v0.2.0
+ * Version: v0.3.0
  * 
  * Implements oik/includes/oik-remote.inc as a shared library.
  * Note: hyphens for plugins, underscores for libraries, hyphens for class libraries :-)
@@ -59,29 +59,35 @@ static function bw_remote_geth( $url, $args=null ) {
 	return( array( $request, $result ) );
 }
 
-/**
- * Wrapper to wp_remote_get
- * 
- * @param string $url with parameters already added
- * @return decoded result - a json object OR null 
- */ 
-static function bw_remote_get( $url ) {
-	$request = wp_remote_get( $url );
-	if ( is_wp_error( $request ) ) {
-		bw_trace2( $request, "request is_wp_error" );
-		$result = null;
-	} else {
-		$json = wp_remote_retrieve_body( $request );
-		bw_trace2( $json );
-		if ( empty( $json ) ) {
+	/**
+	 * Wrapper to wp_remote_get
+	 *
+	 * @param string $url with parameters already added
+	 * @param bool $asJSON true if you want JSON returned
+	 * @return decoded result - a json object OR null
+	 */
+	static function bw_remote_get( $url, $asJSON=true ) {
+		$args = self::bw_adjust_args( [], $url );
+		$request = wp_remote_get( $url, $args );
+		if ( is_wp_error( $request ) ) {
+			bw_trace2( $request, "request is_wp_error" );
 			$result = null;
 		} else {
-			$result = json_decode( $json );
-		}  
+			$json = wp_remote_retrieve_body( $request );
+			bw_trace2( $json );
+			if ( empty( $json ) ) {
+				$result = null;
+			} else {
+				if ( $asJSON ) {
+					$result = json_decode( $json );
+				} else {
+					$result = $json;
+				}
+			}
+		}
+		bw_trace2( $result, "result" );
+		return( $result );
 	}
-	bw_trace2( $result, "result" );
-	return( $result );
-}
 
 /**
  * Wrapper to wp_remote_get2
