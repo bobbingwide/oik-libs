@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015-2018
+<?php // (C) Copyright Bobbing Wide 2015-2019
 if ( !defined( "OIK_CLI_INCLUDED" ) ) {
-	define( "OIK_CLI_INCLUDED", "0.9.4" );
+	define( "OIK_CLI_INCLUDED", "1.0.0" );
 
 /**
  * Command Line Interface (CLI) functions
@@ -509,6 +509,15 @@ function oik_batch_trace( $trace_on=false ) {
 function oik_batch_admin_menu() {
 	
   oik_register_plugin_server( __FILE__ );
+  //add_action( "oik_menu_box", "oik_batch_oik_menu_box" );
+  //add_action( "admin_menu", "oik_batch_admin_menu" );
+	add_submenu_page( 'oik_menu', __( 'oik batch', 'oik' ), __("oik batch", 'oik'), 'manage_options', 'oik_batch', "oik_batch_do_page" );
+
+
+}
+
+function oik_batch_do_page() {
+	p( "oik batch");
 }
 
 /**
@@ -615,6 +624,15 @@ function oik_batch_run_script( $script ) {
 		// How does WP-cli work?  
   }
 }
+
+	/**
+	 * Display the oik-batch / oik-wp menu box
+	 */
+	function
+	oik_batch_oik_menu_box() {
+		oik_require( "admin/oik-wp.php", "oik-batch" );
+		oik_wp_lazy_oik_menu_box();
+	}
 
 
 } /* end if !defined */
