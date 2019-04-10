@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2017
+<?php // (C) Copyright Bobbing Wide 2013-2019
 if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
-	define( "OIK_THEMES_INCLUDED", "0.1.0" );
+	define( "OIK_THEMES_INCLUDED", "0.2.0" );
 
 /**
  * Library: oik_themes
@@ -215,9 +215,9 @@ function oik_themes_validate_theme( $theme ) {
  */
 function _oik_themes_settings_validate( $add_theme=true ) {
   global $bw_theme;
-  $bw_theme['theme'] = trim( bw_array_get( $_REQUEST, "theme", null ) );
-  $bw_theme['server'] = trim( bw_array_get( $_REQUEST, "server", null ) );
-  $bw_theme['apikey'] = trim( bw_array_get( $_REQUEST, "apikey", null ) );
+  $bw_theme['theme'] = sanitize_key( trim( bw_array_get( $_REQUEST, "theme", null ) ) );
+  $bw_theme['server'] = esc_url_raw( trim( bw_array_get( $_REQUEST, "server", null ) ) );
+  $bw_theme['apikey'] = sanitize_key( trim( bw_array_get( $_REQUEST, "apikey", null ) ) );
   
   $ok = oik_themes_validate_theme( $bw_theme['theme'] );
   

@@ -192,6 +192,17 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
     $this->test_are_you_local();
 		$_SERVER['SERVER_NAME'] = $saved;
 	}
+
+	/**
+	 * Tests [github bobbingwide oik issues 126]
+	 */
+	function test_are_you_local_ip_when_server_name_not_set() {
+		$saved = $_SERVER['SERVER_NAME'];
+		unset( $_SERVER[ 'SERVER_NAME'] );
+		$local = oik_remote::are_you_local_ip( "https://localhost" );
+		$this->assertFalse( $local );
+		$_SERVER['SERVER_NAME'] = $saved;
+	}
 	
 	
 	

@@ -41,10 +41,14 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * We can achieve this by communicating with a plugin server that supports the request
 	 * but where the plugin we're asking for is not registered. 
 	 * At the moment http://qw/oikcouk satisfies that; oik-fum is in Draft form.
+	 * http://qw/oikcouk is not available to s.b,
+	 * Let's try https://herbmiller.me or https://oik-plugins.eu
 	 * 
 	 */
 	function test_oik_plugins_check_bb_BB_error() {
-	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), "http://qw/oikcouk" );
+		$server = "http://qw/oikcouk";
+		$server = "https://herbmiller.me";
+	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), $server );
 	
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_plugin'] =  "oik-fum";

@@ -322,6 +322,8 @@ class dependencies_cache {
 	 *
 	 * Performs an early invocation of the code to display footer scripts, saving
 	 * the latest output in latest_html and accumulating the lot in captured_html.
+	 *
+	 * We don't do this if we're in the block editor.
 	 * 
 	 * Note: We don't use wp_print_footer_scripts() since this can have side effects
 	 * due to other hooks being attached to 'wp_print_footer_scripts'
@@ -330,7 +332,10 @@ class dependencies_cache {
 	 * @TODO Confirm this is acceptable.
 	 */
 	function capture_scripts() {
-		if ( !doing_filter( "replace_editor" ) ) {
+		if ( $this->is_block_editor() ) {
+			// Don't capture
+		}
+		elseif ( !doing_filter( "replace_editor" ) ) {
 			ob_start();
 			_wp_footer_scripts();
 			$html = ob_get_contents();
@@ -338,7 +343,18 @@ class dependencies_cache {
 			$this->captured_html .= $html;
 			$this->latest_html = $html;
 		}
-	}	
+	}
+
+	function is_block_editor() {
+		$is_block_editor = false;
+		if ( function_exists( "get_current_screen" ) ) {
+			$current_screen = get_current_screen();
+			//bw_trace2( $current_screen, "current_screen" );
+			$is_block_editor = $current_screen && $current_screen->is_block_editor();
+		}
+		return $is_block_editor;
+
+	}
 	
 	/** 
 	 * Returns the captured HTML

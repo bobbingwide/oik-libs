@@ -43,12 +43,17 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 * We can achieve this by communicating with a theme server that supports the request
 	 * but where the theme we're asking for is not registered. 
 	 * At the moment http://qw/oikcouk satisfies that.
+	 * As for testing oik_plugins, qw is not available from s.b
+	 *
 	 * 
 	 */
 	function test_oik_themes_check_bb_BB_error() {
 	
 		$this->update_theme_options();
-	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-image/functions.php", "http://qw/oikcouk" );
+		$server = "http://qw/oikcouk";
+		$server = "https://herbmiller.me";
+		$server = 'https://oik-plugins.com';
+	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-image/functions.php", $server );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-image";
 		$_REQUEST['check_version'] = "99.0.0";
@@ -72,7 +77,9 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 */
 	function test_oik_themes_check_bb_BB_new_version() {
 		$this->update_theme_options();
-	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", "http://qw/oikcom" );
+		$server = "http://qw/oikcom";
+		$server = "https://oik-plugins.com";
+	  oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", $server );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-oik";
 		$_REQUEST['check_version'] = "0.0.0";

@@ -1,13 +1,13 @@
 <?php // (C) Copyright Bobbing Wide 2012-2019
 
 if ( !defined( "CLASS_OIK_REMOTE_INCLUDED" ) ) {
-	define( "CLASS_OIK_REMOTE_INCLUDED", "0.3.0" );
+	define( "CLASS_OIK_REMOTE_INCLUDED", "0.3.1" );
 
 /**
  * Library: class-oik-remote
  * Provided: class-oik-remote
  * Depends: class-oik-update - a cyclical dependency
- * Version: v0.3.0
+ * Version: v0.3.1
  * 
  * Implements oik/includes/oik-remote.inc as a shared library.
  * Note: hyphens for plugins, underscores for libraries, hyphens for class libraries :-)
@@ -783,6 +783,9 @@ static function bw_json_decode( $json, $assoc=false ) {
 	 * @return bool - true if a local IP
 	 */
 	static function are_you_local_IP( $url ) {
+		if ( !isset( $_SERVER['SERVER_NAME']) ) {
+			return false;
+		}
 		$local_host = $_SERVER['SERVER_NAME'];
 		$remote_host = parse_url( $url, PHP_URL_HOST );
 		$local = ( $local_host == $remote_host ); 

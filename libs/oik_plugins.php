@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2018
+<?php // (C) Copyright Bobbing Wide 2012-2019
 if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
-	define( "OIK_PLUGINS_INCLUDED", "0.2.1" );
+	define( "OIK_PLUGINS_INCLUDED", "0.3.0" );
 
 /**
  * Library: oik_plugins
@@ -240,9 +240,9 @@ function oik_plugins_validate_plugin( $plugin ) {
  */
 function _oik_plugins_settings_validate( $add_plugin=true ) {
 	global $bw_plugin;
-	$bw_plugin['plugin'] = trim( bw_array_get( $_REQUEST, "plugin", null ) );
-	$bw_plugin['server'] = trim( bw_array_get( $_REQUEST, "server", null ) );
-	$bw_plugin['apikey'] = trim( bw_array_get( $_REQUEST, "apikey", null ) );
+	$bw_plugin['plugin'] = sanitize_key( trim( bw_array_get( $_REQUEST, "plugin", null ) ) );
+	$bw_plugin['server'] = esc_url_raw( trim( bw_array_get( $_REQUEST, "server", null ) ) );
+	$bw_plugin['apikey'] = sanitize_key( trim( bw_array_get( $_REQUEST, "apikey", null ) ) );
   
 	$ok = oik_plugins_validate_plugin( $bw_plugin['plugin'] );
   
