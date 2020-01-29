@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2012-2019
 if ( !defined( "OIK_SC_HELP_INCLUDED" ) ) {
-define( "OIK_SC_HELP_INCLUDED", "3.3.2" );
+define( "OIK_SC_HELP_INCLUDED", "3.3.8" );
 
 /**
  * Shortcode help 
@@ -311,14 +311,16 @@ function _sc__example( $shortcode="bw_code", $atts=null ) {
 
 /**
  * Helper functions for shortcodes that support these atts
- * 
+ *
+ * @param bool $include_id Set to true if you want the id= parameter
  * @return array with "class" and "id" keys
  */
-function _sc_classes() {
- return( array( "class"=> BW_::bw_skv( "", "<i>" . __( "class names", null ) . "</i>", __( "CSS class names", null ) )
-              , "id" => BW_::bw_skv( "", "<i>" . __( "id", null ) . "</i>", __( "unique identifier", null ) )
-              ));
-              
+function _sc_classes( $include_id = true ) {
+	$syntax =  array( "class"=> BW_::bw_skv( "", "<i>" . __( "class names", null ) . "</i>", __( "CSS class names", null ) ) );
+	if ( $include_id ) {
+		$syntax['id'] = BW_::bw_skv( "", "<i>" . __( "id", null ) . "</i>", __( "unique identifier", null ) );
+	}
+	return $syntax;
 }
 
  

@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2015, 2016
+<?php // (C) Copyright Bobbing Wide 2015-2019
 if ( !defined( "OIK_AUTOLOAD_INCLUDED" ) ) {
-define( "OIK_AUTOLOAD_INCLUDED", "0.0.1" );
+define( "OIK_AUTOLOAD_INCLUDED", "0.1.0" );
 
 /**
  * Autoload library functions
@@ -40,17 +40,15 @@ function oik_require_class( $class, $args=null ) {
  */
 function oik_autoload() {
 	if ( !class_exists( "OIK_Autoload" ) ) {
-		//echo "Loading OIK_Autoload" ;
 		oik_require_file( "class-oik-autoload.php", "oik-autoload" );
 	}
 	if ( class_exists( "OIK_Autoload" ) ) {
 		$oik_autoload = OIK_Autoload::instance();
 	} else {
-		bw_trace2( "Class OIK_Autoload does not exist" );
+		bw_trace2( "Class OIK_Autoload does not exist", null, false, BW_TRACE_ERROR );
 		die();
 	}
 	return( $oik_autoload );
 }
 
 } /* end !defined */
- 
