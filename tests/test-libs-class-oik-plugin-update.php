@@ -7,7 +7,7 @@
  */
 class Tests_libs_class_oik_plugin_update extends BW_UnitTestCase {
 
-	function setUp() {
+	function setup(): void {
 		oik_require_lib( "class-oik-plugin-update" ); 
 	}
 	

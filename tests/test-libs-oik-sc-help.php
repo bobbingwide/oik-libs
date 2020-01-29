@@ -15,7 +15,7 @@ class Tests_libs_oik_sc_help extends BW_UnitTestCase {
 	 * - ensure any database updates are rolled back
 	 * - we need oik-googlemap to load the functions we're testing
 	 */
-	function setUp() {
+	function setup(): void {
 		parent::setUp();
 		oik_require_lib( "oik-sc-help" );
 	}

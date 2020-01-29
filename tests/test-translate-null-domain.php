@@ -7,7 +7,7 @@
  */
 class Tests_translate_null_domain extends BW_UnitTestCase {
 
-	function setUp() {
+	function setup(): void {
 		unload_textdomain( "oik" );
 		unload_textdomain( "oik-libs" );
 		unload_textdomain( null );

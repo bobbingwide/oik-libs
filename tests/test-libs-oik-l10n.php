@@ -28,7 +28,7 @@
  */
 class Tests_libs_l10n extends BW_UnitTestCase {
 
-	function setUp() {
+	function setup(): void {
 		oik_require_lib( "oik-l10n" );
 		//oik_require( "libs/oik-l10n.php", "oik-libs" );
 	}

@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2017, 2018
+<?php // (C) Copyright Bobbing Wide 2017, 2018, 2020
 
 /** 
  * Unit tests for the libs\bobbfunc.php file
@@ -12,7 +12,7 @@ class Tests_libs_oik_bobbfunc extends BW_UnitTestCase {
 	 * - ensure any database updates are rolled back
 	 * - we need oik-googlemap to load the functions we're testing
 	 */
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		oik_require_lib( "bobbfunc" );
 	}

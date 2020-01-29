@@ -7,7 +7,7 @@
  */
 class Tests_libs_oik_activation extends BW_UnitTestCase {
 
-	function setUp() {
+	function setup(): void {
 		oik_require_lib( "oik-depends" ); 
 		oik_require_lib( "oik-activation" );
 	}

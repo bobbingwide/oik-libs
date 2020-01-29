@@ -9,7 +9,7 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 
 
 
-	function setUp() {
+	function setup(): void {
 		oik_require_lib( "class-oik-remote" ); 
 	}
 
@@ -31,7 +31,7 @@ class Tests_libs_class_oik_remote extends BW_UnitTestCase {
 	function test_php_uname() {
 		$uname = php_uname();
 		$uname = str_replace( " SB ", " QW ", $uname );
-		$this->assertContains( " QW ", $uname );
+		$this->assertStringContainsString(" QW ", $uname );
 		//echo $uname;
 
 	}

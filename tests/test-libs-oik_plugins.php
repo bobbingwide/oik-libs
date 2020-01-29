@@ -23,7 +23,7 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 * There's a cyclical dependency that needs to be satisfied.
 	 * oik solves this... but how?
 	 */
-	function setUp() {
+	function setup(): void {
 		parent::setUp();
 		oik_require_lib( "oik_plugins" );
 		oik_require_lib( "class-oik-update" );
