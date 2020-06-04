@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2018 
+<?php // (C) Copyright Bobbing Wide 2013-2018, 2020
 if ( !defined( "BW_FIELDS_INCLUDED" ) ) {
-define( "BW_FIELDS_INCLUDED", "3.2.6" );
+define( "BW_FIELDS_INCLUDED", "4.1.0" );
 
 /**
  * Library: bw_fields
@@ -65,7 +65,8 @@ function bw_custom_column_admin( $column, $post_id ) {
 function bw_custom_column_taxonomy( $column, $post_id ) {
   $terms = get_the_term_list( $post_id, $column, "", ",", "" );
 	$terms = apply_filters( "bw_custom_column_taxonomy", $terms, $column, $post_id );
-  e( $terms );    
+  e( $terms );
+  return $terms;
 }
 
 
@@ -78,9 +79,10 @@ function bw_custom_column_post_meta( $column, $post_id ) {
     /* At least one value to format */
       bw_format_custom_column( $column, $data );
   } else {
-    $data = null;
-    bw_format_custom_column( $column );
-  }    
+    $data = bw_format_custom_column( $column );
+
+  }
+  return $data;
 }
 
 /**
@@ -95,10 +97,11 @@ function bw_custom_column_post_meta( $column, $post_id ) {
 function bw_custom_column( $column, $post_id ) {
   $type = bw_query_field_type( $column );
   if ( $type === "taxonomy" ) {
-    bw_custom_column_taxonomy( $column, $post_id );
+    $value = bw_custom_column_taxonomy( $column, $post_id );
   } else { 
-    bw_custom_column_post_meta( $column, $post_id );
-  }  
+    $value = bw_custom_column_post_meta( $column, $post_id );
+  }
+  return $value;
 }  
 
 /** 
@@ -137,12 +140,13 @@ function bw_custom_column( $column, $post_id ) {
 */
 function bw_format_custom_column( $column=null, $data=null ) {
   // @TODO - this code can be replaced by bw_query_field_type(), perhaps
-  
+  $value = null;
   global $bw_fields; 
   $field = bw_array_get( $bw_fields, $column, null );
   if ( $field ) {
-    bw_theme_field( $column, $data, $field );
-  }  
+    $value = bw_theme_field( $column, $data, $field );
+  }
+  return $value;
 } 
     
 
@@ -172,6 +176,7 @@ function bw_pre_theme_field() {
  * @param array $field - the field structure if defined using `bw_register_field()`
  */
 function bw_theme_field( $key, $value, $field=null ) {
+	$field_value = null;
   $type = bw_array_get( $field, "#field_type", null );
   //bw_trace2( $type, "Type", true, BW_TRACE_DEBUG );
 	bw_pre_theme_field();
@@ -186,11 +191,12 @@ function bw_theme_field( $key, $value, $field=null ) {
   
   if ( is_callable( $funcname ) ) {
     //bw_trace2( $funcname, "funcname chosen", false );
-    call_user_func( $funcname,  $key, $value, $field );
+    $field_value = call_user_func( $funcname,  $key, $value, $field );
   } else {
     bw_trace2( $funcname, "funcname chosen not callable, using default _bw_theme_field_default", false );
-    _bw_theme_field_default( $key, $value, $field );
+    $field_value = _bw_theme_field_default( $key, $value, $field );
   }
+  return $field_value;
 } 
 
 /**
