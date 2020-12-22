@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2009-2020
 if ( !defined( "BOBBFUNC_INCLUDED" ) ) {
-define( "BOBBFUNC_INCLUDED", "3.4.0" );
+define( "BOBBFUNC_INCLUDED", "3.4.1" );
 
 /**
  * HTML output library functions
@@ -1291,22 +1291,21 @@ function bw_global_post_id() {
 }
 
 /**
- * Set/return the current post ID
+ * Sets/returns the current post ID.
  * 
  * When processing nested posts we need to determine the current post_id rather than the global post id
  * So we provide a routine to set/query the current post id
  *
  * @param ID/null $id - ID to set for the current post ID, if this is reset to 0 then we revert to using the bw_global_post_id()
  * @return ID - the value of the current post, if set.
- *
  */
 function bw_current_post_id( $id=null ) {
   static $current_post_id = null;
   if ( $id !== null ) {
     $current_post_id = $id;
   }
-  if ( !$current_post_id ) { 
-    $current_post_id = bw_global_post_id();
+  if ( !$current_post_id ) {
+    return( bw_global_post_id() );
   }
   //bw_trace2( $current_post_id, "current_post_id", true );
   return( $current_post_id ); 

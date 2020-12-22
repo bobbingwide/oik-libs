@@ -2,7 +2,7 @@
 namespace oik\oik_blocks;
 
 if ( ! defined( 'OIK_BLOCKS_INCLUDED' ) ) {
-	define( 'OIK_BLOCKS_INCLUDED', '1.0.1' );
+	define( 'OIK_BLOCKS_INCLUDED', '1.1.0' );
 	define( 'OIK_BLOCKS_FILE', __FILE__ );
 
 	/**
@@ -132,24 +132,28 @@ if ( ! defined( 'OIK_BLOCKS_INCLUDED' ) ) {
 	}
 
 
+
 	/**
 	 * Unsets or trims an attribute to make it shortcode compatible.
 	 *
-	 * @param $attributes
-	 * @param $key
+	 * How do we cater for parameters that allow the value to be ' ' ?
+	 * Perhaps we simply don't call this routine.
+	 *
+	 * @param array $attributes Array of attributes
+	 * @param string $key key of the attribute to check
 	 *
 	 * @return mixed
 	 */
 	function oik_blocks_attribute_unset_or_trim( $attributes, $key ) {
 		$value = bw_array_get( $attributes, $key, null );
+		$value = trim( $value );
 		if ( '' === $value ) {
-			unset( $attributes[$key] );
-		} elseif ( null !== $value ) {
-			$attributes[$key] = trim( $value );
+			unset( $attributes[ $key ] );
+		} else {
+			$attributes[ $key ] = $value;
 		}
 		return $attributes;
 	}
-
 }
 
 

@@ -1,14 +1,14 @@
-# Copyright (C) 2017 oik-libs
+# Copyright (C) 2020 oik-libs
 # This file is distributed under the same license as the oik-libs package.
 msgid ""
 msgstr ""
-"Project-Id-Version: oik-libs 0.0.5\n"
+"Project-Id-Version: oik-libs 0.2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/oik-libs\n"
-"POT-Creation-Date: 2017-08-03 17:15:26+00:00\n"
+"POT-Creation-Date: 2020-12-22 21:35:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -16,60 +16,64 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: libs/class-BW-.php:104 libs/oik-admin.php:69
+#: libs/bw_fields.php:413
+msgid ": "
+msgstr ""
+
+#: libs/class-BW-.php:108 libs/oik-admin.php:69
 msgid "Toggle panel: %s"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:139 libs/class-oik-theme-update.php:138
+#: libs/class-oik-plugin-update.php:142 libs/class-oik-theme-update.php:142
 msgid "[oik] Options"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:139 libs/class-oik-plugin-update.php:140
-#: libs/class-oik-theme-update.php:138 libs/class-oik-theme-update.php:139
+#: libs/class-oik-plugin-update.php:142 libs/class-oik-plugin-update.php:143
+#: libs/class-oik-theme-update.php:142 libs/class-oik-theme-update.php:143
 msgid "oik updates"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:140 libs/class-oik-theme-update.php:139
+#: libs/class-oik-plugin-update.php:143 libs/class-oik-theme-update.php:143
 msgid "Updates"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:155
+#: libs/class-oik-plugin-update.php:180
 msgid "oik plugins"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:155 libs/class-oik-plugin-update.php:347
-#: libs/class-oik-theme-update.php:346
+#: libs/class-oik-plugin-update.php:180 libs/class-oik-plugin-update.php:369
+#: libs/class-oik-theme-update.php:350
 msgid "Plugins"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:342 libs/class-oik-theme-update.php:341
+#: libs/class-oik-plugin-update.php:364 libs/class-oik-theme-update.php:345
 msgid ""
 "Some oik plugins and themes are supported from servers other than WordPress."
 "org"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:343 libs/class-oik-theme-update.php:342
+#: libs/class-oik-plugin-update.php:365 libs/class-oik-theme-update.php:346
 msgid "Premium plugin and theme versions require API keys."
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:346 libs/class-oik-theme-update.php:345
+#: libs/class-oik-plugin-update.php:368 libs/class-oik-theme-update.php:349
 msgid "Use the Plugins page to manage oik plugins servers and API keys"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:347 libs/class-oik-theme-update.php:346
+#: libs/class-oik-plugin-update.php:369 libs/class-oik-theme-update.php:350
 msgid "Manage plugin servers and API keys"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:350 libs/class-oik-theme-update.php:349
+#: libs/class-oik-plugin-update.php:372 libs/class-oik-theme-update.php:353
 msgid "Use the Themes page to manage oik themes servers and API keys"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:351 libs/class-oik-theme-update.php:154
-#: libs/class-oik-theme-update.php:350
+#: libs/class-oik-plugin-update.php:373 libs/class-oik-theme-update.php:158
+#: libs/class-oik-theme-update.php:354
 msgid "Themes"
 msgstr ""
 
-#: libs/class-oik-plugin-update.php:351 libs/class-oik-theme-update.php:350
+#: libs/class-oik-plugin-update.php:373 libs/class-oik-theme-update.php:354
 msgid "Manage theme servers and API keys"
 msgstr ""
 
@@ -78,66 +82,386 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: libs/class-oik-theme-update.php:154
+#: libs/class-oik-theme-update.php:158
 msgid "oik themes"
 msgstr ""
 
-#: libs/oik-activation.php:24
-msgid "Install"
+#: libs/oik-activation.php:29 libs/oik-depends.php:284
+msgid "Install %1$s"
 msgstr ""
 
-#: libs/oik-activation.php:53
-msgid "Activate"
+#: libs/oik-activation.php:61 libs/oik-depends.php:312
+msgid "Activate %1$s"
 msgstr ""
 
-#: libs/oik-activation.php:73
-msgid "Update"
+#: libs/oik-activation.php:79 libs/oik-depends.php:330 libs/oik_themes.php:395
+msgid "Upgrade %1$s"
 msgstr ""
 
-#: libs/oik-activation.php:191 libs/oik-depends.php:144
+#: libs/oik-activation.php:195 libs/oik-depends.php:147
+#: libs/oik_plugins.php:272 libs/oik_themes.php:247
+msgid "version"
+msgstr ""
+
+#: libs/oik-activation.php:198 libs/oik-depends.php:150
 msgid "%1$s may not be fully functional."
 msgstr ""
 
-#: libs/oik-activation.php:193 libs/oik-depends.php:146
-msgid ""
-"Please install and activate the required minimum version of this plugin:"
-msgstr ""
-
-#: libs/oik-cli.php:300
-msgid "oik-wp running WordPress %s"
-msgstr ""
-
-#: libs/oik-depends.php:96
-msgid "Plugin %1$s may not be fully functional."
-msgstr ""
-
-#: libs/oik-depends.php:99
+#: libs/oik-activation.php:200 libs/oik-depends.php:106
+#: libs/oik-depends.php:152
 msgid ""
 "Please install and activate the required minimum version of this plugin: %1$s"
 msgstr ""
 
-#: libs/oik-depends.php:278
-msgid "Install %1$s"
+#: libs/oik-cli.php:311
+msgid "oik-wp running WordPress %s"
 msgstr ""
 
-#: libs/oik-depends.php:306
-msgid "Activate %1$s"
+#: libs/oik-cli.php:521 libs/oik-cli.php:528
+msgid "oik batch"
 msgstr ""
 
-#: libs/oik-depends.php:324
-msgid "Upgrade %1$s"
+#: libs/oik-cli.php:529
+msgid "Git stuff"
+msgstr ""
+
+#: libs/oik-depends.php:100
+msgid " version "
+msgstr ""
+
+#: libs/oik-depends.php:103
+msgid "Plugin %1$s may not be fully functional."
 msgstr ""
 
 #: libs/oik-honeypot.php:45
 msgid "Humans leave this blank"
 msgstr ""
 
+#: libs/oik-sc-help.php:278
+msgid "?"
+msgstr ""
+
+#: libs/oik-sc-help.php:309
+msgid "oik generated example."
+msgstr ""
+
+#: libs/oik-sc-help.php:319
+msgid "class names"
+msgstr ""
+
+#: libs/oik-sc-help.php:319
+msgid "CSS class names"
+msgstr ""
+
+#: libs/oik-sc-help.php:321 libs/oik-sc-help.php:595
+msgid "id"
+msgstr ""
+
+#: libs/oik-sc-help.php:321
+msgid "unique identifier"
+msgstr ""
+
+#: libs/oik-sc-help.php:343 libs/oik-sc-help.php:344 libs/oik-sc-help.php:359
+#: libs/oik-sc-help.php:397 libs/oik-sc-help.php:436 libs/oik-sc-help.php:480
+#: libs/oik-sc-help.php:481 libs/oik-sc-help.php:512 libs/oik-sc-help.php:513
+msgid "numeric"
+msgstr ""
+
+#: libs/oik-sc-help.php:343
+msgid "number to return"
+msgstr ""
+
+#: libs/oik-sc-help.php:344
+msgid "offset from which to start"
+msgstr ""
+
+#: libs/oik-sc-help.php:345
+msgid "category ID"
+msgstr ""
+
+#: libs/oik-sc-help.php:345
+msgid "numeric ID of the post category"
+msgstr ""
+
+#: libs/oik-sc-help.php:346 libs/oik-sc-help.php:347
+msgid "category-slug"
+msgstr ""
+
+#: libs/oik-sc-help.php:346
+msgid "category slugs (comma separated)"
+msgstr ""
+
+#: libs/oik-sc-help.php:347
+msgid "custom category slug"
+msgstr ""
+
+#: libs/oik-sc-help.php:348
+msgid "Sort sequence"
+msgstr ""
+
+#: libs/oik-sc-help.php:349
+msgid "Sort order."
+msgstr ""
+
+#: libs/oik-sc-help.php:350 libs/oik-sc-help.php:351 libs/oik-sc-help.php:358
+#: libs/oik-sc-help.php:438 libs/oik-sc-help.php:439 libs/oik-sc-help.php:594
+#: libs/oik-sc-help.php:599 libs/oik-sc-help.php:600
+msgid "id1,id2"
+msgstr ""
+
+#: libs/oik-sc-help.php:350 libs/oik-sc-help.php:438 libs/oik-sc-help.php:599
+msgid "IDs to include"
+msgstr ""
+
+#: libs/oik-sc-help.php:351 libs/oik-sc-help.php:439 libs/oik-sc-help.php:600
+msgid "IDs to exclude"
+msgstr ""
+
+#: libs/oik-sc-help.php:352
+msgid "meta key"
+msgstr ""
+
+#: libs/oik-sc-help.php:352
+msgid "post metadata key"
+msgstr ""
+
+#: libs/oik-sc-help.php:353
+msgid "meta value"
+msgstr ""
+
+#: libs/oik-sc-help.php:353
+msgid "post metadata value"
+msgstr ""
+
+#: libs/oik-sc-help.php:354
+msgid "custom post type"
+msgstr ""
+
+#: libs/oik-sc-help.php:354
+msgid "Content type to display"
+msgstr ""
+
+#: libs/oik-sc-help.php:355
+msgid "mime type"
+msgstr ""
+
+#: libs/oik-sc-help.php:355
+msgid "Attached media MIME type"
+msgstr ""
+
+#: libs/oik-sc-help.php:356 libs/oik-sc-help.php:432
+msgid "ID"
+msgstr ""
+
+#: libs/oik-sc-help.php:356
+msgid "Parent ID to use if not current post"
+msgstr ""
+
+#: libs/oik-sc-help.php:357
+msgid "Post status"
+msgstr ""
+
+#: libs/oik-sc-help.php:358
+msgid "IDs of posts to display"
+msgstr ""
+
+#: libs/oik-sc-help.php:359
+msgid "Number of posts per page. Use '.' for current value %1$s"
+msgstr ""
+
+#: libs/oik-sc-help.php:369
+msgid "nnn"
+msgstr ""
+
+#: libs/oik-sc-help.php:369
+msgid "wxh"
+msgstr ""
+
+#: libs/oik-sc-help.php:369
+msgid "image size"
+msgstr ""
+
+#: libs/oik-sc-help.php:375
+msgid "Display the caption for an image. Standard WordPress shortcode"
+msgstr ""
+
+#: libs/oik-sc-help.php:384
+msgid "e.g.:"
+msgstr ""
+
+#: libs/oik-sc-help.php:385
+msgid "This is a caption"
+msgstr ""
+
+#: libs/oik-sc-help.php:394
+msgid "text"
+msgstr ""
+
+#: libs/oik-sc-help.php:394
+msgid "value for CSS id= keyword"
+msgstr ""
+
+#: libs/oik-sc-help.php:395
+msgid "classname"
+msgstr ""
+
+#: libs/oik-sc-help.php:395
+msgid "custom class"
+msgstr ""
+
+#: libs/oik-sc-help.php:396
+msgid "CSS alignment class"
+msgstr ""
+
+#: libs/oik-sc-help.php:397
+msgid "width in pixels (Note: 10 is added to this number)"
+msgstr ""
+
+#: libs/oik-sc-help.php:407
+msgid "Display the attached images in a gallery"
+msgstr ""
+
+#: libs/oik-sc-help.php:430
+msgid "Order"
+msgstr ""
+
+#: libs/oik-sc-help.php:431 libs/oik-sc-help.php:598
+msgid "Order by field"
+msgstr ""
+
+#: libs/oik-sc-help.php:432
+msgid "Post ID. Default: Current post ID"
+msgstr ""
+
+#: libs/oik-sc-help.php:433 libs/oik-sc-help.php:434 libs/oik-sc-help.php:435
+msgid "tag"
+msgstr ""
+
+#: libs/oik-sc-help.php:433
+msgid "Item tag"
+msgstr ""
+
+#: libs/oik-sc-help.php:434
+msgid "Icon tag"
+msgstr ""
+
+#: libs/oik-sc-help.php:435
+msgid "Caption tag"
+msgstr ""
+
+#: libs/oik-sc-help.php:436
+msgid "Columns"
+msgstr ""
+
+#: libs/oik-sc-help.php:437
+msgid "Thumbnail image size"
+msgstr ""
+
+#: libs/oik-sc-help.php:448
+msgid "Embed media"
+msgstr ""
+
+#: libs/oik-sc-help.php:464
+msgid "Embed example"
+msgstr ""
+
+#: libs/oik-sc-help.php:467
+msgid ""
+"Note: It's not possible to produce a proper working example due to the way "
+"the embed shortcode is handled."
+msgstr ""
+
+#: libs/oik-sc-help.php:480 libs/oik-sc-help.php:513
+msgid "Required width"
+msgstr ""
+
+#: libs/oik-sc-help.php:481 libs/oik-sc-help.php:512
+msgid "Required height"
+msgstr ""
+
+#: libs/oik-sc-help.php:482 libs/oik-sc-help.php:493 libs/oik-sc-help.php:507
+#: libs/oik-sc-help.php:508
+msgid "URL"
+msgstr ""
+
+#: libs/oik-sc-help.php:482
+msgid "URL to embed, if not provided in shortcode content"
+msgstr ""
+
+#: libs/oik-sc-help.php:493 libs/oik-sc-help.php:507
+msgid "If omitted uses first attachment"
+msgstr ""
+
+#: libs/oik-sc-help.php:494 libs/oik-sc-help.php:509
+msgid "Allow looping of media"
+msgstr ""
+
+#: libs/oik-sc-help.php:495 libs/oik-sc-help.php:510
+msgid "Causes media to autoplay"
+msgstr ""
+
+#: libs/oik-sc-help.php:496 libs/oik-sc-help.php:511
+msgid "How the audio should be loaded"
+msgstr ""
+
+#: libs/oik-sc-help.php:508
+msgid "Placeholder image"
+msgstr ""
+
+#: libs/oik-sc-help.php:594
+msgid "IDs for the playlist"
+msgstr ""
+
+#: libs/oik-sc-help.php:595
+msgid "current post"
+msgstr ""
+
+#: libs/oik-sc-help.php:595
+msgid "Post from which the playlist is chosen"
+msgstr ""
+
+#: libs/oik-sc-help.php:596
+msgid "Content type"
+msgstr ""
+
+#: libs/oik-sc-help.php:597
+msgid "Ordering"
+msgstr ""
+
+#: libs/oik-sc-help.php:601
+msgid "Playlist style"
+msgstr ""
+
+#: libs/oik-sc-help.php:602
+msgid "Display track list?"
+msgstr ""
+
+#: libs/oik-sc-help.php:603
+msgid "Display track numbers?"
+msgstr ""
+
+#: libs/oik-sc-help.php:604
+msgid "Display images?"
+msgstr ""
+
+#: libs/oik-sc-help.php:605
+msgid "Display artists?"
+msgstr ""
+
+#: libs/oik-shortcodes.php:28
+msgid "<b>Unable to locate routine to expand shortcode.</b>"
+msgstr ""
+
+#: libs/oik-shortcodes.php:243
+msgid "missing post processing function: %1$s"
+msgstr ""
+
 #: libs/oik_plugins.php:36
 msgid "plugin server settings"
 msgstr ""
 
-#: libs/oik_plugins.php:57 libs/oik_plugins.php:122 libs/oik_themes.php:53
-#: libs/oik_themes.php:118
+#: libs/oik_plugins.php:57 libs/oik_themes.php:53
+msgctxt "examine"
 msgid "Check"
 msgstr ""
 
@@ -169,6 +493,10 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: libs/oik_plugins.php:122 libs/oik_themes.php:118
+msgid "Check"
+msgstr ""
+
 #: libs/oik_plugins.php:230 libs/oik_themes.php:205
 msgid "settings must not be blank"
 msgstr ""
@@ -183,10 +511,6 @@ msgstr ""
 
 #: libs/oik_plugins.php:271 libs/oik_plugins.php:290 libs/oik_plugins.php:305
 msgid "plugin"
-msgstr ""
-
-#: libs/oik_plugins.php:272 libs/oik_themes.php:247
-msgid "version"
 msgstr ""
 
 #: libs/oik_plugins.php:273 libs/oik_plugins.php:291 libs/oik_plugins.php:306
@@ -231,11 +555,12 @@ msgstr ""
 msgid "Plugin: %1$s"
 msgstr ""
 
-#: libs/oik_plugins.php:345 libs/oik_plugins.php:352
+#: libs/oik_plugins.php:345 libs/oik_plugins.php:352 libs/oik_themes.php:310
+#: libs/oik_themes.php:317
 msgid "Current version: %1$s"
 msgstr ""
 
-#: libs/oik_plugins.php:346
+#: libs/oik_plugins.php:346 libs/oik_themes.php:311
 msgid "New version: %1$s"
 msgstr ""
 
@@ -283,8 +608,16 @@ msgstr ""
 msgid "Change theme"
 msgstr ""
 
+#: libs/oik_themes.php:302
+msgid "Error checking the theme: %1$s"
+msgstr ""
+
 #: libs/oik_themes.php:308
 msgid "A new version of the theme is available"
+msgstr ""
+
+#: libs/oik_themes.php:309 libs/oik_themes.php:316
+msgid "Theme: %1$s"
 msgstr ""
 
 #: libs/oik_themes.php:315
@@ -297,7 +630,7 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid ""
-"http://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository"
+"https://www.oik-plugins.com/oik-plugins/oik-libs-shared-library-repository"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -309,5 +642,5 @@ msgid "bobbingwide"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://www.oik-plugins.com/author/bobbingwide"
+msgid "https://www.oik-plugins.com/author/bobbingwide"
 msgstr ""

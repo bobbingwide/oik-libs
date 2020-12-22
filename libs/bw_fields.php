@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2013-2018, 2020
 if ( !defined( "BW_FIELDS_INCLUDED" ) ) {
-define( "BW_FIELDS_INCLUDED", "4.1.0" );
+define( "BW_FIELDS_INCLUDED", "4.1.1" );
 
 /**
  * Library: bw_fields
@@ -206,7 +206,45 @@ function bw_theme_field( $key, $value, $field=null ) {
  */
 function bw_theme_field__post_title( $key, $value, $field ) {
   bw_theme_field__title( $key, $value, $field );
-}  
+}
+
+/**
+ * Themes the "post_date" field.
+ *
+ * Note: This doesn't set the label.
+ * @param $key
+ * @param $value
+ * @param $field
+ */
+function bw_theme_field__post_date( $key, $value, $field ) {
+	bw_theme_field__date( $key, $value, $field );
+}
+
+/**
+ * Themes the "post_modified" field
+ *
+ * Note: This doesn't set the label.
+ * @param $key
+ * @param $value
+ * @param $field
+ */
+function bw_theme_field__post_modified( $key, $value, $field ) {
+	bw_theme_field__date( $key, $value, $field );
+}
+
+/**
+ * Themes a date field.
+ *
+ * @param $key
+ * @param $value
+ * @param $field
+ *
+ */
+function bw_theme_field__date( $key, $value, $field ) {
+	span( $key );
+	bw_theme_field_date( $key, $value, $field );
+	epan();
+}
 
 /**
  * Theme a 'title' field
@@ -236,7 +274,8 @@ function bw_theme_field__title( $key, $value, $field ) {
  */ 
 function bw_theme_field__excerpt( $key, $value, $field ) {
   sepan( $key, $value );
-} 
+}
+
 
 /** 
  * Default theming of metadata based on field name ( $key ) or content? ( $value )
