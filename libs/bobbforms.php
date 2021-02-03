@@ -497,7 +497,6 @@ function bw_shorten( $string, $shorten ) {
  * @return $iselect HTML for the select list
  */
 function iselect( $name, $value, $args ) {
-	//bw_trace2();
 	$multiple = bw_array_get( $args, "#multiple", false );
 	if ( $multiple ) {
 		$iselect = "<select name=\"${name}[]\" multiple size=\"$multiple\">" ;

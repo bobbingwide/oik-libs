@@ -1,8 +1,11 @@
-<?php // (C) Copyright Bobbing Wide 2015-2019
+<?php
 if ( !defined( "OIK_AUTOLOAD_INCLUDED" ) ) {
-define( "OIK_AUTOLOAD_INCLUDED", "0.1.0" );
+define( "OIK_AUTOLOAD_INCLUDED", "1.0.0" );
 
 /**
+ * @copyright (C) Copyright Bobbing Wide 2015-2021
+ * @package oik-libs
+ *
  * Autoload library functions
  *
  * Library: oik-autoload
@@ -36,14 +39,18 @@ function oik_require_class( $class, $args=null ) {
  * But I think it's better to implicitely invoke either oik_require_class() or oik_autoload() to instantiate the
  * autoloading logic when you know that OO code will be used.
  * 
- * Notice we use oik_require_file() to load a class file manually
+ * Notice we use oik_require_file() to load a class file manually.
+ *
+ * @param bool $autoload_shared_library True if we want autoloading of shared library classes.
  */
-function oik_autoload() {
+function oik_autoload( $autoload_shared_library=false ) {
 	if ( !class_exists( "OIK_Autoload" ) ) {
 		oik_require_file( "class-oik-autoload.php", "oik-autoload" );
 	}
 	if ( class_exists( "OIK_Autoload" ) ) {
 		$oik_autoload = OIK_Autoload::instance();
+		$oik_autoload->set_autoload_shared_library( $autoload_shared_library );
+		$oik_autoload->query_autoload_classes();
 	} else {
 		bw_trace2( "Class OIK_Autoload does not exist", null, false, BW_TRACE_ERROR );
 		die();
