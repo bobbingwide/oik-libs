@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2009-2018
+<?php // (C) Copyright Bobbing Wide 2009-2021
 if ( !defined( "BOBBFORMS_INCLUDED" ) ) {
-define( "BOBBFORMS_INCLUDED", "3.2.8" );
+define( "BOBBFORMS_INCLUDED", "3.2.9" );
 
 /**
  * Library: bobbforms
@@ -303,11 +303,10 @@ function textfield( $name, $len, $text, $value, $class=null, $extras=null, $args
 }
 
 /**
- * Create a textarea field
+ * Creates a textarea field.
  *
- * @TODO Confirm this is used
  */
-function textarea( $name, $len, $text, $value, $rows=10, $args) {
+function textarea( $name, $len, $text, $value, $rows=10, $args=null) {
 	$lab = label( $name, $text );
 	$itext = iarea( $name, $len, $value, $rows ); 
 	tablerow( $lab, $itext );
@@ -497,6 +496,7 @@ function bw_shorten( $string, $shorten ) {
  * @return $iselect HTML for the select list
  */
 function iselect( $name, $value, $args ) {
+	//bw_trace2();
 	$multiple = bw_array_get( $args, "#multiple", false );
 	if ( $multiple ) {
 		$iselect = "<select name=\"${name}[]\" multiple size=\"$multiple\">" ;

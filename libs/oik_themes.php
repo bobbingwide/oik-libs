@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2019
+<?php // (C) Copyright Bobbing Wide 2013-2021
 if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
-	define( "OIK_THEMES_INCLUDED", "0.2.0" );
+	define( "OIK_THEMES_INCLUDED", "0.2.1" );
 
 /**
  * Library: oik_themes
@@ -485,10 +485,12 @@ function bw_get_theme_name( $theme_name="oik" ) {
 
 /**
  * Returns current theme version.
- * 
+ *
+ * @param string $theme Theme name - no longer used
+ * @param object $theme_object The theme object
  * @return string theme version
  */
-function bw_get_theme_version( $theme="oik", $theme_object ) {
+function bw_get_theme_version( $theme, $theme_object ) {
   if ( $theme_object->exists() ) {
     $version = $theme_object->Version;
   } else {
@@ -498,13 +500,14 @@ function bw_get_theme_version( $theme="oik", $theme_object ) {
 }  
 
 /**
- * Determine the server that supports this theme
+ * Determines the server that supports this theme.
+ *
  * @param string $theme - theme name
  * @param WP_theme $theme_object - the WP_theme object
  * @param array $theme_data - oik theme registration information
- * @return 
+ * @return string  
  */
-function bw_get_theme_server( $theme="oik", $theme_object, $theme_data ) {
+function bw_get_theme_server( $theme, $theme_object, $theme_data ) {
   $server = bw_array_get( $theme_data, "server", null );
   if ( !$server ) {
     if ( $theme_object->exists() ) {

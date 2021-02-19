@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2020
+<?php // (C) Copyright Bobbing Wide 2012-2021
 if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
-define( "OIK_DEPENDS_INCLUDED", "3.2.4" );
+define( "OIK_DEPENDS_INCLUDED", "3.2.5" );
 
 /**
  * Dependency checking library functions
@@ -232,7 +232,7 @@ function bw_get_active_plugins() {
  * The list of plugins could include oik - which should be loaded UNLESS this file is being
  * loaded by some other mechanism.
  */
-function oik_lazy_depends( $plugin=null, $dependencies, $callback="oik_plugin_inactive" ) {
+function oik_lazy_depends( $plugin, $dependencies, $callback="oik_plugin_inactive" ) {
   bw_backtrace( BW_TRACE_DEBUG );
   $names = bw_get_active_plugins();
   bw_trace2( $names, "active plugin names", true, BW_TRACE_DEBUG );
