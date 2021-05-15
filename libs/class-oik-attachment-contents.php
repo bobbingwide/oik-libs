@@ -18,7 +18,7 @@ if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
 			$this->file = null;
 			$this->content = null;
 			$this->contents_array = null;
-			$this->key = 'src,0';
+			$this->key = 'src';
 		}
 
 		function set_key( $key ) {
