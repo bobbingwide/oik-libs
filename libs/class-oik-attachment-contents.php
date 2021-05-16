@@ -1,6 +1,6 @@
 <?php
 if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
-	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.0' );
+	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.1' );
 
 	/**
 	 * Class Oik_attachment_contents
@@ -61,8 +61,9 @@ if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
 		 * Populates $this->contents_array from $this->content
 		 */
 		function get_contents() {
-			$content = str_replace( "<br />\n", "\n", $this->content );
+			$content = $this->content;
 			$content = str_replace( '\n', "\n", $content );
+			$content = str_replace( "<br />\n", "\n", $content );
 			$content = rtrim( $content );
 			bw_trace2( $content, "content", false );
 			$content_array = explode( "\n", $content );
