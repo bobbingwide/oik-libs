@@ -26,7 +26,7 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 	function load_lib() {
 		$lib = oik_require_lib( "class-oik-attachment-contents" );
 		$this->assertStringEndsWith('libs/class-oik-attachment-contents.php', $lib );
-		$this->assertEquals( '0.0.1', CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED );
+		$this->assertEquals( '0.0.2', CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED );
 	}
 
 	function test_load_lib() {
@@ -43,6 +43,9 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 		$this->assertInstanceOf( 'Oik_attachment_contents', $oik_attachment_contents );
 	}
 
+	/**
+	 * Tests when $atts is null
+	 */
 	function test_get_content() {
 		$oik_attachment_contents = new Oik_attachment_contents();
 		$content = $oik_attachment_contents->get_content( null, null );
@@ -53,6 +56,11 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 		$this->AssertEquals( 'A,B,C\n1,2,3', $content );
 	}
 
+
+	/**
+	 * Tests when $atts is null.
+	 * We can't test get_contents() separately since it doesn't return the contents_array.
+	 */
 	function test_get_contents_array() {
 		$oik_attachment_contents = new Oik_attachment_contents();
 		//$content = $oik_attachment_contents->get_content( null, null );
@@ -75,6 +83,56 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 
 	}
 
+	/**
+	 * Note: If the file_name returned is null then we have to call bw_ret() to clear any bw_echo'ed output.
+	 * If we don't do this subsequent tests may fail.
+	 */
+	function test_get_file_name() {
+		$oik_attachment_contents=new Oik_attachment_contents();
+		$file_name  =$oik_attachment_contents->get_file_name( '/wp-config.php' );
+		$this->assertNull( $file_name );
+		$html = bw_ret();
+		$this->assertEquals( 'File name not allowed: /wp-config.php', $html );
+
+		$file_name  =$oik_attachment_contents->get_file_name( '/wp-config-sample.php' );
+		$this->assertEquals( ABSPATH . 'wp-config-sample.php', $file_name );
+
+		$file_name  =$oik_attachment_contents->get_file_name( 'https://example.com' );
+		$this->assertEquals( 'https://example.com', $file_name );
+
+		$file_name  =$oik_attachment_contents->get_file_name( 'examples/you-wont-find-me' );
+		$this->assertEquals( 'examples/you-wont-find-me', $file_name );
+	}
+
+	function test_load_content() {
+		$oik_attachment_contents=new Oik_attachment_contents();
+		/** We don't expect to find post ID 0 so there should be no attached file and no message */
+		$oik_attachment_contents->load_content( 0 );
+		$html = bw_ret();
+		$this->assertNull( $html );
+
+		/** We don't expect to find an attached file for post ID 1 since it's a post not an attachment */
+		$oik_attachment_contents->load_content( 1 );
+		$html = bw_ret();
+		$this->assertNull( $html );
+
+		$oik_attachment_contents->load_content( 'examples/you-wont-find-me' );
+		$html = bw_ret();
+		$this->assertEquals( "File does not exist: examples/you-wont-find-me", $html );
+	}
+
+	/**
+	 * Here I'm assuming that test__sc__help.html file contains "?" followed by CRLF  
+	 */
+	function test_get_contents_array_from_src() {
+		$oik_attachment_contents=new Oik_attachment_contents();
+		$contents_array = $oik_attachment_contents->get_contents_array( ['src' => '/wp-content/plugins/oik-libs/tests/data/en_GB/test__sc__help.html'], null );
+		$this->assertEquals( [ '?' ], $contents_array );
+		$contents_array = $oik_attachment_contents->get_contents_array( ['src' => '/wp-content/plugins/oik-libs/tests/data/en_GB/test__sc__help.html'], '' );
+		$this->assertEquals( [ '?' ], $contents_array );
+		$contents_array = $oik_attachment_contents->get_contents_array( ['src' => '/wp-content/plugins/oik-libs/tests/data/en_GB/test__sc__help.html'], 'overrides src' );
+		$this->assertEquals( [ 'overrides src' ], $contents_array );
+	}
 
 
 }
