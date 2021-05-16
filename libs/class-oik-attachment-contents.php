@@ -1,6 +1,6 @@
 <?php
 if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
-	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.1' );
+	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.2' );
 
 	/**
 	 * Class Oik_attachment_contents
@@ -49,7 +49,7 @@ if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
 			if ( !empty( $content ) ) {
 				$this->content=$content;
 			} else {
-				$src = bw_array_get_from( $atts, "src,0", null );
+				$src = bw_array_get_from( $atts, $this->key, null );
 				if ( $src ) {
 					$this->load_content( $src );
 				}
