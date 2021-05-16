@@ -4,8 +4,8 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: shared, library, repository
 * Requires at least: 4.9.8
-* Tested up to: 5.6
-* Stable tag: 0.3.0
+* Tested up to: 5.7.2
+* Stable tag: 0.4.0
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,8 +36,11 @@ TBC
 None
 
 ## Upgrade Notice 
+# 0.4.0 
+Synchronized with oik v4.2.0, oik-css v1.3.0, and oik-bob-bing-wide v1.35.1
+
 # 0.3.0 
-Synchronized with oik v4.4.1, oik-bwtrace v3.1.0, etc
+Synchronized with oik v4.1.1, oik-bwtrace v3.1.0, etc
 
 # 0.2.0 
 Synchronized with oik v3.3.3, oik-bwtrace v3.0.0-RC1, etc
@@ -70,6 +73,15 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 * First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 ## Changelog 
+# 0.4.0 
+* Added: libs/class-oik-attachment-contents and unit test,https://github.com/bobbingwide/oik-libs/issues/14
+* Changed: Expect loading=lazy,https://github.com/bobbingwide/oik-libs/issues/13
+* Changed: Reconcile libs with changes made for PHP 8,https://github.com/bobbingwide/oik-libs/issues/13
+* Changed: Reconcile with oik autoload updates,https://github.com/bobbingwide/oik-libs/issues/13
+* Tested: With WordPress 5.7.2 and WordPress Multi Site
+* Tested: With PHP 8.0
+* Tested: With PHPUnit 9
+
 # 0.3.0 
 * Changed: Reconcile shared libraries and update PHPUnit tests,https://github.com/bobbingwide/oik-libs/issues/12
 * Tested: With WordPress 5.6
