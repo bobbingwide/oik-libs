@@ -122,7 +122,7 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 	}
 
 	/**
-	 * Here I'm assuming that test__sc__help.html file contains "?" followed by CRLF  
+	 * Here I'm assuming that test__sc__help.html file contains "?" followed by CRLF
 	 */
 	function test_get_contents_array_from_src() {
 		$oik_attachment_contents=new Oik_attachment_contents();
