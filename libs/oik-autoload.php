@@ -1,9 +1,9 @@
 <?php
 if ( !defined( "OIK_AUTOLOAD_INCLUDED" ) ) {
-define( "OIK_AUTOLOAD_INCLUDED", "1.0.0" );
+define( "OIK_AUTOLOAD_INCLUDED", "1.1.0" );
 
 /**
- * @copyright (C) Copyright Bobbing Wide 2015-2021
+ * @copyright (C) Copyright Bobbing Wide 2015-2022
  * @package oik-libs
  *
  * Autoload library functions
@@ -53,6 +53,8 @@ function oik_autoload( $autoload_shared_library=false ) {
 		$oik_autoload->query_autoload_classes();
 	} else {
 		bw_trace2( "Class OIK_Autoload does not exist", null, false, BW_TRACE_ERROR );
+		// @TODO Find a better solution to handle this error.
+		//gob();
 		die();
 	}
 	return( $oik_autoload );

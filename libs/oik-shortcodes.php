@@ -1,13 +1,13 @@
 <?php
 if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
-	define( 'OIK_SHORTCODES_INCLUDED', "3.4.0" );
+	define( 'OIK_SHORTCODES_INCLUDED', "3.5.0" );
 	/**
 	 * Library: oik-shortcodes
 	 * Provides: oik-shortcodes
 	 * Type: shared
 	 * Type: shared
 	 * Depends:    bwtrace
-	 * @copyright (C) Copyright Bobbing Wide 2020
+	 * @copyright (C) Copyright Bobbing Wide 2020-2022
 	 *
 	 */
 
@@ -491,6 +491,7 @@ if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
 		//add_filter('get_pages', 'do_shortcode' );
 		add_filter( "oik_do_shortcode", "oik_do_shortcode", 0 );
 		//add_action( "oik_add_shortcodes", "bw_oik_add_shortcodes" );
+        add_filter( 'term_description', 'oik_do_shortcode', 0 );
 
 		remove_filter( "widget_text", "balanceTags", 10 );
 		if ( 1 == get_option( "use_balanceTags" ) ) {
@@ -502,6 +503,7 @@ if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
 		add_filter( 'wp_footer', 'do_shortcode' );
 		add_filter( 'get_the_excerpt', 'do_shortcode' );
 		add_filter( 'the_excerpt', 'do_shortcode' );
+        add_filter( 'term_description', 'do_shortcode' );
 		// do_shortcode for 'the_content' should already be registered with priority 11
 
 		// Is there any point in checking if it's an embed request?
