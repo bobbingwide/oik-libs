@@ -1,6 +1,6 @@
 <?php
 if ( !defined( 'CLASS_OIK_SVG_ICONS_INCLUDED' ) ) {
-    define( 'CLASS_OIK_SVG_ICONS_INCLUDED', '0.1.0');
+    define( 'CLASS_OIK_SVG_ICONS_INCLUDED', '0.2.0');
 
     /**
      * @copyright (C) Copyright Bobbing Wide 2016-2022
@@ -62,6 +62,7 @@ if ( !defined( 'CLASS_OIK_SVG_ICONS_INCLUDED' ) ) {
 		    //$svgicons = bw_dash_list_svg_icons();
 		    //echo count( self::$svgicons );
 		    //gob();
+			$this->inline_style_svg();
 		    $dpath=bw_array_get( self::$svgicons, $icon, null );
 		    if ( ! $dpath ) {
 			    //$dpath = bw_array_get( self::$svgicons, 'menu', null );
@@ -167,6 +168,27 @@ if ( !defined( 'CLASS_OIK_SVG_ICONS_INCLUDED' ) ) {
 		    //print_r( self::$svgicons );
 		    // This doesn't return anything.
 	    }
+
+		/**
+		 * Enqueues some inline CSS to make certain SVG icons visible.
+		 *
+		 * We only need to do this once.
+		 *
+		 * `fill: currentColor` makes some parts visible
+		 * eg line-dashed-icon, line-dotted-icon, line-solid-icon
+		 *
+		 * `fill-rule: nonzero` affects how the SVG area is filled in.
+		 * The other setting is `evenodd`
+		 * plus-circle-icon doesn't display for `evenodd`.
+		 */
+		function inline_style_svg() {
+			if ( !wp_style_is( 'dash-svg-css')) {
+				$inline_css = 'svg.svg { fill: currentColor; fill-rule: nonzero; }';
+				wp_register_style( 'dash-svg-css', false );
+				wp_enqueue_style( 'dash-svg-css' );
+				wp_add_inline_style( 'dash-svg-css', $inline_css );
+			}
+		}
 
     }
 }
