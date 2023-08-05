@@ -38,16 +38,18 @@ class Tests_libs_oik_plugins extends BW_UnitTestCase {
 	 *
 	 * We want to get an error from the server that is NOT
 	 * `cURL error 60: SSL certificate problem: unable to get local issuer certificate`
-	 * We can achieve this by communicating with a plugin server that supports the request
+	 *
+	 * We can achieve this by communicating with a plugin server that supports the request,
 	 * but where the plugin we're asking for is not registered. 
 	 * At the moment http://qw/oikcouk satisfies that; oik-fum is in Draft form.
 	 * http://qw/oikcouk is not available to s.b,
-	 * Let's try https://herbmiller.me or https://oik-plugins.eu
+	 * Let's try https://herbmiller.me or https://oik-plugins.uk
 	 * 
 	 */
 	function test_oik_plugins_check_bb_BB_error() {
 		$server = "http://qw/oikcouk";
 		$server = "https://herbmiller.me";
+		$server = 'https://oik-plugins.uk';
 	  oik_update::oik_register_plugin_server( oik_path( "oik-fum.php", "oik-fum" ), $server );
 	
 		$this->switch_to_locale( "bb_BB" );
