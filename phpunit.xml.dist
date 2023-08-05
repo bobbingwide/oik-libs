@@ -8,6 +8,9 @@
 	>
 	<!-- for PHPUnit 5.7, 6.1, 6.2 -->
 	<testsuites>
+		<testsuite name="null-domain">
+			<file>tests/test-translate-null-domain.php</file>
+		</testsuite>	
 		<testsuite name="oik-libs">
 			<directory prefix="test-" suffix=".php">tests/</directory>
 		</testsuite>
