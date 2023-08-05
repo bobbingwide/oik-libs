@@ -1,6 +1,6 @@
 <?php
 if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
-	define( 'OIK_SHORTCODES_INCLUDED', "3.5.0" );
+	define( 'OIK_SHORTCODES_INCLUDED', "3.5.1" );
 	/**
 	 * Library: oik-shortcodes
 	 * Provides: oik-shortcodes
@@ -240,6 +240,7 @@ if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
 			if ( function_exists( $ppfunc ) ) {
 				$result=$ppfunc( $result, $cf );
 			} else {
+			    /* translators: %s: function name */
 				$result.='<b>' . sprintf( __( 'missing post processing function: %1$s', 'oik' ), $ppfunc ) . '</b>';
 			}
 

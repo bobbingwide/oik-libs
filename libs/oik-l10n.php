@@ -1,8 +1,8 @@
 <?php
 if ( !defined( 'OIK_L10N_INCLUDED' ) ) {
-define( 'OIK_L10N_INCLUDED', '3.2.1' );
+define( 'OIK_L10N_INCLUDED', '3.2.2' );
 /**
- * @copyright (C) Copyright Bobbing Wide 2017-2020
+ * @copyright (C) Copyright Bobbing Wide 2017-2023
  * Shared library for localization.
  *
  * Library: oik-l10n
@@ -72,10 +72,12 @@ define( 'OIK_L10N_INCLUDED', '3.2.1' );
 	 */
 	function oik_l10n_gettext( $translation, $text, $domain ) {
 		if ( null === $domain ) {
-			$try_again = !oik_l10n_domain_loaded( $domain );
+			//bw_trace2();
+			$try_again = !is_textdomain_loaded( $domain );
+			bw_trace2( $try_again, "try again", false, BW_TRACE_VERBOSE );
 			if ( $try_again ) {
 				oik_l10n_load_domain( $domain );
-				if ( oik_l10n_domain_loaded( $domain ) ) {
+				if ( is_textdomain_loaded( $domain ) ) {
 					$translation = translate( $text, $domain );
 				}
 			}
@@ -84,14 +86,15 @@ define( 'OIK_L10N_INCLUDED', '3.2.1' );
 	}
 	
 	/**
-	 * Tests if the domain is loaded 
+	 * Tests if the domain is loaded
+	 *
+	 * From WordPress 6.3 this just calls is_textdomain_loaded()
 	 * 
 	 * @param string|null $domain
 	 * @return bool
 	 */
 	function oik_l10n_domain_loaded( $domain ) {
-		global $l10n;
-		return isset( $l10n[ $domain ] );
+		return is_textdomain_loaded( $domain );
 	}
 	
 	/**
@@ -114,16 +117,23 @@ define( 'OIK_L10N_INCLUDED', '3.2.1' );
 	}
 	
 	/**
-	 * Traces $l10n
+	 * Traces parts of $l10n.
+	 *
+	 * For debugging.
 	 */
-	function oik_l10n_trace( $details=false ) {
+	function oik_l10n_trace( $details=false, $domain=null ) {
 		global $l10n;
 		
 		if ( is_array( $l10n ) && count( $l10n ) ) {
 			bw_trace2( array_keys( $l10n) , "array keys" );
 		}
-		if ( $details ) {
-			bw_trace2( $l10n, "l10n after null load" );
+		if ( $details  ) {
+			if ( isset( $l10n[$domain]) ) {
+				$count = count( $l10n[ $domain]->entries );
+				bw_trace2( $count, "l10n after null load", false );
+			} else {
+				bw_trace2( $domain, "Domain not loaded", false );
+			}
 		}
 	}
  

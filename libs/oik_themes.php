@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2021
+<?php // (C) Copyright Bobbing Wide 2013-2022
 if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
-	define( "OIK_THEMES_INCLUDED", "0.2.2" );
+	define( "OIK_THEMES_INCLUDED", "0.2.3" );
 
 /**
  * Library: oik_themes
@@ -239,6 +239,7 @@ function _oik_themes_settings_validate( $add_theme=true ) {
 function oik_themes_settings() {
   $default_theme_server = oik_update::oik_get_themes_server();
   $link = retlink( null, $default_theme_server, $default_theme_server , __( "default oik themes server", null ) );
+    /* translators: %s: link to current themes server */
   BW_::p( sprintf( __( 'The default oik themes server is currently set to: %1$s', null ), $link ) );
   bw_form();
   stag( "table", "widefat " );
@@ -299,18 +300,20 @@ function oik_themes_check() {
     $response = oik_remote::oik_check_for_theme_update( $check_theme, $check_version, true );
     bw_trace2( $response, "response-octfu" );
     if ( is_wp_error( $response ) ) {
+            /* translators: %s: theme name */
 			BW_::p( sprintf( __( 'Error checking the theme: %1$s', null ), $check_theme ) );
 			$error_message = $response->get_error_message();
 			BW_::p( $error_message );
     } else {
       $new_version = bw_array_get( $response, "new_version", null );
       if ( $new_version ) { 
-				BW_::p( __( "A new version of the theme is available", null ) );
-				BW_::p( sprintf( __( 'Theme: %1$s', null ), $check_theme ) );
-				BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
-				BW_::p( sprintf( __( 'New version: %1$s', null ), $new_version ) );
-        oik_theme_record_new_version( $check_theme, $check_version, $response ); 
-        oik_theme_new_version( $response );
+			BW_::p( __( "A new version of the theme is available", null ) );
+            /* translators: %s: theme name */
+			BW_::p( sprintf( __( 'Theme: %1$s', null ), $check_theme ) );
+            BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
+            BW_::p( sprintf( __( 'New version: %1$s', null ), $new_version ) );
+            oik_theme_record_new_version( $check_theme, $check_version, $response );
+            oik_theme_new_version( $response );
       } else {
         BW_::p( __( "Theme is up to date.", null ) );
         BW_::p( sprintf( __( 'Theme: %1$s', null ), $check_theme) );

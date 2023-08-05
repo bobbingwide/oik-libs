@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2019
+<?php // (C) Copyright Bobbing Wide 2012-2023
 if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
-	define( "OIK_PLUGINS_INCLUDED", "0.3.0" );
+	define( "OIK_PLUGINS_INCLUDED", "0.3.3" );
 
 /**
  * Library: oik_plugins
@@ -264,6 +264,7 @@ function _oik_plugins_settings_validate( $add_plugin=true ) {
 function oik_plugins_settings() {
   $default_plugin_server = oik_get_plugins_server();
   $link = retlink( null, $default_plugin_server, $default_plugin_server , __( "default oik plugins server", null ) );
+  /* translators: %s: link to current plugins server */
   BW_::p( sprintf( __( 'The default oik plugins server is currently set to: %1$s', null ),  $link ) );
   bw_form();
   stag( "table", "widefat " );
@@ -285,6 +286,11 @@ function oik_plugins_settings() {
  */ 
 function oik_plugins_add_settings( ) {
   global $bw_plugin;
+  if ( null === $bw_plugin ) {
+	  $bw_plugin['plugin']='';
+	  $bw_plugin['server']='';
+	  $bw_plugin['apikey']='';
+  }
   bw_form();
   stag( "table", "widefat" );
   BW_::bw_textfield( "plugin", 20, __( "plugin", null ), $bw_plugin['plugin'] );
@@ -334,6 +340,7 @@ function oik_plugins_check() {
     $response = oik_remote::oik_check_for_update( $check_plugin, $check_version, true );
     bw_trace2( $response );
     if ( is_wp_error( $response ) ) {
+        /* translators: %s: plugin name */
       BW_::p( sprintf( __( 'Error checking the plugin: %1$s', null ), $check_plugin ) );
       $error_message = $response->get_error_message();
       BW_::p( $error_message );
@@ -341,8 +348,11 @@ function oik_plugins_check() {
       $new_version = bw_array_get( $response, "new_version", null );
       if ( $new_version ) { 
         BW_::p( __( "A new version of the plugin is available", null ) );
+          /* translators: %s: plugin name */
         BW_::p( sprintf( __( 'Plugin: %1$s', null ), $check_plugin ) );
+          /* translators: %s: current version */
         BW_::p( sprintf( __( 'Current version: %1$s', null ), $check_version ) );
+          /* translators: %s: new version */
         BW_::p( sprintf( __( 'New version: %1$s', null ), $new_version ) );
         oik_plugin_record_new_version( $check_plugin, $check_version, $response ); 
         oik_plugin_new_version( $response );
@@ -454,7 +464,7 @@ if ( !function_exists( "bw_update_option" ) ) {
 function bw_update_option( $field, $value=NULL, $options="bw_options" ) {
   $bw_options = get_option( $options );
   $bw_options[ $field ] = $value;
-  bw_trace2( $bw_options );
+  bw_trace2( $bw_options, 'options', true, BW_TRACE_VERBOSE );
   update_option( $options, $bw_options );
   return( $value );
 }

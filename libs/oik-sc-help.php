@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2019
+<?php // (C) Copyright Bobbing Wide 2012-2023
 if ( !defined( "OIK_SC_HELP_INCLUDED" ) ) {
-define( "OIK_SC_HELP_INCLUDED", "3.3.8" );
+define( "OIK_SC_HELP_INCLUDED", "3.4.0" );
 
 /**
  * Shortcode help 
@@ -356,7 +356,10 @@ function _sc_posts() {
                , 'post_parent'     => BW_::bw_skv( null, __( "ID" , null ) , __( "Parent ID to use if not current post", null ) )
                , 'post_status'     => BW_::bw_skv( null,  "publish|inherit|pending|draft|auto-draft|future|private|trash|any", __( "Post status", null ) )
                , 'id'              => BW_::bw_skv( null, "<i>" . __( "id1,id2", null ) . "</i>", __( "IDs of posts to display", null ) )
-               , 'posts_per_page'  => BW_::bw_skv( null, __( "numeric", null ) . "|.", sprintf( __( 'Number of posts per page. Use \'.\' for current value %1$s', null ) , get_option( "posts_per_page", null ) ) )
+
+               , 'posts_per_page'  => BW_::bw_skv( null, __( "numeric", null ) . "|.",
+                    /* translators: %s current number of posts per page */
+                    sprintf( __( 'Number of posts per page. Use \'.\' for current value %1$s', null ) , get_option( "posts_per_page", null ) ) )
                ));
 } 
 
@@ -451,7 +454,7 @@ function embed__help( $shortcode='embed' ) {
 /**
  * Example for the embed shortcode
  *
- * The embed shorcode requires an URL which can be provided as embedded content
+ * The embed shortcode requires an URL which can be provided as embedded content
  * or passed in the `src=` parameter.
  * 
  * e.g. 
@@ -460,7 +463,7 @@ function embed__help( $shortcode='embed' ) {
  * @param string $shortcode
  */
 function embed__example( $shortcode='embed' ) {
-	$atts = 'width="480" src=https://www.youtube.com/watch?v=nH228-XQ-A8';
+	$atts = 'width="480" src=https://youtu.be/awgO9VlUWCY';
   bw_invoke_shortcode( $shortcode, $atts, __( "Embed example", null ) );
 	global $wp_version;
 	if ( version_compare( $wp_version, "4.9", "lt" ) ) {
