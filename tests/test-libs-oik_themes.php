@@ -115,9 +115,14 @@ class Tests_libs_oik_themes extends BW_UnitTestCase {
 	 * In order to get an 'up to date' response the version we pass must be greater than or equal to the version on the server.
 	 * and the package file for that version must be loaded.
 	 * Otherwise we get <p>Package not found</p>
+	 *
+	 * This test also relies on the theme server not already being registered
+	 * since the value from the bw_themes option field is used in preference.
 	 */
 	function test_oik_themes_check_bb_BB_uptodate() {
 	  //oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", "http://qw/oikcom" );
+		$server = "https://oik-plugins.com";
+		oik_update::oik_register_theme_server( WP_CONTENT_DIR . "/themes/genesis-oik/functions.php", $server );
 		$this->switch_to_locale( "bb_BB" );
 		$_REQUEST['check_theme'] =  "genesis-oik";
 		$_REQUEST['check_version'] = "99.0.0";
