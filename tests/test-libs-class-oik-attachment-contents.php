@@ -25,7 +25,13 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 
 	function load_lib() {
 		$lib = oik_require_lib( "class-oik-attachment-contents" );
-		$this->assertStringEndsWith('libs/class-oik-attachment-contents.php', $lib );
+		//print_r( $lib );
+		if ( is_object( $lib ) ) {
+			// $lib may be a string or an object!
+			$this->assertStringEndsWith( 'libs/class-oik-attachment-contents.php', $lib->src );
+		} else {
+			$this->assertStringEndsWith( 'libs/class-oik-attachment-contents.php', $lib );
+		}
 		$this->assertEquals( '0.0.2', CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED );
 	}
 
