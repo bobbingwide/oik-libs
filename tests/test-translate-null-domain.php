@@ -29,7 +29,7 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 		$this->assertTrue( $loaded );
 		$translated = __( "None", "oik-libs" );
 		$this->assertEquals( "Nnoe", $translated );
-		
+
 		unload_textdomain( "oik-libs" );
 		unload_textdomain( null );
 		
@@ -103,8 +103,7 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	 * Checks if the domain is loaded
 	 */
 	function null_domain_loaded() {
-		global $l10n;
-		return isset( $l10n[ null ] );
+		return is_textdomain_loaded( null );
 	}
 	
 	/** 
@@ -130,8 +129,8 @@ class Tests_translate_null_domain extends BW_UnitTestCase {
 	function trace_l10n( $details=false ) {
 		global $l10n;
 		bw_trace2( array_keys( $l10n) , "array keys" );
-		if ( $details ) {
-			bw_trace2( $l10n, "l10n after null load" );
+		if ( $details && $this->null_domain_loaded() ) {
+			bw_trace2( $l10n[ null ], "l10n after null load" );
 		}
 	}
 		
