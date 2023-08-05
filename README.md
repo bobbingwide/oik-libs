@@ -4,8 +4,8 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: shared, library, repository
 * Requires at least: 4.9.8
-* Tested up to: 5.8.0
-* Stable tag: 0.4.1
+* Tested up to: 6.3
+* Stable tag: 0.4.2
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,9 @@ TBC
 None
 
 ## Upgrade Notice 
+# 0.4.2 
+Synchronized with oik v4.9.1
+
 # 0.4.1 
 Synchronized with oik v4.4.0
 
@@ -76,6 +79,13 @@ Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
 * First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
 
 ## Changelog 
+# 0.4.2 
+* Changed: Make compatible with WordPress 6.3,https://github.com/bobbingwide/oik-libs/issues/18
+* Changed: Reconcile oik-libs,https://github.com/bobbingwide/oik-libs/issues/16
+* Tested: With WordPress 6.3 and WordPress Multi Site
+* Tested: With PHP 8.0
+* Tested: With PHPUnit 9
+
 # 0.4.1 
 * Changed: Reconcile bw_fields.php with oik
 * Tested: With WordPress 5.8 and WordPress Multi Site
