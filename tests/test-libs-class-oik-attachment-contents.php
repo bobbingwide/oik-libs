@@ -22,7 +22,6 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 	 * Ensures the shared library can be loaded and that it's the latest version
 	 * as defined by the constant.
 	 */
-
 	function load_lib() {
 		$lib = oik_require_lib( "class-oik-attachment-contents" );
 		//print_r( $lib );
@@ -32,7 +31,7 @@ class Tests_libs_class_oik_attachment_contents extends BW_UnitTestCase {
 		} else {
 			$this->assertStringEndsWith( 'libs/class-oik-attachment-contents.php', $lib );
 		}
-		$this->assertEquals( '0.0.2', CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED );
+		$this->assertEquals( '0.0.3', CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED );
 	}
 
 	function test_load_lib() {
