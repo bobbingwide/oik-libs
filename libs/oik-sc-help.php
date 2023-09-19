@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2012-2023
 if ( !defined( "OIK_SC_HELP_INCLUDED" ) ) {
-define( "OIK_SC_HELP_INCLUDED", "3.4.0" );
+define( "OIK_SC_HELP_INCLUDED", "3.4.1" );
 
 /**
  * Shortcode help 
@@ -618,10 +618,10 @@ function playlist__syntax( $shortcode="playlist" ) {
  * Note: The cached version may have been created for a different locale
  * In tests we might need to reset it by calling bw_expand_shortcode with null
  * 
- * @param string|null $example shortcode to be expanded
+ * @param string $example shortcode to be expanded. Cannot be null in PHP 8.2
  * @return string the generated HTML
  */
-function bw_expand_shortcode( $example=null ) {
+function bw_expand_shortcode( $example='' ) {
 	static $previous_example = null;
 	static $previous_expanded = null;
 	static $previous_locale = null; 
@@ -631,6 +631,7 @@ function bw_expand_shortcode( $example=null ) {
 	} else {
 		bw_save_scripts(); 
 		bw_push();
+
 		$expanded = apply_filters( 'the_content', $example );
 		bw_pop();
 		bw_save_scripts(); 

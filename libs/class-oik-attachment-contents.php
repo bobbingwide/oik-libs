@@ -1,10 +1,10 @@
 <?php
 if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
-	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.2' );
+	define( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED', '0.0.3' );
 
 	/**
 	 * Class Oik_attachment_contents
-	 * @copyright (C) Copyright Bobbing Wide 2021
+	 * @copyright (C) Copyright Bobbing Wide 2021, 2023
 	 * @package oik-libs
 	 */
 	class Oik_attachment_contents {
@@ -61,13 +61,17 @@ if ( !defined( 'CLASS_OIK_ATTACHMENT_CONTENTS_INCLUDED' ) ) {
 		 * Populates $this->contents_array from $this->content
 		 */
 		function get_contents() {
-			$content = $this->content;
-			$content = str_replace( '\n', "\n", $content );
-			$content = str_replace( "<br />\n", "\n", $content );
-			$content = rtrim( $content );
-			bw_trace2( $content, "content", false );
-			$content_array = explode( "\n", $content );
-			bw_trace2( $content_array, "content_array", false );
+			$content=$this->content;
+			if ( null === $content ) {
+				$content_array=[''];
+			} else {
+				$content=str_replace( '\n', "\n", $content );
+				$content=str_replace( "<br />\n", "\n", $content );
+				$content=rtrim( $content );
+				bw_trace2( $content, "content", false );
+				$content_array=explode( "\n", $content );
+				bw_trace2( $content_array, "content_array", false );
+			}
 			$this->contents_array = $content_array;
 		}
 

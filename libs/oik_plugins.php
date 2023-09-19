@@ -1,6 +1,6 @@
 <?php // (C) Copyright Bobbing Wide 2012-2023
 if ( !defined( "OIK_PLUGINS_INCLUDED" ) ) {
-	define( "OIK_PLUGINS_INCLUDED", "0.3.3" );
+	define( "OIK_PLUGINS_INCLUDED", "0.3.4" );
 
 /**
  * Library: oik_plugins
@@ -294,7 +294,8 @@ function oik_plugins_add_settings( ) {
   bw_form();
   stag( "table", "widefat" );
   BW_::bw_textfield( "plugin", 20, __( "plugin", null ), $bw_plugin['plugin'] );
-  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_plugin['server'] ) );
+  $plugin_server = ( null === $bw_plugin['server']) ? '' : stripslashes( $bw_plugin['server'] );
+  BW_::bw_textfield( "server", 100, __( "server", null ), $plugin_server );
   BW_::bw_textfield( "apikey", 26, __( "apikey", null ), $bw_plugin["apikey"] );
   etag( "table" );
   BW_::p( isubmit( "_oik_plugins_add_settings", __( "Add new plugin", null ), null, "button-primary" ) );
@@ -309,7 +310,8 @@ function oik_plugins_edit_settings( ) {
   bw_form();
   stag( "table", "wide-fat" );
   bw_tablerow( array( __( "plugin", null ), $bw_plugin['plugin'] . ihidden( 'plugin', $bw_plugin['plugin']) ) );
-  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_plugin['server'] ) );
+  $plugin_server = ( null === $bw_plugin['server']) ? '' : stripslashes( $bw_plugin['server'] );
+  BW_::bw_textfield( "server", 100, __( "server", null ), $plugin_server );
   BW_::bw_textfield( "apikey", 26, __( "apikey?", null ), $bw_plugin["apikey"] );
   etag( "table" );
   BW_::p( isubmit( "_oik_plugins_edit_settings", __( "Change plugin", null ), null, "button-primary" ));

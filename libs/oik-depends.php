@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2012-2022
+<?php // (C) Copyright Bobbing Wide 2012-2023
 if ( !defined( "OIK_DEPENDS_INCLUDED" ) ) {
-define( "OIK_DEPENDS_INCLUDED", "3.2.6" );
+define( "OIK_DEPENDS_INCLUDED", "3.2.8" );
 
 /**
  * Dependency checking library functions
@@ -104,6 +104,7 @@ function oik_plugin_inactive( $plugin=null, $dependencies=null, $problem=null ) 
 	$text .= sprintf( __( 'Plugin %1$s may not be fully functional.', null ), $plug_name );
 	$text .= '</b>';
 	$text .= ' ';
+	/* translators: %s: plugin dependencies, comma separated */
   $text .= sprintf( __( 'Please install and activate the required minimum version of this plugin: %1$s', null ), $dependencies );
 	$text .= "</p>";
   if ( current_filter() == "admin_notices" ) {
@@ -148,8 +149,10 @@ function oik_plugin_plugin_inactive( $plugin=null, $dependencies=null, $problem=
   $dependencies = str_replace( ":", ' ' . __( "version", null ) . ' ', $dependencies );
   list( $depends ) = explode(' ', trim( $dependencies ));
   $text = "<p><b>";
+  /* translators: %s: plugin dependencies, comma separated */
   $text .= sprintf( __( '%1$s may not be fully functional.', null), $plugin_name );
   $text .= "</b> ";
+  /* translators: %s: plugin dependencies, comma separated */
   $text .= sprintf( __( 'Please install and activate the required minimum version of this plugin: %1$s', null ), $dependencies );
 	$text .= "</p>";
   
@@ -189,7 +192,7 @@ function oik_plugin_plugin_inactive( $plugin=null, $dependencies=null, $problem=
 */ 
 function oik_check_version( $depend, $version ) {
   $active = true;
-  $version_func = "${depend}_version";
+  $version_func = "{$depend}_version";
   if ( is_callable( $version_func )) {
     $active_version = $version_func();
     $active = version_compare( $active_version, $version, "ge" ); 
@@ -282,6 +285,7 @@ function oik_install_plugin( $plugin ) {
   $link = '<a href="';
   $link .= $url;
   $link .= '">';
+  /* translators: %s: plugin name */
 	$link .= sprintf( __( 'Install %1$s', null ), $plugin );
 	$link .= "</a>";
   return( $link );
@@ -310,6 +314,7 @@ function oik_activate_plugin( $plugin, $plugin_name) {
     $link = '<a href="';
     $link .= $url;
     $link .= '">';
+	/* translators: %s: plugin name */
 		$link .= sprintf( __( 'Activate %1$s', null ), $plugin_name );
     $link .= "</a>";
     return( $link );
@@ -328,6 +333,7 @@ function oik_update_plugin( $plugin ) {
   $link = '<a href="';
   $link .= $url;
   $link .= '">';
+  /* translators: %s: plugin name */
 	$link .= sprintf( __( 'Upgrade %1$s', null ), $plugin );
   $link .= "</a>";
   return( $link );

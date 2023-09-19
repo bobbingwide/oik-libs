@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2022
+<?php // (C) Copyright Bobbing Wide 2013-2023
 if ( !defined( "OIK_THEMES_INCLUDED" ) ) {
-	define( "OIK_THEMES_INCLUDED", "0.2.3" );
+	define( "OIK_THEMES_INCLUDED", "0.2.4" );
 
 /**
  * Library: oik_themes
@@ -264,7 +264,8 @@ function oik_themes_add_settings( ) {
   bw_form();
   stag( "table", "widefat" );
   BW_::bw_textfield( "theme", 20, __( "theme", null ), $bw_theme['theme'] );
-  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_theme['server'] ) );
+  $theme_server = ( null === $bw_theme['server']) ? '' : stripslashes( $bw_theme['server'] );
+  BW_::bw_textfield( "server", 100, __( "server", null ), $theme_server );
   BW_::bw_textfield( "apikey", 26, __( "apikey", null ) , $bw_theme["apikey"] );
   etag( "table" );
   BW_::p( isubmit( "_oik_themes_add_settings", __( "Add new theme", null ), null, "button-primary" ) );
@@ -279,7 +280,8 @@ function oik_themes_edit_settings( ) {
   bw_form();
   stag( "table", "wide-fat" );
   bw_tablerow( array( __( "theme", null ), $bw_theme['theme'] . ihidden( 'theme', $bw_theme['theme']) ) );
-  BW_::bw_textfield( "server", 100, __( "server", null ), stripslashes( $bw_theme['server'] ) );
+  $theme_server = ( null === $bw_theme['server']) ? '' : stripslashes( $bw_theme['server'] );
+  BW_::bw_textfield( "server", 100, __( "server", null ), $theme_server );
   BW_::bw_textfield( "apikey", 26, __( "apikey?", null ), $bw_theme["apikey"] );
   etag( "table" );
   BW_::p( isubmit( "_oik_themes_edit_settings", __( "Change theme", null ), null, "button-primary" ));
