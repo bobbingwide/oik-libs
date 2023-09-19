@@ -1,6 +1,6 @@
-<?php // (C) Copyright Bobbing Wide 2013-2018, 2020, 2021
+<?php // (C) Copyright Bobbing Wide 2013-2018, 2020, 2021, 2023
 if ( !defined( "BW_FIELDS_INCLUDED" ) ) {
-define( "BW_FIELDS_INCLUDED", "4.4.0" );
+define( "BW_FIELDS_INCLUDED", "4.4.1" );
 
 /**
  * Library: bw_fields
@@ -181,7 +181,7 @@ function bw_theme_field( $key, $value, $field=null ) {
   //bw_trace2( $type, "Type", true, BW_TRACE_DEBUG );
 	bw_pre_theme_field();
   // Try for a theming function named "bw_theme_field_$type_$key 
-  $funcname = bw_funcname( "bw_theme_field_${type}", $key );
+  $funcname = bw_funcname( "bw_theme_field_{$type}", $key );
 	
   // If there isn't a generic one for the type 
   // nor a specific one just try for the field
