@@ -1,6 +1,6 @@
-<?php // (C) Copyright BobbingWide 2017, 2018
+<?php // (C) Copyright BobbingWide 2017, 2018, 2023
 if ( !defined( "CLASS_DEPENDENCIES_CACHE_INCLUDED" ) ) {
-define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.1.1" );
+define( "CLASS_DEPENDENCIES_CACHE_INCLUDED", "0.1.2" );
 
 /**
  * Script and style functions
@@ -150,8 +150,8 @@ class dependencies_cache {
 		$count_bw = count( $this->bw_scripts->registered );
 		bw_trace2( $count_wp, "count_wp and bw: $count_bw" );
 	
-		bw_trace2( $wp_scripts, "wp_scripts" );
-		bw_trace2( $this->bw_scripts, "bw_scripts" );
+		bw_trace2( $wp_scripts->queue, "wp_scripts queue", false, BW_TRACE_VERBOSE  );
+		bw_trace2( $this->bw_scripts->queue, "bw_scripts queue", false, BW_TRACE_VERBOSE  );
 	
 		$this->registered_scripts = array_udiff_assoc( $wp_scripts->registered, $this->bw_scripts->registered, array( $this, "wp_dependency_compare" ) );
 		bw_trace2( $this->registered_scripts, "registered scripts" );
@@ -191,7 +191,7 @@ class dependencies_cache {
 	 * @return integer - less than, equal to, or greater than zero
 	 */
 	function wp_dependency_compare( $wp_script, $bw_script ) {
-		bw_trace2();
+		//bw_trace2();
 		return( 0 );
 	}
 	
