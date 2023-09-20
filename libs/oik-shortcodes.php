@@ -1,13 +1,13 @@
 <?php
 if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
-	define( 'OIK_SHORTCODES_INCLUDED', "3.5.1" );
+	define( 'OIK_SHORTCODES_INCLUDED', "3.5.2" );
 	/**
 	 * Library: oik-shortcodes
 	 * Provides: oik-shortcodes
 	 * Type: shared
 	 * Type: shared
 	 * Depends:    bwtrace
-	 * @copyright (C) Copyright Bobbing Wide 2020-2022
+	 * @copyright (C) Copyright Bobbing Wide 2020-2023
 	 *
 	 */
 
@@ -447,7 +447,7 @@ if ( !defined( 'OIK_SHORTCODES_INCLUDED' ) ) {
 	 */
 	function oik_do_shortcode( $content ) {
 
-		if ( false === strpos( $content, '[' )
+		if ( null === $content || false === strpos( $content, '[' )
 			/* && 	false === strpos( $content, '<!-- wp:blocks ') */ ) {
 			// no need to do anything yet!
 		} else {
