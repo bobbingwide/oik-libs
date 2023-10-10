@@ -4,8 +4,8 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: shared, library, repository
 * Requires at least: 4.9.8
-* Tested up to: 6.3
-* Stable tag: 0.4.2
+* Tested up to: 6.4-beta2
+* Stable tag: 0.4.3
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,145 +36,14 @@ TBC
 None
 
 ## Upgrade Notice 
-# 0.4.2 
-Synchronized with oik v4.9.1
-
-# 0.4.1 
-Synchronized with oik v4.4.0
-
-# 0.4.0 
-Synchronized with oik v4.2.0, oik-css v1.3.0, and oik-bob-bing-wide v1.35.1
-
-# 0.3.0 
-Synchronized with oik v4.1.1, oik-bwtrace v3.1.0, etc
-
-# 0.2.0 
-Synchronized with oik v3.3.3, oik-bwtrace v3.0.0-RC1, etc
-
-# 0.1.0 
-Synchronized with oik v3.2.9, oik-batch v1.0.0
-
-# 0.0.8 
-Synchronized with oik v3.2.6, oik-bwtrace v3.0.0-alpha, oik-batch v0.9.4, etc
-
-# 0.0.7 
-Synchronized with oik v3.2.3, oik-bwtrace v2.1.1, oik-lib v0.1.1, etc
-
-# 0.0.6 
-Synchronized with oik v3.2.0-RC1, oik-bwtrace v2.1.1-beta-20171023, oik-lib v0.1.0, oik-weight-zone-shipping-pro v0.2.2, and genesis-image v1.1.1
-
-# 0.0.5 
-Synchronized with oik v3.0.1, oik-bwtrace v2.0.12 and oik-lib v0.0.7
-
-# 0.0.4 
-Synchronized with oik v3.0.0-RC3, oik-lib, oik-bwtrace and oik-batch
-
-# 0.0.3 
-Synchronized with oik v3.0.0-alpha.0917, oik-bwtrace v2.0.7 and oik-lib v0.0.3
-
-# 0.0.2 
-Synchronized with oik v3.0.0-alpha.0806, oik-bwtrace v2.0.1 and oik-lib v0.0.2
-
-# 0.0.1 
-* First version containing the merged libraries from: oik-lib, oik base plugin and oik-bwtrace
+# 0.4.3 
+Synchronized with updates for PHP 8.1 and PHP 8.2 support.
 
 ## Changelog 
-# 0.4.2 
-* Changed: Make compatible with WordPress 6.3,https://github.com/bobbingwide/oik-libs/issues/18
-* Changed: Reconcile oik-libs,https://github.com/bobbingwide/oik-libs/issues/16
-* Tested: With WordPress 6.3 and WordPress Multi Site
-* Tested: With PHP 8.0
-* Tested: With PHPUnit 9
-
-# 0.4.1 
-* Changed: Reconcile bw_fields.php with oik
-* Tested: With WordPress 5.8 and WordPress Multi Site
-* Tested: With PHP 8.0
-* Tested: With PHPUnit 9
-
-# 0.4.0 
-* Added: libs/class-oik-attachment-contents and unit test,https://github.com/bobbingwide/oik-libs/issues/14
-* Changed: Expect loading=lazy,https://github.com/bobbingwide/oik-libs/issues/13
-* Changed: Reconcile libs with changes made for PHP 8,https://github.com/bobbingwide/oik-libs/issues/13
-* Changed: Reconcile with oik autoload updates,https://github.com/bobbingwide/oik-libs/issues/13
-* Tested: With WordPress 5.7.2 and WordPress Multi Site
-* Tested: With PHP 8.0
-* Tested: With PHPUnit 9
-
-# 0.3.0 
-* Changed: Reconcile shared libraries and update PHPUnit tests,https://github.com/bobbingwide/oik-libs/issues/12
-* Tested: With WordPress 5.6
-* Tested: With PHPUnit 8
-* Tested: With PHP 7.4
-
-# 0.2.0 
-* Changed: Update tests for running on s.b.
-* Tested: oik issue 126 https://github.com/bobbingwide/oik/issues/126
-* Tested: oik issue 114
-* Tested: oik-libs issue 9
-* Tested: With WordPress 5.1.1
-* Tested: With PHP 7.2
-* Tested: With Gutenberg 5.4.0
-
-# 0.1.0 
-* Added: hexdump, https://github.com/bobbingwide/oik-libs/issues/11
-* Changed: bobbforms, class-oik-remote, oik-cli, https://github.com/bobbingwide/oik-libs/issues/11
-* Changed: Updated PHPUnit tests for WordPress 5.0, https://github.com/bobbingwide/oik-libs/issues/10
-* Tested: With WordPress 5.0.3
-* Tested: With PHP 7.2
-
-# 0.0.8 
-* Added: bw_fields - from oik and oik-fields https://github.com/bobbingwide/oik-libs/issues/9
-* Changed: Updated other library files as necessary
-
-# 0.0.7 
-* Changed: Update shared library tests for WordPress 4.9 https://github.com/bobbingwide/oik-libs/issues/8
-* Changed: Reconcile tests with oik v3.2.3 and update for environment independence https://github.com/bobbingwide/oik-libs/issues/9
-* Tested: With WordPress 4.9.1 and WordPress Multisite
-* Tested: With PHP 7.0, 7.1 and 7.2
-
-# 0.0.6 
-* Added: Implement i18n/l10n solution for shared library files https://github.com/bobbingwide/oik-libs/issues/7
-* Added: Reconcile updates for oik issue 55 - extract plugin and theme update into shared libraries https://github.com/bobbingwide/oik-libs/issues/5
-* Added: UK English language files
-* Added: bwtrace_log.php
-* Added: class-BW-.php
-* Added: class-bobbcomp.php
-* Added: class-dependencies-cache.php
-* Added: class-oik-autoload.php
-* Added: class-oik-plugin-update.php
-* Added: class-oik-remote.php
-* Added: class-oik-theme-update.php
-* Added: class-oik-update.php
-* Added: oik-l10n.php
-* Added: oik_themes.php
-* Changed: Change tests associated with oik issue #80
-* Changed: Changes associated with oik issue #67
-* Changed: bb_BB language files
-* Tested: Added PHPUnit tests for shared library functions https://github.com/bobbingwide/oik-libs/issues/6
-* Tested: With PHP 7.0 and 7.1
-* Tested: With WordPress 4.8.2 and 4.9-beta3
-
-# 0.0.5 
-* Added: libs/oik-honeypot.php
-* Changed: Other lib files to synchronize with other plugins
-
-# 0.0.4 
-* Added: libs/oik-git.php
-* Added: libs/oik-cli.php
-* Added: language files - though they may be out of date
-* Changed: Other lib files to synchronize with other plugins
-
-# 0.0.3 
-* Added: libs/oik-libs.php - to peform synchronization with other plugins ( Issue #1 )
-* Changed: Synchronized with oik v3.0.0-alpha.0917
-* Changed: Synchronized with oik-bwtrace v2.0.7
-* Changed: Synchronized with oik-lib v0.0.3
-
-# 0.0.2 
-* Changed: See the git log
-
-# 0.0.1
-* Added: New dummy WordPress plugin
-
-
+# 0.4.3 
+* Changed: PHP 8.2: Reconcile changes #19
+* Added: PHP 8.2: Test loading all shared library files #19
+* Tested: With WordPress 6.3.1 and WordPress Multisite
+* Tested: With WordPress 6.4-beta2 and WordPress Multisite
+* Tested: With PHP 8.0, PHP 8.1 and PHP 8.2
+* Tested: With PHPUnit 9.6
